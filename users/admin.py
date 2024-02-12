@@ -6,7 +6,7 @@ class CustomUserAdmin(UserAdmin):
     model = CustomUser
     list_display = ('email','is_staff','is_active')
     list_filter = ('email','is_staff','is_active')
-    # readonly_fields = ('balance',)
+   
     fieldsets = (
         (None,{'fields':('email','password')}),
         ('Permission',{'fields':('is_staff','is_active','is_Teacher','first_name','last_name','contact_no')}),
