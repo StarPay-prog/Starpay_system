@@ -25,7 +25,7 @@
 	<!-- FAVICONS ICON -->
 	<link rel="icon" type="image/png" sizes="16x16" href="{% static dz_array.public.favicon  %}" />
 
-    {% for cssurl in dz_array.pagelevel.dashboard.dashboard_views.css|getdata:request.path %}
+    {% for cssurl in dz_array.pagelevel.dashboard.views.css|getdata:request.path %}
     <link rel="stylesheet" href="{% static cssurl %}" >
 	{% endfor %}
     {% for cssurl in dz_array.global.css %}

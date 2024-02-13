@@ -7,9 +7,10 @@ from loguru import logger
 register = template.Library()
 
 #This the custom filter, name is getitems
-def getdata(json_data, args):
+def getdata(json_data, args):    
     func_name=''
     try:
+       
         myfunc, myargs, mykwargs = resolve(args)
         if myfunc:
             logger.success("*"*50)
