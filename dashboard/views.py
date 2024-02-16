@@ -1,27 +1,53 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required, permission_required 
 
+import datetime
+from .forms import *
+import requests
+# for i in range(0,10000):
+
+#     
 
 #@login_required(login_url='dashboard:login')
-def index(request):
-    context={
-        "page_title":"Dashboard"
-    }
-    return render(request,'dashboard/index.html',context)
 
-#@login_required(login_url='dashboard:login')
-def index2(request):
+
+def index(request,slug):
+    print (slug)
     context={
         "page_title":"Dashboard"
     }
     return render(request,'dashboard/index-2.html',context)
 
-def signup(request):
+
+def page_login(request):
+    if request.method == "POST":
+        data = {
+            "email": request.POST.get("email"),
+            "password": request.POST.get("password")
+        }
+
+        url = "http://192.168.1.8:9000/login/"
+        response = requests.post(url, data=data)
+        print(response.json())
+        slug = response.json()
+
+        return redirect ("/", request ,slug)
+
+
+
+    form = LoginForm
+    return render(request,'dashboard/modules/login.html',{"form":form})
+
+
+def add_admin(request):
+    form = AdminForm
     context={
-        "page_title":"Signup"
+        "page_title":"Signup",
+        "form":form,
     }
 
-    return render (request,'dashboard/modules/login.html',context)
+    return render (request,'dashboard/adduser/add-admin.html',context)
+
 #@login_required(login_url='dashboard:login')
 def my_wallet(request):
     context={
@@ -432,9 +458,6 @@ def table_datatable_basic(request):
     return render(request,'dashboard/table/table-datatable-basic.html',context)
 
 
-#@login_required(login_url='dashboard:login')
-def page_login(request):
-    return render(request,'dashboard/modules/login.html')
 
 
 #@login_required(login_url='dashboard:login')

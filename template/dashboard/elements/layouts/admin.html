@@ -99,6 +99,7 @@
 		    {% include 'dashboard/elements/alert.html' %}
 
             {% block content %}
+                
             {% endblock %}
             </div>
         </div>
@@ -140,7 +141,7 @@
     <script src="{% static jsurl %}"></script>
     {% endfor %}
     
-    {% for jsurl in dz_array.pagelevel.dashboard.dashboard_views.js|getdata:request.path %}
+    {% for jsurl in dz_array.pagelevel.dashboard.views.js|getdata:request.path %}
     <script src="{% static jsurl %}"></script>
     {% endfor %}
     
