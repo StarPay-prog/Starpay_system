@@ -1,0 +1,188 @@
+{% load static %}
+
+<div class="deznav">
+    <div class="deznav-scroll">
+        <ul class="metismenu" id="menu">
+
+
+    <!--Modules Demo Start -->
+{% if perms.users.view_newuser or perms.auth.view_group or perms.auth.view_permission %} 
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                <i class="flaticon-381-controls-3"></i>
+                <span class="nav-text">Modules</span>
+				<span class="badge badge-xs bg-danger ms-3">New</span>
+                
+            </a>
+                <ul aria-expanded="false">
+                    {% if perms.users.view_newuser or perms.users.change_newuser or perms.users.add_newuser or perms.users.delete_newuser %}
+                    <li>
+                        <a  {% if '/users/' in request.path %}class="mm-active"{% endif %} href="{% url 'dashboard:users' %}">Users</a>
+                    </li>
+                    {% endif %}
+            
+                    {% if perms.auth.view_group or perms.auth.change_group or perms.auth.add_group or perms.auth.delete_group %}
+                    <li>
+                        <a {% if '/groups/' in request.path %} class="mm-active"{% endif %} href="{% url 'dashboard:groups' %}">Groups</a>
+                    </li>
+                    {% endif %}
+            
+                    {% if perms.auth.view_permission or perms.auth.change_permission or perms.auth.add_permission or  perms.auth.delete_permission%}
+                    <li>
+                        <a {% if '/permissions/' in request.path %}class="mm-active"{% endif %} href="{% url 'dashboard:permissions' %}">Permissions</a>
+                    </li>
+                    {% endif %}
+                </ul>
+    
+            </li>
+{% endif %} 
+
+<!--Modules Demo End -->
+
+
+
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-381-networking"></i>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{% url 'dashboard:index' %}">Dashboard Light</a></li>
+                    
+                    <li><a href="{% url 'dashboard:my-wallet' %}">My Wallet</a></li>
+                    <li><a href="{% url 'dashboard:invoices' %}">Invoices</a></li>
+                    <li><a href="{% url 'dashboard:cards-center' %}">Cards Center</a></li>
+                    <li><a href="{% url 'dashboard:transactions' %}">Transactions</a></li>
+                    <li><a href="{% url 'dashboard:transactions-details' %}">Transactions Details</a></li>
+                </ul>
+            </li>
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-381-television"></i>
+                    <span class="nav-text">Apps</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{% url 'dashboard:app-profile' %}">Profile</a></li>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Email</a>
+                        <ul aria-expanded="false">
+                            <li><a href="{% url 'dashboard:email-compose' %}">Compose</a></li>
+                            <li><a href="{% url 'dashboard:email-inbox' %}">Inbox</a></li>
+                            <li><a href="{% url 'dashboard:email-read' %}">Read</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="{% url 'dashboard:app-calender' %}">Calendar</a></li>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Shop</a>
+                        <ul aria-expanded="false">
+                            <li><a href="{% url 'dashboard:ecom-product-grid' %}">Product Grid</a></li>
+                            <li><a href="{% url 'dashboard:ecom-product-list' %}">Product List</a></li>
+                            <li><a href="{% url 'dashboard:ecom-product-detail' %}">Product Details</a></li>
+                            <li><a href="{% url 'dashboard:ecom-product-order' %}">Order</a></li>
+                            <li><a href="{% url 'dashboard:ecom-checkout' %}">Checkout</a></li>
+                            <li><a href="{% url 'dashboard:ecom-invoice' %}">Invoice</a></li>
+                            <li><a href="{% url 'dashboard:ecom-customers' %}">Customers</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-381-controls-3"></i>
+                    <span class="nav-text">Charts</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{% url 'dashboard:chart-flot' %}">Flot</a></li>
+                    <li><a href="{% url 'dashboard:chart-morris' %}">Morris</a></li>
+                    <li><a href="{% url 'dashboard:chart-chartjs' %}">Chartjs</a></li>
+                    <li><a href="{% url 'dashboard:chart-chartist' %}">Chartist</a></li>
+                    <li><a href="{% url 'dashboard:chart-sparkline' %}">Sparkline</a></li>
+                    <li><a href="{% url 'dashboard:chart-peity' %}">Peity</a></li>
+                </ul>
+            </li>
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-381-internet"></i>
+                    <span class="nav-text">Bootstrap</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{% url 'dashboard:ui-accordion' %}">Accordion</a></li>
+                    <li><a href="{% url 'dashboard:ui-alert' %}">Alert</a></li>
+                    <li><a href="{% url 'dashboard:ui-badge' %}">Badge</a></li>
+                    <li><a href="{% url 'dashboard:ui-button' %}">Button</a></li>
+                    <li><a href="{% url 'dashboard:ui-modal' %}">Modal</a></li>
+                    <li><a href="{% url 'dashboard:ui-button-group' %}">Button Group</a></li>
+                    <li><a href="{% url 'dashboard:ui-list-group' %}">List Group</a></li>
+                    <li><a href="{% url 'dashboard:ui-media-object' %}">Media Object</a></li>
+                    <li><a href="{% url 'dashboard:ui-card' %}">Cards</a></li>
+                    <li><a href="{% url 'dashboard:ui-carousel' %}">Carousel</a></li>
+                    <li><a href="{% url 'dashboard:ui-dropdown' %}">Dropdown</a></li>
+                    <li><a href="{% url 'dashboard:ui-popover' %}">Popover</a></li>
+                    <li><a href="{% url 'dashboard:ui-progressbar' %}">Progressbar</a></li>
+                    <li><a href="{% url 'dashboard:ui-tab' %}">Tab</a></li>
+                    <li><a href="{% url 'dashboard:ui-typography' %}">Typography</a></li>
+                    <li><a href="{% url 'dashboard:ui-pagination' %}">Pagination</a></li>
+                    <li><a href="{% url 'dashboard:ui-grid' %}">Grid</a></li>
+
+                </ul>
+            </li>
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-381-heart"></i>
+                    <span class="nav-text">Plugins</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{% url 'dashboard:uc-select2' %}">Select 2</a></li>
+                    <li><a href="{% url 'dashboard:uc-nestable' %}">Nestedable</a></li>
+                    <li><a href="{% url 'dashboard:uc-noui-slider' %}">Noui Slider</a></li>
+                    <li><a href="{% url 'dashboard:uc-sweetalert' %}">Sweet Alert</a></li>
+                    <li><a href="{% url 'dashboard:uc-toastr' %}">Toastr</a></li>
+                    <li><a href="{% url 'dashboard:map-jqvmap' %}">Jqv Map</a></li>
+                    <li><a href="{% url 'dashboard:uc-lightgallery' %}">Light Gallery</a></li>
+                </ul>
+            </li>
+            <li><a href="{% url 'dashboard:widget-basic' %}" class="ai-icon" aria-expanded="false">
+                    <i class="flaticon-381-settings-2"></i>
+                    <span class="nav-text">Widget</span>
+                </a>
+            </li>
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-381-notepad"></i>
+                    <span class="nav-text">Forms</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{% url 'dashboard:form-element' %}">Form Elements</a></li>
+                    <li><a href="{% url 'dashboard:form-wizard' %}">Wizard</a></li>
+                    <li><a href="{% url 'dashboard:form-ckeditor' %}">Ckeditor</a></li>
+                    <li><a href="{% url 'dashboard:form-pickers' %}">Pickers</a></li>
+                    <li><a href="{% url 'dashboard:form-validation-jquery' %}">Jquery Validate</a></li>
+                </ul>
+            </li>
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-381-network"></i>
+                    <span class="nav-text">Table</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{% url 'dashboard:table-bootstrap-basic' %}">Bootstrap</a></li>
+                    <li><a href="{% url 'dashboard:table-datatable-basic' %}">Datatable</a></li>
+                </ul>
+            </li>
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-381-layer-1"></i>
+                    <span class="nav-text">Pages</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{% url 'dashboard:page-register' %}">Register</a></li>
+                    <li><a href="{% url 'dashboard:page-login' %}">Login</a></li>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Error</a>
+                        <ul aria-expanded="false">
+                            <li><a href="{% url 'dashboard:page-error-400' %}">Error 400</a></li>
+                            <li><a href="{% url 'dashboard:page-error-403' %}">Error 403</a></li>
+                            <li><a href="{% url 'dashboard:page-error-404' %}">Error 404</a></li>
+                            <li><a href="{% url 'dashboard:page-error-500' %}">Error 500</a></li>
+                            <li><a href="{% url 'dashboard:page-error-503' %}">Error 503</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="{% url 'dashboard:page-lock-screen' %}">Lock Screen</a></li>
+                </ul>
+            </li>
+        </ul>
+        
+        <div class="copyright">
+            <p><strong>dashboard Payment Admin Dashboard</strong> © 2023 All Rights Reserved</p>
+            <p>Made with <span class="heart"></span> by DexignZone</p>
+        </div>
+    </div>
+</div>

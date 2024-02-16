@@ -1,0 +1,77 @@
+{% extends 'dashboard/elements/layouts/admin.html' %}
+{% load static widget_tweaks%}
+
+{% block content %}
+
+				<div class="row page-titles">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item active"><a href="javascript:void(0)">Home</a></li>
+						<li class="breadcrumb-item"><a href="javascript:void(0)">Components</a></li>
+					</ol>
+                </div>
+                <!-- row -->
+                <div class="row">
+                    <div class="col-xl-12 col-xxl-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Add Admin</h4>
+                            </div>
+							<form meathod = "post">
+								{% csrf_token %}
+
+								<div class="card-body">
+									<div class="row">
+										<div class="col-lg-6 mb-2">
+											<div class="mb-3">
+												<label class="text-label form-label">Full Name*</label>
+												<input type="text" name="full_name" class="form-control" placeholder="Enter Full Name" required>
+											</div>
+										</div>
+										
+										<div class="col-lg-6 mb-2">
+											<div class="form-group">
+												<label class="mb-2 ">
+												  <strong class="text-white">Email</strong>
+												</label>
+												{{ form.email|attr:"type:email"|attr:"class:form-control"|attr:"placeholder:Email" }}
+												<div class="text-danger w-100 d-block mt-1">
+												  {{ form.email.errors }}
+												</div>
+											  </div>
+										</div>
+										<div class="col-lg-6 mb-2">
+											<div class="mb-3">
+												<label class="text-label form-label">Phone Number*</label>
+												<input type="text" name="phoneNumber" class="form-control" placeholder="(+1)408-657-9007" required>
+											</div>
+										</div>
+										<div class="col-lg-6 mb-2">
+											<div class="form-group">
+												<label class="mb-2 ">
+												  <strong class="text-white">Password</strong>
+												</label>
+												{{ form.password|attr:"class:form-control"|attr:"placeholder:Password"|attr:"id:dz-password"|attr:"type:password" }}
+												<div class="text-danger w-100 d-block mt-1">
+												  {{ form.password.errors }}
+												</div>
+											  </div>
+										</div>
+									</div>
+									
+								</div>
+							</form>
+                        </div>
+                    </div>
+                </div>
+
+{% endblock %}
+
+{% block additional_js %}
+<script>
+    $(document).ready(function(){
+        // SmartWizard initialize
+        $('#smartwizard').smartWizard(); 
+    });
+</script>
+{% endblock %}
+
