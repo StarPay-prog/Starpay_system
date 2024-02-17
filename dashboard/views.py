@@ -116,6 +116,13 @@ def view_admin(request):
 
     return render (request, 'dashboard/admin/view-admin.html')
 
+def view_merchant(request):
+
+    return render (request , 'dashboard/merchant/view_merchant.html')
+
+def add_merchant(request):
+
+    return render  (request,'dashboard/merchant/view_merchant.html')
 def logout(request):
     # Remove JWT token and user data from the session
     if 'jwt_token' in request.session:
