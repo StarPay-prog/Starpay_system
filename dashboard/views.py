@@ -95,12 +95,13 @@ def add_admin(request):
         "form":form,
     }
 
-    return render (request,'dashboard/adduser/add-admin.html',context)
+    return render (request,'dashboard/admin/add-admin.html',context)
 
 
 def view_admin(request):
 
-    return render (request, 'dashboard/superadmin/view-admin.html')
+    return render (request, 'dashboard/admin/view-admin.html')
+
 def logout(request):
     # Remove JWT token and user data from the session
     if 'jwt_token' in request.session:
