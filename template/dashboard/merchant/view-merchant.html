@@ -1,0 +1,66 @@
+{% extends 'dashboard/elements/layouts/admin.html' %}
+
+{% load static %}
+
+{% block additional_css %}
+{% endblock %}
+
+{% block content %}
+
+        <div class="page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Table</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Datatable</a></li>
+            </ol>
+        </div>
+        <!-- row -->
+        <div class="row ">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Profile Datatable</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="example3" class="table" >
+                                <thead>
+                                    <tr>
+                                        <th>Username</th>
+                                        <th>Business Name</th>
+                                        <th>Merchant Id</th>
+                                        <th>Mobile</th>
+                                        <th>GST No.</th>
+                                        <th>Service Option</th>
+                                        <th>API Key</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="height: 70px;">
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="mr-5">
+                                            <div>
+                                                <a href="#" class="btn btn-primary shadow btn-s sharp me-1"><i class="fas fa-pencil-alt"></i></a>
+                                                <a href="#" class="btn btn-danger shadow btn-s sharp"><i class="fas fa-trash-alt"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+{% endblock %}
+
+{% block additional_js %}
+
+{% endblock %}

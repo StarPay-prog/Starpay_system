@@ -11,8 +11,7 @@ import requests
 #@login_required(login_url='dashboard:login')
 
 
-def index(request,slug):
-    print (slug)
+def index(request):
     context={
         "page_title":"Dashboard"
     }
@@ -48,6 +47,10 @@ def add_admin(request):
 
     return render (request,'dashboard/adduser/add-admin.html',context)
 
+
+def view_admin(request):
+
+    return render (request, 'dashboard/superadmin/view-admin.html')
 #@login_required(login_url='dashboard:login')
 def my_wallet(request):
     context={

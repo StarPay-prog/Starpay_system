@@ -1,0 +1,150 @@
+{% load static %}
+
+<div class="deznav">
+    <div class="deznav-scroll">
+        <ul class="metismenu" id="menu">
+
+
+    <!--Modules Demo Start -->
+{% if perms.users.view_newuser or perms.auth.view_group or perms.auth.view_permission %} 
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                <i class="flaticon-381-controls-3"></i>
+                <span class="nav-text">Modules</span>
+				<span class="badge badge-xs bg-danger ms-3">New</span>
+                
+            </a>
+                <ul aria-expanded="false">
+                    {% if perms.users.view_newuser or perms.users.change_newuser or perms.users.add_newuser or perms.users.delete_newuser %}
+                    <li>
+                        <a  {% if '/users/' in request.path %}class="mm-active"{% endif %} href="{% url 'dashboard:users' %}">Users</a>
+                    </li>
+                    {% endif %}
+            
+                    {% if perms.auth.view_group or perms.auth.change_group or perms.auth.add_group or perms.auth.delete_group %}
+                    <li>
+                        <a {% if '/groups/' in request.path %} class="mm-active"{% endif %} href="{% url 'dashboard:groups' %}">Groups</a>
+                    </li>
+                    {% endif %}
+            
+                    {% if perms.auth.view_permission or perms.auth.change_permission or perms.auth.add_permission or  perms.auth.delete_permission%}
+                    <li>
+                        <a {% if '/permissions/' in request.path %}class="mm-active"{% endif %} href="{% url 'dashboard:permissions' %}">Permissions</a>
+                    </li>
+                    {% endif %}
+                </ul>
+    
+            </li>
+{% endif %} 
+
+<!--Modules Demo End -->
+
+
+                <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-381-layer-1"></i>
+                    <span class="nav-text">Admin</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{% url 'dashboard:page-register' %}">Add User</a></li>
+                    <li><a href="{% url 'dashboard:page-login' %}">Delete User</a></li>
+                </ul>
+
+
+                <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-381-layer-1"></i>
+                    <span class="nav-text">User</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{% url 'dashboard:page-register' %}">Activate User</a></li>
+                    <li><a href="{% url 'dashboard:page-register' %}">Deactivate User</a></li>
+                    <li><a href="{% url 'dashboard:page-register' %}">All Users</a> User</a></li>
+                </ul>      
+                </li>
+
+            </li>
+        </ul>
+        {% load static %}
+
+        <div class="deznav">
+            <div class="deznav-scroll">
+                <ul class="metismenu" id="menu">
+        
+        
+            <!--Modules Demo Start -->
+        {% if perms.users.view_newuser or perms.auth.view_group or perms.auth.view_permission %} 
+                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                        <i class="flaticon-381-controls-3"></i>
+                        <span class="nav-text">Modules</span>
+                        <span class="badge badge-xs bg-danger ms-3">New</span>
+                        
+                    </a>
+                        <ul aria-expanded="false">
+                            {% if perms.users.view_newuser or perms.users.change_newuser or perms.users.add_newuser or perms.users.delete_newuser %}
+                            <li>
+                                <a  {% if '/users/' in request.path %}class="mm-active"{% endif %} href="{% url 'dashboard:users' %}">Users</a>
+                            </li>
+                            {% endif %}
+                    
+                            {% if perms.auth.view_group or perms.auth.change_group or perms.auth.add_group or perms.auth.delete_group %}
+                            <li>
+                                <a {% if '/groups/' in request.path %} class="mm-active"{% endif %} href="{% url 'dashboard:groups' %}">Groups</a>
+                            </li>
+                            {% endif %}
+                    
+                            {% if perms.auth.view_permission or perms.auth.change_permission or perms.auth.add_permission or  perms.auth.delete_permission%}
+                            <li>
+                                <a {% if '/permissions/' in request.path %}class="mm-active"{% endif %} href="{% url 'dashboard:permissions' %}">Permissions</a>
+                            </li>
+                            {% endif %}
+                        </ul>
+            
+                    </li>
+        {% endif %} 
+        
+        <!--Modules Demo End -->
+        
+        
+                        <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                            <i class="flaticon-381-layer-1"></i>
+                            <span class="nav-text">PayOuts</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="{% url 'dashboard:page-register' %}">Add Payout</a></li>
+                            <li><a href="{% url 'dashboard:page-register' %}">View Payout</a></li>
+                        </ul>      
+                        </li>
+        
+                        <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                            <i class="flaticon-381-layer-1"></i>
+                            <span class="nav-text">PayIn</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="{% url 'dashboard:page-register' %}">Add PayIn</a></li>
+                            <li><a href="{% url 'dashboard:page-register' %}">View PayIn</a></li>
+                        </ul>      
+                        </li>
+
+                        <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                            <i class="flaticon-381-layer-1"></i>
+                            <span class="nav-text">Ofline</span>
+                        </a>      
+                        </li>
+        
+                        <li><a href="javascript:void()">
+                            <i class="flaticon-381-layer-1"></i>
+                            <span class="nav-text">My Setting</span>
+                        </a>      
+                        </li>
+        
+                
+                <div class="copyright">
+                    <p><strong>dashboard Payment Admin Dashboard</strong> © 2023 All Rights Reserved</p>
+                    <p>Made with <span class="heart"></span> by DexignZone</p>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p><strong>dashboard Payment Admin Dashboard</strong> © 2023 All Rights Reserved</p>
+            <p>Made with <span class="heart"></span> by DexignZone</p>
+        </div>
+    </div>
+</div>

@@ -5,6 +5,9 @@ urlpatterns = [
     path('', views.index , name = "index"),
     # path('signup/',views.signup),
     path('index/',views.index,name="index"),
+    path('view-admin/',views.view_admin,name="view_admin"),
+
+    
     # path('index-2/',views.index2,name="index-2"),
     path('my-wallet/',views.my_wallet,name="my-wallet"),
     path('invoices/',views.invoices,name="invoices"),
