@@ -69,11 +69,13 @@ urlpatterns = [
     path('form-ckeditor/',views.form_ckeditor,name="form-ckeditor"),
     path('form-pickers/',views.form_pickers,name="form-pickers"),
     path('form-validation-jquery/',views.form_validation_jquery,name="form-validation-jquery"),
+    path('refresh/',views.refresh_jwt,name="refresh"),
 
     path('table-bootstrap-basic/',views.table_bootstrap_basic,name="table-bootstrap-basic"),
     path('table-datatable-basic/',views.table_datatable_basic,name="table-datatable-basic"),
 # login and user creation
     path('login/',views.page_login,name="page-login"),
+    path('logout/',views.logout,name="logout"),
     path('add-admin/',views.add_admin,name = "add-admin"),
     path('page-register/',views.page_register,name="page-register"),
     path('page-forgot-password/',views.page_forgot_password,name="page-forgot-password"),
