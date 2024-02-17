@@ -15,10 +15,24 @@ import requests
 def index(request):
 
     print(request.session.get('jwt_token'))
+    
+
+    user = request.session.get('user_data')
+    user = user['data']
+    print(user)
+    if user['is_Admin'] == True:
+        user_type = "admin"
+    elif user['is_Super_Admin']== True:
+        user_type = "super-admin"
+    else:
+        user_type = "merchant"
+    request.session['user_type'] = user_type
+    print(user_type)
     context={
-        "page_title":"Dashboard"
+        "page_title":"Dashboard",
+        "type": user_type
     }
-    return render(request,'dashboard/index-2.html',context)
+    return render(request,'dashboard/index.html',context)
 
 
 def page_login(request):

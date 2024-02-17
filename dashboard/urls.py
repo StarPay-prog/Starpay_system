@@ -5,7 +5,11 @@ urlpatterns = [
     path('', views.index , name = "index"),
     # path('signup/',views.signup),
     path('index/',views.index,name="index"),
-    path('view-admin/',views.view_admin,name="view_admin"),
+    path('login/',views.page_login,name="page-login"),
+    path('logout/',views.logout,name="logout"),
+    path('add-admin/',views.add_admin,name = "add-admin"),
+    path('view-admin/',views.view_admin,name="view-admin"),
+
 
     
     # path('index-2/',views.index2,name="index-2"),
@@ -74,9 +78,7 @@ urlpatterns = [
     path('table-bootstrap-basic/',views.table_bootstrap_basic,name="table-bootstrap-basic"),
     path('table-datatable-basic/',views.table_datatable_basic,name="table-datatable-basic"),
 # login and user creation
-    path('login/',views.page_login,name="page-login"),
-    path('logout/',views.logout,name="logout"),
-    path('add-admin/',views.add_admin,name = "add-admin"),
+   
     path('page-register/',views.page_register,name="page-register"),
     path('page-forgot-password/',views.page_forgot_password,name="page-forgot-password"),
     path('page-lock-screen/',views.page_lock_screen,name="page-lock-screen"),

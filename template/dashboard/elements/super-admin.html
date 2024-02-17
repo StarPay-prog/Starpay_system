@@ -6,35 +6,7 @@
 
 
     <!--Modules Demo Start -->
-{% if perms.users.view_newuser or perms.auth.view_group or perms.auth.view_permission %} 
-            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                <i class="flaticon-381-controls-3"></i>
-                <span class="nav-text">Modules</span>
-				<span class="badge badge-xs bg-danger ms-3">New</span>
-                
-            </a>
-                <ul aria-expanded="false">
-                    {% if perms.users.view_newuser or perms.users.change_newuser or perms.users.add_newuser or perms.users.delete_newuser %}
-                    <li>
-                        <a  {% if '/users/' in request.path %}class="mm-active"{% endif %} href="{% url 'dashboard:users' %}">Users</a>
-                    </li>
-                    {% endif %}
-            
-                    {% if perms.auth.view_group or perms.auth.change_group or perms.auth.add_group or perms.auth.delete_group %}
-                    <li>
-                        <a {% if '/groups/' in request.path %} class="mm-active"{% endif %} href="{% url 'dashboard:groups' %}">Groups</a>
-                    </li>
-                    {% endif %}
-            
-                    {% if perms.auth.view_permission or perms.auth.change_permission or perms.auth.add_permission or  perms.auth.delete_permission%}
-                    <li>
-                        <a {% if '/permissions/' in request.path %}class="mm-active"{% endif %} href="{% url 'dashboard:permissions' %}">Permissions</a>
-                    </li>
-                    {% endif %}
-                </ul>
-    
-            </li>
-{% endif %} 
+
 
 <!--Modules Demo End -->
 
@@ -44,8 +16,8 @@
                     <span class="nav-text">Admin</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{% url 'dashboard:page-register' %}">Add Admin</a></li>
-                    <li><a href="{% url 'dashboard:page-login' %}">View Admin</a></li>
+                    <li><a href="{% url 'dashboard:add-admin' %}">Add Admin</a></li>
+                    <li><a href="{% url 'dashboard:view-admin' %}">View Admin</a></li>
                 </ul>
 
 
@@ -64,8 +36,8 @@
                     <span class="nav-text">Merchant</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{% url 'dashboard:page-register' %}">Add Merchant</a></li>
-                    <li><a href="{% url 'dashboard:page-register' %}">View Merchant</a></li>
+                    <li><a href="{% url 'dashboard:add-merchant' %}">Add Merchant</a></li>
+                    <li><a href="{% url 'dashboard:view-merchant' %}">View Merchant</a></li>
                 </ul>      
                 </li>
                 

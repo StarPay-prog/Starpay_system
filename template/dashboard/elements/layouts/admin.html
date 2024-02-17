@@ -20,7 +20,7 @@
 
 	
 	<!-- PAGE TITLE HERE -->
-	<title>{{ dz_array.public.title }}</title>
+	<title>{{page_title}}</title>
 	
 	<!-- FAVICONS ICON -->
 	<link rel="icon" type="image/png" sizes="16x16" href="{% static dz_array.public.favicon  %}" />
@@ -85,8 +85,13 @@
         <!--**********************************
             Sidebar start
         ***********************************-->
+        {% if request.session.user_type == 'super-admin'%}
 		{% include 'dashboard/elements/super-admin.html' %}
-
+        {%elif request.session.user_type == 'admin' %}
+        {% include 'dashboard/elements/admin.html' %}
+        {%elif request.session.user_type == 'merchant'%}
+        {% include 'dashboard/elements/merchant.html' %}
+        {% endif %}
         <!--**********************************
             Sidebar end
         ***********************************-->
