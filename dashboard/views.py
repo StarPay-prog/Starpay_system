@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required, permission_required 
 
@@ -11,8 +12,9 @@ import requests
 #@login_required(login_url='dashboard:login')
 
 
-def index(request,slug):
-    print (slug)
+def index(request):
+
+    print(request.session.get('jwt_token'))
     context={
         "page_title":"Dashboard"
     }
@@ -20,19 +22,29 @@ def index(request,slug):
 
 
 def page_login(request):
+
     if request.method == "POST":
         data = {
             "email": request.POST.get("email"),
             "password": request.POST.get("password")
         }
 
-        url = "http://192.168.1.8:9000/login/"
+        url = "http://192.168.1.6:8000/login/"
         response = requests.post(url, data=data)
-        print(response.json())
-        slug = response.json()
+        slug = response.headers
+        print(slug)
 
+
+        jwt_token_access = response.headers['access']
+        jwt_token_refresh = response.headers['refresh']
+        user_data = response.json()
+
+        # Store user data in session
+        request.session['jwt_token_access'] = jwt_token_access
+        request.session['jwt_token_refresh'] = jwt_token_refresh
+        
+        request.session['user_data'] = user_data
         return redirect ("/", request ,slug)
-
 
 
     form = LoginForm
@@ -40,6 +52,43 @@ def page_login(request):
 
 
 def add_admin(request):
+
+    if request.method == "POST":
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        email = request.POST.get('email')
+        phone_number = request.POST.get('phone_number')
+        password = request.POST.get('password')
+        print(first_name,last_name,email,phone_number,password)
+        data2 = {
+            "email": email,
+            "first_name": first_name,
+            "last_name": last_name,
+            "contact_no": phone_number,
+            "ip_address": "192.168.1.9.1",
+            "password" : password
+        }
+        
+        data2 = json.dumps(data2)
+        print(data2)
+        # Define the JWT token
+        jwt_token = request.session.get('jwt_token_access')
+        # print(type(jwt_token))
+        # jwt_token = jwt_token['access']
+
+        # Define the headers with the JWT token
+        header = {
+        "Authorization": f"Bearer {jwt_token}",
+        "Content-Type": "application/json"  # Assuming you are sending JSON data
+        }
+
+        print(header)
+
+        url = "http://192.168.1.6:8000/register-admin/"
+        response = requests.post(url, data=data2 , headers=header)
+        slug = response.json()
+        print(slug)
+
     form = AdminForm
     context={
         "page_title":"Signup",
@@ -47,6 +96,45 @@ def add_admin(request):
     }
 
     return render (request,'dashboard/adduser/add-admin.html',context)
+
+def logout(request):
+    # Remove JWT token and user data from the session
+    if 'jwt_token' in request.session:
+        del request.session['jwt_token']
+
+    if 'user_data' in request.session:
+        del request.session['user_data']
+
+
+    return redirect ("page_login")
+
+
+def refresh_jwt(request):
+    access_token = request.session.get('jwt_token_access')
+    refresh_token = request.session.get('jwt_token_refresh')
+    url = "http://192.168.1.6:8000/token/refresh/"
+
+    token = {
+            "refresh":refresh_token,
+            
+        }
+    response = requests.post(url, data=token)
+
+    user_data = response.json()
+
+    print(type(user_data),user_data)
+    user_data = json.loads(user_data)
+    print(type(user_data),user_data)
+    
+    jwt_token_access = user_data['access']
+    jwt_token_refresh = user_data['refresh']
+    # Store user data in session
+    request.session['jwt_token_access'] = jwt_token_access
+    request.session['jwt_token_refresh'] = jwt_token_refresh
+        
+    
+
+
 
 #@login_required(login_url='dashboard:login')
 def my_wallet(request):
