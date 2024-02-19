@@ -1,33 +1,27 @@
 import json
-from django.shortcuts import render, redirect
+from django.http import HttpResponsePermanentRedirect, HttpResponseRedirect
+from django.shortcuts import render, redirect,HttpResponse
 from django.contrib.auth.decorators import login_required, permission_required 
+from .models import *
 
 import datetime
 from .forms import *
 import requests
+from .authentication import *
 # for i in range(0,10000):
 
 #     
 
 #@login_required(login_url='dashboard:login')
 
-
+@custom_login_required
 def index(request):
 
     print(request.session.get('jwt_token'))
     
 
-    user = request.session.get('user_data')
-    user = user['data']
-    print(user)
-    if user['is_Admin'] == True:
-        user_type = "admin"
-    elif user['is_Super_Admin']== True:
-        user_type = "super-admin"
-    else:
-        user_type = "merchant"
-    request.session['user_type'] = user_type
-    print(user_type)
+    user_type = request.session.get('user_type')
+    
     context={
         "page_title":"Dashboard",
         "type": user_type
@@ -35,7 +29,7 @@ def index(request):
     return render(request,'dashboard/index.html',context)
 
 
-def page_login(request):
+def dashboard_login(request):
 
     if request.method == "POST":
         data = {
@@ -43,22 +37,54 @@ def page_login(request):
             "password": request.POST.get("password")
         }
 
-        url = "http://192.168.1.6:8000/login/"
+        url = "http://192.168.1.8:8000/login/"
         response = requests.post(url, data=data)
-        slug = response.headers
-        print(slug)
-
-
+        
         jwt_token_access = response.headers['access']
         jwt_token_refresh = response.headers['refresh']
         user_data = response.json()
+
+        user = user_data['data']
+        print(user)
+        if user['is_Admin'] == True:
+            usertype = "admin"
+        elif user['is_Super_Admin']== True:
+            usertype = "super_admin"
+        else:
+            usertype = "merchant"
+        request.session['user_type'] = usertype
+        print(usertype)
+
+        user_ip = request.META.get('REMOTE_ADDR')
+    
+   
+        forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if forwarded_for:
+            user_ip = forwarded_for.split(',')[0].strip()
+
 
         # Store user data in session
         request.session['jwt_token_access'] = jwt_token_access
         request.session['jwt_token_refresh'] = jwt_token_refresh
         
         request.session['user_data'] = user_data
-        return redirect ("/", request ,slug)
+        request.session['ip'] = user_ip
+        session_key = request.session.session_key
+        print(session_key)
+        try:
+            # Retrieve the Session instance corresponding to the session key
+            session_instance = Session.objects.get(session_key=session_key)
+        except Session.DoesNotExist:
+            # Handle the case where the session does not exist
+            return HttpResponse("Session does not exist")
+    
+
+        CustomSession.objects.create(session = session_instance ,
+                                     IP = user_ip,
+                                     user = "aaa",
+                                     user_type = usertype )
+        
+        return redirect ("/", request )
 
 
     form = LoginForm
@@ -98,7 +124,7 @@ def add_admin(request):
 
         print(header)
 
-        url = "http://192.168.1.6:8000/register-admin/"
+        url = "http://192.168.1.8:8000/register-admin/"
         response = requests.post(url, data=data2 , headers=header)
         slug = response.json()
         print(slug)
@@ -118,27 +144,30 @@ def view_admin(request):
 
 def view_merchant(request):
 
-    return render (request , 'dashboard/merchant/view_merchant.html')
+    return render (request , 'dashboard/merchant/view-merchant.html')
 
 def add_merchant(request):
 
-    return render  (request,'dashboard/merchant/view_merchant.html')
+    return render  (request,'dashboard/merchant/add-merchant.html')
+
 def logout(request):
-    # Remove JWT token and user data from the session
-    if 'jwt_token' in request.session:
-        del request.session['jwt_token']
+    
+    session_key = request.session.session_key
+    
+    # Delete the session using Django's session framework
+    Session.objects.filter(session_key=session_key).delete()
+    
+    # Delete the corresponding CustomSession object
+    CustomSession.objects.filter(session=session_key).delete()
 
-    if 'user_data' in request.session:
-        del request.session['user_data']
 
-
-    return redirect ("page_login")
+    return HttpResponsePermanentRedirect ("/login/")
 
 
 def refresh_jwt(request):
     access_token = request.session.get('jwt_token_access')
     refresh_token = request.session.get('jwt_token_refresh')
-    url = "http://192.168.1.6:8000/token/refresh/"
+    url = "http://192.168.1.8:8000/token/refresh/"
 
     token = {
             "refresh":refresh_token,

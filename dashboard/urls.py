@@ -2,13 +2,15 @@ from django.contrib import admin
 from django.urls import path,include
 from . import views
 urlpatterns = [
-    path('', views.index , name = "index"),
+    path('', views.index , name = "Index"),
     # path('signup/',views.signup),
     path('index/',views.index,name="index"),
-    path('login/',views.page_login,name="page-login"),
-    path('logout/',views.logout,name="logout"),
+    path('login/',views.dashboard_login,name="dashboard-login"),
+    path('logout/',views.logout,name="user-logout"),
     path('add-admin/',views.add_admin,name = "add-admin"),
     path('view-admin/',views.view_admin,name="view-admin"),
+    path('add-merchant/',views.add_merchant,name="add-merchant"),
+    path('view-merchant/',views.view_merchant,name="view-merchant"),
 
 
     
