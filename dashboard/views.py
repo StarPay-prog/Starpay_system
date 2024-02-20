@@ -37,19 +37,19 @@ def dashboard_login(request):
             "password": request.POST.get("password")
         }
 
-        url = "http://192.168.1.8:8000/login/"
+        url = "http://192.168.1.9:8000/login/"
         response = requests.post(url, data=data)
         
         jwt_token_access = response.headers['access']
         jwt_token_refresh = response.headers['refresh']
         user_data = response.json()
 
-        user = user_data['data']
+        user = user_data['user']
         print(user)
-        if user['is_Admin'] == True:
+        if user['user']['is_Admin'] == True:
             usertype = "admin"
-        elif user['is_Super_Admin']== True:
-            usertype = "super_admin"
+        # elif user['is_Super_Admin']== True:
+        #     usertype = "super_admin"
         else:
             usertype = "merchant"
         request.session['user_type'] = usertype
@@ -124,7 +124,7 @@ def add_admin(request):
 
         print(header)
 
-        url = "http://192.168.1.8:8000/register-admin/"
+        url = "http://192.168.1.9:8000/register-admin/"
         response = requests.post(url, data=data2 , headers=header)
         slug = response.json()
         print(slug)
@@ -142,9 +142,17 @@ def view_admin(request):
 
     return render (request, 'dashboard/admin/view-admin.html')
 
+def view_session(request):
+
+    return render (request, 'dashboard/admin/view-session.html')
+
 def view_merchant(request):
 
     return render (request , 'dashboard/merchant/view-merchant.html')
+
+def active_merchant(request):
+
+    return render  (request,'dashboard/merchant/active-merchant.html')
 
 def add_merchant(request):
 
@@ -167,7 +175,7 @@ def logout(request):
 def refresh_jwt(request):
     access_token = request.session.get('jwt_token_access')
     refresh_token = request.session.get('jwt_token_refresh')
-    url = "http://192.168.1.8:8000/token/refresh/"
+    url = "http://192.168.1.9:8000/token/refresh/"
 
     token = {
             "refresh":refresh_token,

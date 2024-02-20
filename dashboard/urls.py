@@ -9,8 +9,10 @@ urlpatterns = [
     path('logout/',views.logout,name="user-logout"),
     path('add-admin/',views.add_admin,name = "add-admin"),
     path('view-admin/',views.view_admin,name="view-admin"),
+    path('view-session/',views.view_session,name="view-session"),
     path('add-merchant/',views.add_merchant,name="add-merchant"),
     path('view-merchant/',views.view_merchant,name="view-merchant"),
+    path('active-merchant/',views.active_merchant,name="active-merchant"),
 
 
     

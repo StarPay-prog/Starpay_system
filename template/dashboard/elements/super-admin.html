@@ -18,7 +18,7 @@
                 <ul aria-expanded="false">
                     <li><a href="{% url 'dashboard:add-admin' %}">Add Admin</a></li>
                     <li><a href="{% url 'dashboard:view-admin' %}">View Admin</a></li>
-                    <li><a href="{% url 'dashboard:view-admin' %}">Active Admin</a></li>
+                    <li><a href="{% url 'dashboard:view-session' %}">Admin Session</a></li>
                 </ul>
 
 
@@ -37,9 +37,9 @@
                     <span class="nav-text">Merchant</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{% url 'dashboard:add-merchant' %}">Add Merchant</a></li>
+                    <!-- <li><a href="{% url 'dashboard:add-merchant' %}">Add Merchant</a></li> -->
                     <li><a href="{% url 'dashboard:view-merchant' %}">View Merchant</a></li>
-                    <li><a href="{% url 'dashboard:view-merchant' %}">Active Merchant</a></li>
+                    <li><a href="{% url 'dashboard:active-merchant' %}">Active Merchant</a></li>
                 </ul>      
                 </li>
                 
@@ -48,8 +48,8 @@
                     <span class="nav-text">PayOuts</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{% url 'dashboard:page-register' %}">Add Payout</a></li>
-                    <li><a href="{% url 'dashboard:page-register' %}">View Payout</a></li>
+                    <li><a href="{% url 'dashboard:page-register' %}">Active Payout Session</a></li>
+                    <li><a href="{% url 'dashboard:page-register' %}">All Payout Session</a></li>
                 </ul>      
                 </li>
 
@@ -58,8 +58,8 @@
                     <span class="nav-text">PayIn</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{% url 'dashboard:page-register' %}">Add PayIn</a></li>
-                    <li><a href="{% url 'dashboard:page-register' %}">View PayIn</a></li>
+                    <li><a href="{% url 'dashboard:page-register' %}">Active PayIn Session</a></li>
+                    <li><a href="{% url 'dashboard:page-register' %}">All PayIn Session</a></li>
                 </ul>      
                 </li>
 
@@ -71,8 +71,10 @@
 
         
         <div class="copyright">
-            <p><strong>dashboard Payment Admin Dashboard</strong> © 2023 All Rights Reserved</p>
-            <p>Made with <span class="heart"></span> by DexignZone</p>
+            <p><strong>StarPay</strong></p>
+            <p>Trusted Payment Partner</p>
+            <p>© 2023 All Rights Reserved</p>
+            <p>Made with<span class="heart"></span> by iMoneyPay</p>
         </div>
     </div>
 </div>
