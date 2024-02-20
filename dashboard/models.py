@@ -4,7 +4,7 @@ from django.contrib.sessions.models import Session
     
     
 class CustomSession(models.Model):
-    session = models.ForeignKey(Session,unique = False, on_delete=models.CASCADE)
+    session = models.ForeignKey(Session,unique = True, on_delete=models.CASCADE)
     IP = models.CharField(max_length=100)    
     user = models.CharField(max_length= 100)
     USER_TYPES = [

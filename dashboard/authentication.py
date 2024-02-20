@@ -8,7 +8,7 @@ def custom_login_required(view_func):
         # Check if user information is present in session data
         if 'user_data' not in request.session:
             # Redirect the user to the login page or any other page as needed
-            return redirect('user-logout')  # Adjust 'login' to your login URL name
+            return redirect('/logout')  # Adjust 'login' to your login URL name
                
         # Get the user's IP address from your custom session model
         try:
@@ -17,7 +17,7 @@ def custom_login_required(view_func):
         except CustomSession.DoesNotExist:
             # Handle the case where session data is not found
             print('session not found')
-            return redirect('user-logout')
+            return redirect('/logout')
             session_ip = None
         
         # Add additional checks here if needed
@@ -31,7 +31,7 @@ def custom_login_required(view_func):
         # Example: Check if the IP address matches a certain value
         if user_ip != session_ip:
             # Redirect the user to a different page if IP doesn't match
-            return redirect('user-logout')  # Adjust 'invalid_ip' to your URL name
+            return redirect('/logout')  # Adjust 'invalid_ip' to your URL name
         
         # Continue with the view function if all checks pass
         return view_func(request, *args, **kwargs)

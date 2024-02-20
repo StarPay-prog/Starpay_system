@@ -10,7 +10,7 @@ import requests
 from .authentication import *
 # for i in range(0,10000):
 
-#     
+     
 
 #@login_required(login_url='dashboard:login')
 
@@ -37,17 +37,17 @@ def dashboard_login(request):
             "password": request.POST.get("password")
         }
 
-        url = "http://192.168.1.8:8000/login/"
+        url = "http://192.168.1.5:8000/login/"
         response = requests.post(url, data=data)
         
         jwt_token_access = response.headers['access']
         jwt_token_refresh = response.headers['refresh']
         user_data = response.json()
 
-        user = user_data['data']
+        user = user_data["data"]
         print(user)
         if user['is_Admin'] == True:
-            usertype = "admin"
+             usertype = "admin"
         elif user['is_Super_Admin']== True:
             usertype = "super_admin"
         else:
@@ -70,7 +70,7 @@ def dashboard_login(request):
         request.session['user_data'] = user_data
         request.session['ip'] = user_ip
         session_key = request.session.session_key
-        print(session_key)
+        print(request.session ,session_key) 
         try:
             # Retrieve the Session instance corresponding to the session key
             session_instance = Session.objects.get(session_key=session_key)
@@ -124,7 +124,7 @@ def add_admin(request):
 
         print(header)
 
-        url = "http://192.168.1.8:8000/register-admin/"
+        url = "http://192.168.1.5:8000/register-admin/"
         response = requests.post(url, data=data2 , headers=header)
         slug = response.json()
         print(slug)
@@ -138,8 +138,23 @@ def add_admin(request):
     return render (request,'dashboard/admin/add-admin.html',context)
 
 
-def view_admin(request):
+def view_admin(request):  
 
+    jwt_token = request.session.get('jwt_token_access')
+
+    header = {
+        "Authorization": f"Bearer {jwt_token}",
+        "Content-Type": "application/json"  # Assuming you are sending JSON data
+        }
+
+
+    url = "http://192.168.1.5:8000/get-admin-list/"
+
+    response = requests.get(url, headers=header)
+
+    response = response.json()
+
+    print(response)
     return render (request, 'dashboard/admin/view-admin.html')
 
 def view_merchant(request):
@@ -167,7 +182,7 @@ def logout(request):
 def refresh_jwt(request):
     access_token = request.session.get('jwt_token_access')
     refresh_token = request.session.get('jwt_token_refresh')
-    url = "http://192.168.1.8:8000/token/refresh/"
+    url = "http://192.168.1.5:8000/token/refresh/"
 
     token = {
             "refresh":refresh_token,
