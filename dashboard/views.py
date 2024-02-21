@@ -35,7 +35,8 @@ def dashboard_login_merchant(request):
     if request.method == "POST":
         data = {
             "email": request.POST.get("email"),
-            "password": request.POST.get("password")
+            "password": request.POST.get("password"),
+            "user_type":777
         }
 
         url = base_url + "login/"
@@ -88,7 +89,8 @@ def dashboard_login_admin(request):
     if request.method == "POST":
         data = {
             "email": request.POST.get("email"),
-            "password": request.POST.get("password")
+            "password": request.POST.get("password"),
+            "user_type":888
         }
 
         url = base_url + "login/"
@@ -146,7 +148,8 @@ def dashboard_login_super_admin(request):
     if request.method == "POST":
         data = {
             "email": request.POST.get("email"),
-            "password": request.POST.get("password")
+            "password": request.POST.get("password"),
+            "user_type":999
         }
 
         url = base_url + "login/"
@@ -178,6 +181,7 @@ def dashboard_login_super_admin(request):
 
         print(request.session)
         session_key = request.session.session_key
+        print(request.session.session_key)
 
         try:
             # Retrieve the Session instance corresponding to the session key
