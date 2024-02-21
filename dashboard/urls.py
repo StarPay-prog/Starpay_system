@@ -20,7 +20,7 @@ urlpatterns = [
     path('add-merchant/',views.add_merchant,name="add-merchant"),
     path('view-merchant/',views.view_merchant,name="view-merchant"),
     path('active-merchant/',views.active_merchant,name="active-merchant"),
-
+ 
 
     
     # path('index-2/',views.index2,name="index-2"),

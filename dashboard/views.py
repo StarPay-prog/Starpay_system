@@ -70,10 +70,12 @@ def dashboard_login_merchant(request):
             return HttpResponse("Session does not exist")
     
 
-        CustomSession.objects.create(session = session_instance ,
-                                     IP = user_ip,
-                                     user = "aaa",
-                                     user_type = usertype )
+       #  Custom Session management is to be done here no cutom session is created
+        
+        # CustomSession.objects.create(session = session_instance ,
+        #                              IP = user_ip,
+        #                              user = "aaa",
+        #                              user_type = usertype )
         
         return redirect ("/", request )
 
@@ -125,11 +127,12 @@ def dashboard_login_admin(request):
             return HttpResponse("Session does not exist")
     
 
-        CustomSession.objects.create(session = session_instance ,
-                                     IP = user_ip,
-                                     user = "aaa",
-                                     user_type = usertype )
+       #  Custom Session management is to be done here no cutom session is created
         
+        # CustomSession.objects.create(session = session_instance ,
+        #                              IP = user_ip,
+        #                              user = "aaa",
+        #                              user_type = usertype )
         return redirect ("/", request )
 
 
@@ -184,11 +187,12 @@ def dashboard_login_super_admin(request):
             # Handle the case where the session does not exist
             return HttpResponse("Session does not exist")
     
-
-        CustomSession.objects.create(session = session_instance ,
-                                     IP = user_ip,
-                                     user = "aaa",
-                                     user_type = usertype )
+#  Custom Session management is to be done here no cutom session is created
+        
+        # CustomSession.objects.create(session = session_instance ,
+        #                              IP = user_ip,
+        #                              user = "aaa",
+        #                              user_type = usertype )
         
         return redirect ("/", request )
 
@@ -212,7 +216,7 @@ def add_admin(request):
             "first_name": first_name,
             "last_name": last_name,
             "contact_no": phone_number,
-            "ip_address": "192.168.1.2.1",
+            "ip_address": "192.168.1.6.1",
             "password" : password
         }
         
@@ -231,7 +235,7 @@ def add_admin(request):
 
         print(header)
 
-        url = "http://192.168.1.2:8000/register-admin/"
+        url = "http://192.168.1.6:8000/register-admin/"
         response = requests.post(url, data=data2 , headers=header)
         slug = response.json()
         print(slug)
@@ -255,7 +259,7 @@ def view_admin(request):
         }
 
 
-    url = "http://192.168.1.2:8000/get-admin-list/"
+    url = "http://192.168.1.6:8000/get-admin-list/"
 
     response = requests.get(url, headers=header)
 
@@ -278,7 +282,7 @@ def view_merchant(request):
         }
 
 
-    url = "http://192.168.1.2:8000/get-merchant-list/"
+    url = "http://192.168.1.6:8000/get-merchant-list-super/"
 
     response = requests.get(url, headers=header)
 
@@ -313,7 +317,7 @@ def logout(request):
 def refresh_jwt(request):
     access_token = request.session.get('jwt_token_access')
     refresh_token = request.session.get('jwt_token_refresh')
-    url = "http://192.168.1.23:8000/token/refresh/"
+    url = "http://192.168.1.63:8000/token/refresh/"
 
     token = {
             "refresh":refresh_token,
