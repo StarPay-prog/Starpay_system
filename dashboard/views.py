@@ -14,7 +14,7 @@ from .authentication import *
 
 #@login_required(login_url='dashboard:login')
 
-@custom_login_required
+#@custom_login_required
 def index(request):
 
     print(request.session.get('jwt_token'))
