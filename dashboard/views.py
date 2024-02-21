@@ -35,7 +35,8 @@ def dashboard_login_merchant(request):
     if request.method == "POST":
         data = {
             "email": request.POST.get("email"),
-            "password": request.POST.get("password")
+            "password": request.POST.get("password"),
+            "user_type":777
         }
 
         url = base_url + "login/"
@@ -86,7 +87,8 @@ def dashboard_login_admin(request):
     if request.method == "POST":
         data = {
             "email": request.POST.get("email"),
-            "password": request.POST.get("password")
+            "password": request.POST.get("password"),
+            "user_type":888
         }
 
         url = base_url + "login/"
@@ -143,7 +145,8 @@ def dashboard_login_super_admin(request):
     if request.method == "POST":
         data = {
             "email": request.POST.get("email"),
-            "password": request.POST.get("password")
+            "password": request.POST.get("password"),
+            "user_type":999
         }
 
         url = base_url + "login/"
@@ -175,20 +178,22 @@ def dashboard_login_super_admin(request):
 
         print(request.session)
         session_key = request.session.session_key
+        print(request.session.session_key)
 
         try:
             # Retrieve the Session instance corresponding to the session key
             session_instance = Session.objects.get(session_key=session_key)
-            print(session_instance,"intance")
-        except Session.DoesNotExist:
-            # Handle the case where the session does not exist
-            return HttpResponse("Session does not exist")
-    
-
-        CustomSession.objects.create(session = session_instance ,
+            CustomSession.objects.create(session = session_instance ,
                                      IP = user_ip,
                                      user = "aaa",
                                      user_type = usertype )
+        except Exception as e:
+            # Handle the case where the session does not exist
+            print(e)
+            return HttpResponse("Session does not exist")
+    
+
+
         
         return redirect ("/", request )
 
