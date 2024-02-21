@@ -37,15 +37,15 @@ def dashboard_login(request):
             "password": request.POST.get("password")
         }
 
-        url = "http://192.168.1.2:8000/login/"
+        url = "http://192.168.1.6:8000/login/"
         response = requests.post(url, data=data)
         
         jwt_token_access = response.headers['access']
         jwt_token_refresh = response.headers['refresh']
         user_data = response.json()
 
-        user = user_data['user']
-        print(user)
+        print(user_data)
+        user = user_data['data']
         if user['user']['is_Admin'] == True:
             usertype = "admin"
         # elif user['is_Super_Admin']== True:
@@ -105,7 +105,7 @@ def add_admin(request):
             "first_name": first_name,
             "last_name": last_name,
             "contact_no": phone_number,
-            "ip_address": "192.168.1.2.1",
+            "ip_address": "192.168.1.6.1",
             "password" : password
         }
         
@@ -124,7 +124,7 @@ def add_admin(request):
 
         print(header)
 
-        url = "http://192.168.1.2:8000/register-admin/"
+        url = "http://192.168.1.6:8000/register-admin/"
         response = requests.post(url, data=data2 , headers=header)
         slug = response.json()
         print(slug)
@@ -175,7 +175,7 @@ def logout(request):
 def refresh_jwt(request):
     access_token = request.session.get('jwt_token_access')
     refresh_token = request.session.get('jwt_token_refresh')
-    url = "http://192.168.1.2:8000/token/refresh/"
+    url = "http://192.168.1.6:8000/token/refresh/"
 
     token = {
             "refresh":refresh_token,
