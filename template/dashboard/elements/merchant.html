@@ -45,7 +45,7 @@
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="{% url 'dashboard:page-register' %}">Add User</a></li>
-                    <li><a href="{% url 'dashboard:page-login' %}">Delete User</a></li>
+                    <li><a href="">Delete User</a></li>
                 </ul>
 
 
@@ -103,31 +103,33 @@
         <!--Modules Demo End -->
         
         
-                        <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                            <i class="flaticon-381-layer-1"></i>
-                            <span class="nav-text">PayOuts</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="{% url 'dashboard:page-register' %}">Add Payout</a></li>
-                            <li><a href="{% url 'dashboard:page-register' %}">View Payout</a></li>
-                        </ul>      
+                        <li>
+                            <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                                <i class="flaticon-381-layer-1"></i>
+                                <span class="nav-text">PayOut</span>
+                            </a>
+                                <ul aria-expanded="false">
+                                    <li><a href="{% url 'dashboard:page-register' %}">Active PayOut Session </a></li>
+                                    <li><a href="{% url 'dashboard:page-register' %}">View Session PayOut</a></li>
+                                </ul>      
                         </li>
+
         
                         <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                             <i class="flaticon-381-layer-1"></i>
                             <span class="nav-text">PayIn</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="{% url 'dashboard:page-register' %}">Add PayIn</a></li>
-                            <li><a href="{% url 'dashboard:page-register' %}">View PayIn</a></li>
+                            <li><a href="{% url 'dashboard:page-register' %}">Active PayIn Session</a></li>
+                            <li><a href="{% url 'dashboard:page-register' %}">View Session PayIn</a></li>
                         </ul>      
                         </li>
 
-                        <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                        <!-- <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                             <i class="flaticon-381-layer-1"></i>
                             <span class="nav-text">Ofline</span>
                         </a>      
-                        </li>
+                        </li> -->
         
                         <li><a href="javascript:void()">
                             <i class="flaticon-381-layer-1"></i>
@@ -136,15 +138,17 @@
                         </li>
         
                 
-                <div class="copyright">
-                    <p><strong>dashboard Payment Admin Dashboard</strong> © 2023 All Rights Reserved</p>
-                    <p>Made with <span class="heart"></span> by DexignZone</p>
+                        <div class="copyright">
+                            <p><strong>StarPay</strong></p>
+                            <p>Trusted Payment Partner</p>
+                            <p>© 2023 All Rights Reserved</p>
+                            <p>Made with<span class="heart"></span> by iMoneyPay</p>
                 </div>
             </div>
         </div>
-        <div class="copyright">
+        <!-- <div class="copyright">
             <p><strong>dashboard Payment Admin Dashboard</strong> © 2023 All Rights Reserved</p>
             <p>Made with <span class="heart"></span> by DexignZone</p>
-        </div>
+        </div> -->
     </div>
 </div>

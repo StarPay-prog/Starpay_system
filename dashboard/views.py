@@ -157,6 +157,10 @@ def view_admin(request):
     print(type(response['data']))
     return render (request, 'dashboard/admin/view-admin.html',context = {"data":response['data']})
 
+def view_session(request):
+
+    return render (request, 'dashboard/admin/view-session.html')
+
 def view_merchant(request):
 
     jwt_token = request.session.get('jwt_token_access')
@@ -176,6 +180,10 @@ def view_merchant(request):
     print(type(response['data']))
 
     return render (request , 'dashboard/merchant/view-merchant.html',context= {"data":response['data']})
+
+def active_merchant(request):
+
+    return render  (request,'dashboard/merchant/active-merchant.html')
 
 def add_merchant(request):
 
