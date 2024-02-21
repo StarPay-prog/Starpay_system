@@ -7,14 +7,16 @@ from .models import *
 import datetime
 from .forms import *
 import requests
+from django.views.decorators.csrf import csrf_protect
+from django.utils.decorators import method_decorator
 from .authentication import *
 # for i in range(0,10000):
 
      
 
 #@login_required(login_url='dashboard:login')
+base_url = "http://192.168.1.6:8000/"   
 
-#@custom_login_required
 def index(request):
 
     print(request.session.get('jwt_token'))
@@ -28,8 +30,7 @@ def index(request):
     }
     return render(request,'dashboard/index.html',context)
 
-
-def dashboard_login(request):
+def dashboard_login_merchant(request):
 
     if request.method == "POST":
         data = {
@@ -37,21 +38,66 @@ def dashboard_login(request):
             "password": request.POST.get("password")
         }
 
-        url = "http://192.168.1.2:8000/login/"
+        url = base_url + "login/"
         response = requests.post(url, data=data)
         
         jwt_token_access = response.headers['access']
         jwt_token_refresh = response.headers['refresh']
         user_data = response.json()
+        user = user_data['user']
+        usertype = "merchant"
+        request.session['user_type'] = usertype
+        print(usertype)
+        user_ip = request.META.get('REMOTE_ADDR')
+        forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if forwarded_for:
+            user_ip = forwarded_for.split(',')[0].strip()
 
-        user = user_data["data"]
-        print(user)
-        if user['is_Admin'] == True:
-             usertype = "admin"
-        elif user['is_Super_Admin']== True:
-            usertype = "super_admin"
-        else:
-            usertype = "merchant"
+
+        # Store user data in session
+        request.session['jwt_token_access'] = jwt_token_access
+        request.session['jwt_token_refresh'] = jwt_token_refresh
+        
+        request.session['user_data'] = user_data
+        request.session['ip'] = user_ip
+        session_key = request.session.session_key
+        print(session_key)
+        try:
+            # Retrieve the Session instance corresponding to the session key
+            session_instance = Session.objects.get(session_key=session_key)
+        except Session.DoesNotExist:
+            # Handle the case where the session does not exist
+            return HttpResponse("Session does not exist")
+    
+
+        CustomSession.objects.create(session = session_instance ,
+                                     IP = user_ip,
+                                     user = "aaa",
+                                     user_type = usertype )
+        
+        return redirect ("/", request )
+
+
+    form = LoginForm
+    return render(request,'dashboard/modules/login.html',{"form":form})
+
+def dashboard_login_admin(request):
+
+    if request.method == "POST":
+        data = {
+            "email": request.POST.get("email"),
+            "password": request.POST.get("password")
+        }
+
+        url = base_url + "login/"
+        response = requests.post(url, data=data)
+        jwt_token_access = response.headers['access']
+        jwt_token_refresh = response.headers['refresh']
+        user_data = response.json()
+        print(user_data)
+        user = user_data['data']
+        usertype = "admin"
+       
         request.session['user_type'] = usertype
         print(usertype)
 
@@ -89,6 +135,67 @@ def dashboard_login(request):
 
     form = LoginForm
     return render(request,'dashboard/modules/login.html',{"form":form})
+
+
+
+def dashboard_login_super_admin(request):
+
+    if request.method == "POST":
+        data = {
+            "email": request.POST.get("email"),
+            "password": request.POST.get("password")
+        }
+
+        url = base_url + "login/"
+        response = requests.post(url, data=data)
+        
+        jwt_token_access = response.headers['access']
+        jwt_token_refresh = response.headers['refresh']
+        user_data = response.json()
+        print(user_data)
+
+        user = user_data['data']
+        usertype = "super_admin"
+        request.session['user_type'] = usertype
+
+        user_ip = request.META.get('REMOTE_ADDR')
+    
+   
+        forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if forwarded_for:
+            user_ip = forwarded_for.split(',')[0].strip()
+
+
+        # Store user data in session
+        request.session['jwt_token_access'] = jwt_token_access
+        request.session['jwt_token_refresh'] = jwt_token_refresh
+        
+        request.session['user_data'] = user_data
+        request.session['ip'] = user_ip
+
+        print(request.session)
+        session_key = request.session.session_key
+
+        try:
+            # Retrieve the Session instance corresponding to the session key
+            session_instance = Session.objects.get(session_key=session_key)
+            print(session_instance,"intance")
+        except Session.DoesNotExist:
+            # Handle the case where the session does not exist
+            return HttpResponse("Session does not exist")
+    
+
+        CustomSession.objects.create(session = session_instance ,
+                                     IP = user_ip,
+                                     user = "aaa",
+                                     user_type = usertype )
+        
+        return redirect ("/", request )
+
+
+    form = LoginForm
+    return render(request,'dashboard/modules/login.html',{"form":form})
+
 
 
 def add_admin(request):
@@ -200,7 +307,7 @@ def logout(request):
     CustomSession.objects.filter(session=session_key).delete()
 
 
-    return HttpResponsePermanentRedirect ("/login/")
+    return HttpResponseRedirect ("/login/")
 
 
 def refresh_jwt(request):
