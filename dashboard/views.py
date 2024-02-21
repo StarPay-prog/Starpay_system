@@ -10,7 +10,7 @@ import requests
 from .authentication import *
 # for i in range(0,10000):
 
-#     
+     
 
 #@login_required(login_url='dashboard:login')
 
@@ -70,7 +70,7 @@ def dashboard_login(request):
         request.session['user_data'] = user_data
         request.session['ip'] = user_ip
         session_key = request.session.session_key
-        print(session_key)
+        print(request.session ,session_key) 
         try:
             # Retrieve the Session instance corresponding to the session key
             session_instance = Session.objects.get(session_key=session_key)
@@ -138,9 +138,24 @@ def add_admin(request):
     return render (request,'dashboard/admin/add-admin.html',context)
 
 
-def view_admin(request):
+def view_admin(request):  
 
-    return render (request, 'dashboard/admin/view-admin.html')
+    jwt_token = request.session.get('jwt_token_access')
+
+    header = {
+        "Authorization": f"Bearer {jwt_token}",
+        "Content-Type": "application/json"  # Assuming you are sending JSON data
+        }
+
+
+    url = "http://192.168.1.2:8000/get-admin-list/"
+
+    response = requests.get(url, headers=header)
+
+    response = response.json()
+
+    print(type(response['data']))
+    return render (request, 'dashboard/admin/view-admin.html',context = {"data":response['data']})
 
 def view_session(request):
 
@@ -148,7 +163,23 @@ def view_session(request):
 
 def view_merchant(request):
 
-    return render (request , 'dashboard/merchant/view-merchant.html')
+    jwt_token = request.session.get('jwt_token_access')
+
+    header = {
+        "Authorization": f"Bearer {jwt_token}",
+        "Content-Type": "application/json"  # Assuming you are sending JSON data
+        }
+
+
+    url = "http://192.168.1.2:8000/get-merchant-list/"
+
+    response = requests.get(url, headers=header)
+
+    response = response.json()
+
+    print(type(response['data']))
+
+    return render (request , 'dashboard/merchant/view-merchant.html',context= {"data":response['data']})
 
 def active_merchant(request):
 

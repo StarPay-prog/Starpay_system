@@ -1,0 +1,16 @@
+[
+    {'user': 
+    {'email': 'VB@gmail.com', 'first_name': 'vansh', 'last_name': 'Bhatia', 'is_Admin': True, 'is_Merchant': False, 'is_Super_Admin': False, 'contact_no': 9054361, 'date_joined': '2024-02-19', 'ip_address': '192.168.1.8.1'
+        }, 'emp_id': 'sp3569', 
+        'updated_history': [
+            {'date_time': '20244919 034904', 'remark': 'EMP created by SA'
+            }
+        ]
+    },
+    {'user': {'email': 'adia@asjmedia.in', 'first_name': 'aditya', 'last_name': 'Khajuria', 'is_Admin': True, 'is_Merchant': False, 'is_Super_Admin': False, 'contact_no': 7011160019, 'date_joined': '2024-02-19', 'ip_address': '192.168.1.9.1'
+        }, 'emp_id': 'sp5922', 'updated_history': [
+            {'date_time': '20244219 224227', 'remark': 'EMP created by SA'
+            }
+        ]
+    }
+]

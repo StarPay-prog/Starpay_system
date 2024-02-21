@@ -25,24 +25,55 @@
                             <table id="example3" class="table" >
                                 <thead>
                                     <tr>
-                                        <th>Username</th>
+                                       
                                         <th>Business Name</th>
-                                        <th>Merchant Id</th>
+                                        <th>Email</th>
                                         <th>Mobile No.</th>
-                                        <th>GST No.</th>
-                                        <th>Service Option</th>
-                                        <th>API Key</th>
+                                        <th>Createdby</th>
+                                        
+                                        <th>Status</th>
+                                        <th>Payin</th>
+                                        <th>Payout</th>
+                                        <th>Offline</th>
+                                        <th>Card</th>
+                                        
+                                        
+                                       
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {% for i in data %}
                                     <tr style="height: 70px;">
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                       
+                                        <td>{{i.business_name}}</td>
+                                       
+                                        <td>{{i.user.email}}</td>
+                                        <td>{{i.user.contact_no}}</td>
+                                        <td>{{i.created_by}}</td>
+                                        <td>
+									     <i class="fa fa-user text-success" aria-hidden="true"></i>
+ 
+                                        </td>
+
+                                        <td>
+                                    
+                                         <span class="badge badge-success"><i class="fa fa-lock" aria-hidden="true"></i> </span> 
+                                        </td>
+                                        <td>
+                                    
+                                            <span class="badge badge-success"><i class="fa fa-lock" aria-hidden="true"></i> </span> 
+                                        </td>
+                                        <td>
+                                    
+                                            <span class="badge badge-danger"><i class="fa fa-lock" aria-hidden="true"></i> </span> 
+                                        </td>
+                                        <td>
+                                    
+                                            <span class="badge badge-danger"><i class="fa fa-lock" aria-hidden="true"></i> </span> 
+                                        </td>
+                                        
+                                        <td>{{i.api_key}}</td>
+                                       
                                         <td></td>
                                         <td class="mr-5">
                                             <div>
@@ -54,6 +85,8 @@
                                             <a><button type="button" class="btn btn-success">Created By</button></a>
                                         </td>
                                     </tr>
+                                    {%endfor %}
+                                   
                                 </tbody>
                             </table>
                         </div>
