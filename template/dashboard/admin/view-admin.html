@@ -34,13 +34,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {% for i in data %}
                                     <tr style="height: 70px;">
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>{{i.user.first_name}}</td>
+                                        <td>{{i.user.last_name}}</td>
+                                        <td>{{i.user.email}}</td>
+                                        <td>{{i.user.contact_no}}</td>
+                                        <td>{{i.user.date_joined}}</td>
+                                        <td>{{i.user.email}}</td>
                                         <td></td>
                                         <td class="mr-5">
                                             <div>
@@ -49,6 +50,7 @@
                                             </div>
                                         </td>
                                     </tr>
+                                    {%endfor %}
                                 </tbody>
                             </table>
                         </div>

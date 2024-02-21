@@ -37,7 +37,7 @@ def dashboard_login(request):
             "password": request.POST.get("password")
         }
 
-        url = "http://192.168.1.5:8000/login/"
+        url = "http://192.168.1.2:8000/login/"
         response = requests.post(url, data=data)
         
         jwt_token_access = response.headers['access']
@@ -105,7 +105,7 @@ def add_admin(request):
             "first_name": first_name,
             "last_name": last_name,
             "contact_no": phone_number,
-            "ip_address": "192.168.1.9.1",
+            "ip_address": "192.168.1.2.1",
             "password" : password
         }
         
@@ -124,7 +124,7 @@ def add_admin(request):
 
         print(header)
 
-        url = "http://192.168.1.5:8000/register-admin/"
+        url = "http://192.168.1.2:8000/register-admin/"
         response = requests.post(url, data=data2 , headers=header)
         slug = response.json()
         print(slug)
@@ -148,18 +148,34 @@ def view_admin(request):
         }
 
 
-    url = "http://192.168.1.5:8000/get-admin-list/"
+    url = "http://192.168.1.2:8000/get-admin-list/"
 
     response = requests.get(url, headers=header)
 
     response = response.json()
 
-    print(response)
-    return render (request, 'dashboard/admin/view-admin.html')
+    print(type(response['data']))
+    return render (request, 'dashboard/admin/view-admin.html',context = {"data":response['data']})
 
 def view_merchant(request):
 
-    return render (request , 'dashboard/merchant/view-merchant.html')
+    jwt_token = request.session.get('jwt_token_access')
+
+    header = {
+        "Authorization": f"Bearer {jwt_token}",
+        "Content-Type": "application/json"  # Assuming you are sending JSON data
+        }
+
+
+    url = "http://192.168.1.2:8000/get-merchant-list/"
+
+    response = requests.get(url, headers=header)
+
+    response = response.json()
+
+    print(type(response['data']))
+
+    return render (request , 'dashboard/merchant/view-merchant.html',context= {"data":response['data']})
 
 def add_merchant(request):
 
@@ -182,7 +198,7 @@ def logout(request):
 def refresh_jwt(request):
     access_token = request.session.get('jwt_token_access')
     refresh_token = request.session.get('jwt_token_refresh')
-    url = "http://192.168.1.5:8000/token/refresh/"
+    url = "http://192.168.1.23:8000/token/refresh/"
 
     token = {
             "refresh":refresh_token,
