@@ -1,11 +1,18 @@
 from django.contrib import admin
 from django.urls import path,include
 from . import views
+admin_url = "saAm"
+super_admin_url = "SAam"
+
 urlpatterns = [
     path('', views.index , name = "Index"),
     # path('signup/',views.signup),
     path('index/',views.index,name="index"),
-    path('login/',views.dashboard_login,name="dashboard-login"),
+    path('login/',views.dashboard_login_merchant,name="dashboard-login-merchant"),
+    path('login-{admin_url}/'.format(admin_url=admin_url),views.dashboard_login_admin,name="dashboard-login-Admin"),
+    # path('login-saAm/',views.dashboard_login_admin,name="dashboard-login-Admin"),
+    
+    path('login-{super_admin_url}/'.format(super_admin_url=super_admin_url),views.dashboard_login_super_admin,name="dashboard-login-Super-Admin"),
     path('logout/',views.logout,name="user-logout"),
     path('add-admin/',views.add_admin,name = "add-admin"),
     path('view-admin/',views.view_admin,name="view-admin"),
