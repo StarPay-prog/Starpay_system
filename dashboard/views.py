@@ -37,7 +37,6 @@ def dashboard_login_merchant(request):
             "email": request.POST.get("email"),
             "password": request.POST.get("password"),
             "user_type":777
-
         }
 
         url = base_url + "login/"
@@ -46,7 +45,7 @@ def dashboard_login_merchant(request):
         jwt_token_access = response.headers['access']
         jwt_token_refresh = response.headers['refresh']
         user_data = response.json()
-        user = user_data['user']
+        user = user_data['data']
         usertype = "merchant"
         request.session['user_type'] = usertype
         print(usertype)
@@ -91,8 +90,7 @@ def dashboard_login_admin(request):
         data = {
             "email": request.POST.get("email"),
             "password": request.POST.get("password"),
-            "user_type":688
-
+            "user_type":888
         }
 
         url = base_url + "login/"
@@ -183,6 +181,7 @@ def dashboard_login_super_admin(request):
 
         print(request.session)
         session_key = request.session.session_key
+        print(request.session.session_key)
 
         try:
             # Retrieve the Session instance corresponding to the session key
@@ -210,6 +209,7 @@ def dashboard_login_super_admin(request):
 def add_admin(request):
 
     if request.method == "POST":
+        
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
         email = request.POST.get('email')
@@ -243,7 +243,11 @@ def add_admin(request):
         url = "http://192.168.1.15:6000/register-admin/"
         response = requests.post(url, data=data2 , headers=header)
         slug = response.json()
+        slug = slug['status']
         print(slug)
+        form = AdminForm
+        return render (request,'dashboard/admin/add-admin.html',{"response":slug, "form":form,} )
+
 
     form = AdminForm
     context={
@@ -270,7 +274,7 @@ def view_admin(request):
 
     response = response.json()
 
-    print(type(response['data']))
+    print(response['data'])
     return render (request, 'dashboard/admin/view-admin.html',context = {"data":response['data']})
 
 def view_session(request):

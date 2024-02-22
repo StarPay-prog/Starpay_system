@@ -1,15 +1,120 @@
 [
     {'user': 
-    {'email': 'VB@gmail.com', 'first_name': 'vansh', 'last_name': 'Bhatia', 'is_Admin': True, 'is_Merchant': False, 'is_Super_Admin': False, 'contact_no': 9054361, 'date_joined': '2024-02-19', 'ip_address': '192.168.1.8.1'
-        }, 'emp_id': 'sp3569', 
-        'updated_history': [
+        {'last_login': None, 'email': 'VB@gmail.com', 'first_name': 'vansh', 'last_name': 'Bhatia', 'contact_no': 9054361, 'date_joined': '2024-02-19', 'updated_history': [
+                {'date_time': '20244919 034903', 'remark': 'Merchant created by 192.168.1.13'
+                }
+            ],
+        'is_active': True, 'is_Admin': True, 'is_Merchant': False, 'is_Super_Admin': False, 'ip_address': '192.168.1.8.1'
+        }, 'emp_id': 'sp3569', 'updated_history': [
             {'date_time': '20244919 034904', 'remark': 'EMP created by SA'
             }
         ]
     },
-    {'user': {'email': 'adia@asjmedia.in', 'first_name': 'aditya', 'last_name': 'Khajuria', 'is_Admin': True, 'is_Merchant': False, 'is_Super_Admin': False, 'contact_no': 7011160019, 'date_joined': '2024-02-19', 'ip_address': '192.168.1.9.1'
+    {'user': {'last_login': None, 'email': 'adia@asjmedia.in', 'first_name': 'aditya', 'last_name': 'Khajuria', 'contact_no': 7011160019, 'date_joined': '2024-02-19', 'updated_history': [
+                {'date_time': '20244219 224226', 'remark': 'Merchant created by 192.168.1.6'
+                }
+            ], 'is_active': True, 'is_Admin': True, 'is_Merchant': False, 'is_Super_Admin': False, 'ip_address': '192.168.1.9.1'
         }, 'emp_id': 'sp5922', 'updated_history': [
             {'date_time': '20244219 224227', 'remark': 'EMP created by SA'
+            }
+        ]
+    },
+    {'user': {'last_login': None, 'email': 'anuj@anuj.com', 'first_name': 'Anuj', 'last_name': 'Bansal', 'contact_no': 9810891020, 'date_joined': '2024-02-21', 'updated_history': [
+                {'date_time': '20243721 023722', 'remark': 'Merchant created by 192.168.1.10'
+                }
+            ], 'is_active': True, 'is_Admin': True, 'is_Merchant': False, 'is_Super_Admin': False, 'ip_address': '192.168.1.6.1'
+        }, 'emp_id': 'sp9620', 'updated_history': [
+            {'date_time': '20243721 023723', 'remark': 'EMP created by SA'
+            }
+        ]
+    },
+    {'user': {'last_login': None, 'email': 'Aashi@asjmedsia.in', 'first_name': 'Aashi', 'last_name': 'aggarwal', 'contact_no': 12345687453, 'date_joined': '2024-02-21', 'updated_history': [
+                {'date_time': '20243421 233430', 'remark': 'Merchant created by 192.168.1.15'
+                }
+            ], 'is_active': True, 'is_Admin': True, 'is_Merchant': False, 'is_Super_Admin': False, 'ip_address': '192.168.1.13.1'
+        }, 'emp_id': 'sp8463', 'updated_history': [
+            {'date_time': '20243421 233431', 'remark': 'EMP created by SA'
+            }
+        ]
+    },
+    {'user': {'last_login': None, 'email': 'Aashi@asjme.in', 'first_name': 'Aashi', 'last_name': 'aggarwal', 'contact_no': 1234568999, 'date_joined': '2024-02-21', 'updated_history': [
+                {'date_time': '20244021 234035', 'remark': 'Merchant created by 192.168.1.15'
+                }
+            ], 'is_active': True, 'is_Admin': True, 'is_Merchant': False, 'is_Super_Admin': False, 'ip_address': '192.168.1.13.1'
+        }, 'emp_id': 'sp7200', 'updated_history': [
+            {'date_time': '20244021 234036', 'remark': 'EMP created by SA'
+            }
+        ]
+    },
+    {'user': {'last_login': None, 'email': 'Aashi@asjmaae.in', 'first_name': 'Aashi', 'last_name': 'aggarwal', 'contact_no': 8529646677, 'date_joined': '2024-02-21', 'updated_history': [
+                {'date_time': '20244221 234227', 'remark': 'Merchant created by 192.168.1.15'
+                }
+            ], 'is_active': True, 'is_Admin': True, 'is_Merchant': False, 'is_Super_Admin': False, 'ip_address': '192.168.1.13.1'
+        }, 'emp_id': 'sp8898', 'updated_history': [
+            {'date_time': '20244221 234228', 'remark': 'EMP created by SA'
+            }
+        ]
+    },
+    {'user': {'last_login': None, 'email': 'Aashi@asjaae.in', 'first_name': 'Aashi', 'last_name': 'aggarwal', 'contact_no': 1234567890, 'date_joined': '2024-02-21', 'updated_history': [
+                {'date_time': '20244521 234503', 'remark': 'Merchant created by 192.168.1.15'
+                }
+            ], 'is_active': True, 'is_Admin': True, 'is_Merchant': False, 'is_Super_Admin': False, 'ip_address': '192.168.1.13.1'
+        }, 'emp_id': 'sp7683', 'updated_history': [
+            {'date_time': '20244521 234504', 'remark': 'EMP created by SA'
+            }
+        ]
+    },
+    {'user': {'last_login': None, 'email': 'Aashi@asjaaee.in', 'first_name': 'Aashi', 'last_name': 'aggarwal', 'contact_no': 1234567590, 'date_joined': '2024-02-21', 'updated_history': [
+                {'date_time': '20244621 234638', 'remark': 'Merchant created by 192.168.1.15'
+                }
+            ], 'is_active': True, 'is_Admin': True, 'is_Merchant': False, 'is_Super_Admin': False, 'ip_address': '192.168.1.13.1'
+        }, 'emp_id': 'sp5475', 'updated_history': [
+            {'date_time': '20244621 234639', 'remark': 'EMP created by SA'
+            }
+        ]
+    },
+    {'user': {'last_login': None, 'email': 'Aashi@asjaawee.in', 'first_name': 'Aashi', 'last_name': 'aggarwal', 'contact_no': 1234567550, 'date_joined': '2024-02-21', 'updated_history': [
+                {'date_time': '20244721 234713', 'remark': 'Merchant created by 192.168.1.15'
+                }
+            ], 'is_active': True, 'is_Admin': True, 'is_Merchant': False, 'is_Super_Admin': False, 'ip_address': '192.168.1.13.1'
+        }, 'emp_id': 'sp4748', 'updated_history': [
+            {'date_time': '20244721 234714', 'remark': 'EMP created by SA'
+            }
+        ]
+    },
+    {'user': {'last_login': None, 'email': 'Aashi@asjaawwee.in', 'first_name': 'Aashi', 'last_name': 'aggarwal', 'contact_no': 1234567850, 'date_joined': '2024-02-21', 'updated_history': [
+                {'date_time': '20245721 235731', 'remark': 'Merchant created by 192.168.1.15'
+                }
+            ], 'is_active': True, 'is_Admin': True, 'is_Merchant': False, 'is_Super_Admin': False, 'ip_address': '192.168.1.13.1'
+        }, 'emp_id': 'sp4334', 'updated_history': [
+            {'date_time': '20245721 235732', 'remark': 'EMP created by SA'
+            }
+        ]
+    },
+    {'user': {'last_login': None, 'email': 'Aashi@asjaawwoe.in', 'first_name': 'Aashi', 'last_name': 'aggarwal', 'contact_no': 1234567858, 'date_joined': '2024-02-21', 'updated_history': [
+                {'date_time': '20245821 235858', 'remark': 'Merchant created by 192.168.1.15'
+                }
+            ], 'is_active': True, 'is_Admin': True, 'is_Merchant': False, 'is_Super_Admin': False, 'ip_address': '192.168.1.13.1'
+        }, 'emp_id': 'sp8131', 'updated_history': [
+            {'date_time': '20245821 235859', 'remark': 'EMP created by SA'
+            }
+        ]
+    },
+    {'user': {'last_login': None, 'email': 'aashi@12gmail.com', 'first_name': 'aashi', 'last_name': 'aggarwasl', 'contact_no': 7894561236, 'date_joined': '2024-02-22', 'updated_history': [
+                {'date_time': '20242622 002600', 'remark': 'Merchant created by 192.168.1.15'
+                }
+            ], 'is_active': True, 'is_Admin': True, 'is_Merchant': False, 'is_Super_Admin': False, 'ip_address': '192.168.1.13.1'
+        }, 'emp_id': 'sp7325', 'updated_history': [
+            {'date_time': '20242622 002601', 'remark': 'EMP created by SA'
+            }
+        ]
+    },
+    {'user': {'last_login': None, 'email': 'aash18@gmail.com', 'first_name': 'aashi', 'last_name': 'aggarwasl', 'contact_no': 7894561239, 'date_joined': '2024-02-22', 'updated_history': [
+                {'date_time': '20242722 002718', 'remark': 'Merchant created by 192.168.1.15'
+                }
+            ], 'is_active': True, 'is_Admin': True, 'is_Merchant': False, 'is_Super_Admin': False, 'ip_address': '192.168.1.13.1'
+        }, 'emp_id': 'sp8031', 'updated_history': [
+            {'date_time': '20242722 002719', 'remark': 'EMP created by SA'
             }
         ]
     }

@@ -39,23 +39,10 @@
 
 				<div class="row page-titles">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item active"><a href="javascript:void(0)">Admin</a></li>
-						<li class="breadcrumb-item"><a href="javascript:void(0)">Add Admin</a></li>
-						<li class =  "right">
-								{% if response%}
-								
-								{% if response == "Success"%}	
-									<div class=" fadeinalert alert alert-success alert-dismissible alert-alt fade show">
-										<span >
 
-											<strong>Success!</strong> Admin Created successfully.
-										</span>
-									</div>
-									
-								
-									{% endif %}
-								{% endif %}
-						</li>
+						<li class="breadcrumb-item active"><a href="javascript:void(0)">Admin</a></li>
+						<li class="breadcrumb-item"><a href="javascript:void(0)">Edit Admin</a></li>
+						
 					</ol>
                 </div>
                 <!-- row -->
@@ -73,13 +60,13 @@
 										<div class="col-lg-6 mb-2">
 											<div class="mb-3">
 												<label class="text-label form-label">First Name*</label>
-												<input type="text" name="first_name" class="form-control" placeholder="Enter First Name" required>
+												<input type="text" name="first_name" class="form-control" placeholder="Enter First Name" value = {{first_name}} required>
 											</div>
 										</div>
 										<div class="col-lg-6 mb-2">
 											<div class="mb-3">
 												<label class="text-label form-label">Last Name*</label>
-												<input type="text" name="last_name" class="form-control" placeholder="Enter Last Name" required>
+												<input type="text" name="last_name" class="form-control" value = {{last_name}} placeholder="Enter Last Name" required>
 											</div>
 										</div>
 										
@@ -88,33 +75,25 @@
 												<label class="mb-2 ">
 												  Email*
 												</label>
-												{{ form.email|attr:"type:email"|attr:"class:form-control"|attr:"placeholder:Enter Your Email" }}
+												{{ form.email|attr:"type:email"|attr:"class:form-control"|attr:"placeholder:Email"|attr:"value = {{email}}" }}
 												<div class="text-danger w-100 d-block mt-1">
 												  {{ form.email.errors }}
 												</div>
 											  </div>
 										</div>
-										<div class="col-lg-6 mb-2">
-											<label class="mb-2">
-												Password*
-											  </label>
-											  {{ form.password|attr:"class:form-control"|attr:"placeholder:Enter Your Password"|attr:"id:dz-password"|attr:"type:password" }}
-											  <div class="text-danger w-100 d-block mt-1">
-												{{ form.password.errors }}
-											  </div>
-										</div>
+										
 										<div class="col-lg-6 mb-2">
 											<div class="form-group">
 												<div class="mb-3">
 													<label class="text-label form-label">Phone Number*</label>
-													<input type="tel" name="phone_number" class="form-control" placeholder="Enter Your Phone Number" required>
+													<input type="tel" name="phone_number" class="form-control" placeholder="Enter Your Phone Number" value = {{phone_number}} required>
 												</div>
 											  </div>
 										</div>
 									</div>
 								</div>
 								<div class="card-body" style="text-align: center">
-									<button type="submit" class="btn btn-primary btn-lg">Submit</button>
+									<button type="submit" class="btn btn-primary btn-lg">Update</button>
 								</div>
 							</form>
                         </div>
