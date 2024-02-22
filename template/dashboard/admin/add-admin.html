@@ -5,8 +5,8 @@
 
 				<div class="row page-titles">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item active"><a href="javascript:void(0)">Admin</a></li>
-						<li class="breadcrumb-item"><a href="javascript:void(0)">Add Admin</a></li>
+						<li class="breadcrumb-item "><a href="javascript:void(0)">Admin</a></li>
+						<li class="breadcrumb-item active"><a href="javascript:void(0)">Add Admin</a></li>
 					</ol>
                 </div>
                 <!-- row -->
@@ -39,7 +39,7 @@
 												<label class="mb-2 ">
 												  Email*
 												</label>
-												{{ form.email|attr:"type:email"|attr:"class:form-control"|attr:"placeholder:Email" }}
+												{{ form.email|attr:"type:email"|attr:"class:form-control"|attr:"placeholder:Enter Your Email" }}
 												<div class="text-danger w-100 d-block mt-1">
 												  {{ form.email.errors }}
 												</div>
@@ -49,7 +49,7 @@
 											<label class="mb-2">
 												Password*
 											  </label>
-											  {{ form.password|attr:"class:form-control"|attr:"placeholder:Password"|attr:"id:dz-password"|attr:"type:password" }}
+											  {{ form.password|attr:"class:form-control"|attr:"placeholder:Enter Your Password"|attr:"id:dz-password"|attr:"type:password" }}
 											  <div class="text-danger w-100 d-block mt-1">
 												{{ form.password.errors }}
 											  </div>

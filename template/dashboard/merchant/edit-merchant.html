@@ -1,0 +1,115 @@
+{% extends 'dashboard/elements/layouts/admin.html' %}
+{% load static widget_tweaks%}
+
+{% block content %}
+
+				<div class="row page-titles">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item "><a href="javascript:void(0)">Admin</a></li>
+						<li class="breadcrumb-item active"><a href="javascript:void(0)">Edit Merchant</a></li>
+					</ol>
+                </div>
+
+<div class="row">
+    <div class="col-xl-12 col-xxl-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Add Merchant</h4>
+            </div>
+            <form method = "post">
+                {% csrf_token %}
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-6 mb-2">
+                            <div class="mb-3">
+                                <label class="text-label form-label">First Name*</label>
+                                <input type="text" name="first_name" class="form-control" placeholder="Enter First Name" value="{{first_name}}" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 mb-2">
+                            <div class="mb-3">
+                                <label class="text-label form-label">Last Name*</label>
+                                <input type="text" name="last_name" class="form-control" placeholder="Enter Last Name" value="{{last_name}}"  required>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-6 mb-2">
+                            <div class="form-group">
+                                <label class="mb-3 ">
+                                  Email*
+                                </label>
+                                <input type="text" name="email" class="form-control" placeholder="Enter Your E-mail" value="{{email}}" required>
+                                {{ form.email|attr:"type:email"|attr:"class:form-control"|attr:"placeholder:Email" }}
+                                <div class="text-danger w-100 d-block mt-1">
+                                  {{ form.email.errors }}
+                                </div>
+                              </div>
+                        </div>
+                        <div class="col-lg-6 mb-2">
+                            <div class="form-group">
+                                <label class="mb-3 ">
+                                  Password*
+                                </label>
+                                <input type="password" name="password" class="form-control" placeholder="Enter Your Password" value="{{password}}" required>
+                                {{ form.password|attr:"class:form-control"|attr:"placeholder:Password"|attr:"id:dz-password"|attr:"type:password" }}
+                                <div class="text-danger w-100 d-block mt-1">
+                                  {{ form.password.errors }}
+                                </div>
+                              </div>
+                        </div>
+                        
+                        <div class="col-lg-6 mb-2">
+                            <div class="mb-3">
+                                <label class="text-label form-label">Business Name*</label>
+                                <input type="text" name="business_name" class="form-control" placeholder="Enter your Business name" value="{{business_name}}" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 mb-2">
+                            <div class="mb-3">
+                                <label class="text-label form-label">GST No.</label>
+                                <input type="text" name="gst_no" class="form-control" placeholder="Enter your GST No." value="{{gst_no}}">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 mb-2">
+                            <div class="mb-3">
+                                <label class="text-label form-label">Phone No.*</label>
+                                <input type="tel" name="phone_no." class="form-control" placeholder="Enter Phone No." value="{{phone_no}}" required>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="col-lg-6 mb-2">
+                            <div class="mb-3">
+                            <label><strong>Service Options</strong></label><br>
+                            <input class="form-check-input" type="checkbox" id="field1" name="field1" value="Payout">
+                            <label class="form-check-label" for="vehicle1">Payout</label>
+                            <input class="form-check-input" type="checkbox" id="field2" name="field2" value="PayIn">
+                            <label class="form-check-label" for="vehicle2">PayIn</label>
+                            <input class="form-check-input" type="checkbox" id="field3" name="field3" value="Offline">
+                            <label class="form-check-label" for="vehicle3">Offline</label>
+                            <input class="form-check-input" type="checkbox" id="field4" name="field4" value="Cards">
+                            <label class="form-check-label" for="vehicle3">Cards</label>
+                        </div>
+                </div>
+            
+                <div class="card-body" style="text-align: center;">
+                    <button type="submit" class="btn btn-primary btn-lg">Update</button>
+                </div>
+            </form>
+        </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block additional_js %}
+<script>
+    $(document).ready(function(){
+        // SmartWizard initialize
+        $('#smartwizard').smartWizard(); 
+    });
+</script>
+{% endblock %}
