@@ -4,10 +4,24 @@
 /*******************
 Sweet-alert JS
 *******************/
+    
+document.querySelector(".edit-merchant").onclick = function () {
+        
+    sweetAlert("Oops...", "Something went wrong !!", "error")
 
+},
+
+document.querySelector(".edit-admin").onclick = function () {
+        
+    sweetAlert("Oops...", "Something went wrong !!", "error")
+
+},
     document.querySelector(".sweet-wrong").onclick = function () {
+
         sweetAlert("Oops...", "Something went wrong !!", "error")
-    }, document.querySelector(".sweet-message").onclick = function () {
+
+    },
+     document.querySelector(".sweet-message").onclick = function () {
         swal("Hey, Here's a message !!")
     }, document.querySelector(".sweet-text").onclick = function () {
         swal("Hey, Here's a message !!", "It's pretty, isn't it?")

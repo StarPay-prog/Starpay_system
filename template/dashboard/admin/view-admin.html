@@ -41,7 +41,14 @@
                                         <td>{{i.user.email}}</td>
                                         <td>{{i.user.contact_no}}</td>
                                         <td>{{i.user.date_joined}}</td>
-                                        <td>{{i.user.email}}</td>
+                                        <td>
+                                            {% if i.user.is_active == True %}
+                                            <i class="fa fa-lock text-primary" aria-hidden="true"></i>
+                                            {% else%}
+                                            <i class="fa fa-unlock " aria-hidden="true"></i>
+                                            {%endif%}
+                                        </td>
+   
                                         <td></td>
                                         <td class="mr-5">
                                             <div>

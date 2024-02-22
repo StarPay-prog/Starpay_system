@@ -15,7 +15,7 @@ from .authentication import *
      
 
 #@login_required(login_url='dashboard:login')
-base_url = "http://192.168.1.6:8000/"   
+base_url = "http://192.168.1.13:8000/"   
 
 def index(request):
 
@@ -44,7 +44,7 @@ def dashboard_login_merchant(request):
         jwt_token_access = response.headers['access']
         jwt_token_refresh = response.headers['refresh']
         user_data = response.json()
-        user = user_data['user']
+        user = user_data['data']
         usertype = "merchant"
         request.session['user_type'] = usertype
         print(usertype)
@@ -146,7 +146,8 @@ def dashboard_login_super_admin(request):
     if request.method == "POST":
         data = {
             "email": request.POST.get("email"),
-            "password": request.POST.get("password")
+            "password": request.POST.get("password"),
+            "user_type":999
         }
 
         url = base_url + "login/"
@@ -205,6 +206,7 @@ def dashboard_login_super_admin(request):
 def add_admin(request):
 
     if request.method == "POST":
+        
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
         email = request.POST.get('email')
@@ -216,7 +218,7 @@ def add_admin(request):
             "first_name": first_name,
             "last_name": last_name,
             "contact_no": phone_number,
-            "ip_address": "192.168.1.6.1",
+            "ip_address": "192.168.1.13.1",
             "password" : password
         }
         
@@ -235,10 +237,14 @@ def add_admin(request):
 
         print(header)
 
-        url = "http://192.168.1.6:8000/register-admin/"
+        url = "http://192.168.1.13:8000/register-admin/"
         response = requests.post(url, data=data2 , headers=header)
         slug = response.json()
+        slug = slug['status']
         print(slug)
+        form = AdminForm
+        return render (request,'dashboard/admin/add-admin.html',{"response":slug, "form":form,} )
+
 
     form = AdminForm
     context={
@@ -259,13 +265,13 @@ def view_admin(request):
         }
 
 
-    url = "http://192.168.1.6:8000/get-admin-list/"
+    url = "http://192.168.1.13:8000/get-admin-list/"
 
     response = requests.get(url, headers=header)
 
     response = response.json()
 
-    print(type(response['data']))
+    print(response['data'])
     return render (request, 'dashboard/admin/view-admin.html',context = {"data":response['data']})
 
 def view_session(request):
@@ -282,7 +288,7 @@ def view_merchant(request):
         }
 
 
-    url = "http://192.168.1.6:8000/get-merchant-list-super/"
+    url = "http://192.168.1.13:8000/get-merchant-list-super/"
 
     response = requests.get(url, headers=header)
 
@@ -317,7 +323,7 @@ def logout(request):
 def refresh_jwt(request):
     access_token = request.session.get('jwt_token_access')
     refresh_token = request.session.get('jwt_token_refresh')
-    url = "http://192.168.1.6:8000/token/refresh/"
+    url = "http://192.168.1.13:8000/token/refresh/"
 
     token = {
             "refresh":refresh_token,
