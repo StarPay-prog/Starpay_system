@@ -15,7 +15,7 @@ from .authentication import *
      
 
 #@login_required(login_url='dashboard:login')
-base_url = "http://192.168.1.15:6000/"   
+base_url = "http://192.168.1.4:6000/"   
 
 def index(request):
 
@@ -221,7 +221,7 @@ def add_admin(request):
             "first_name": first_name,
             "last_name": last_name,
             "contact_no": phone_number,
-            "ip_address": "192.168.1.15.1",
+            "ip_address": "192.168.1.4.1",
             "password" : password
         }
         
@@ -240,11 +240,11 @@ def add_admin(request):
 
         print(header)
 
-        url = "http://192.168.1.15:6000/register-admin/"
+        url = "http://192.168.1.4:6000/register-admin/"
         response = requests.post(url, data=data2 , headers=header)
         slug = response.json()
-        slug = slug['status']
         print(slug)
+        slug = slug['status']
         form = AdminForm
         return render (request,'dashboard/admin/add-admin.html',{"response":slug, "form":form,} )
 
@@ -268,7 +268,7 @@ def view_admin(request):
         }
 
 
-    url = "http://192.168.1.15:6000/get-admin-list/"
+    url = "http://192.168.1.4:6000/get-admin-list/"
 
     response = requests.get(url, headers=header)
 
@@ -291,7 +291,7 @@ def view_merchant(request):
         }
 
 
-    url = "http://192.168.1.15:6000/get-merchant-list-super/"
+    url = "http://192.168.1.4:6000/get-merchant-list-super/"
 
     response = requests.get(url, headers=header)
 
@@ -326,7 +326,7 @@ def logout(request):
 def refresh_jwt(request):
     access_token = request.session.get('jwt_token_access')
     refresh_token = request.session.get('jwt_token_refresh')
-    url = "http://192.168.1.15:6000/token/refresh/"
+    url = "http://192.168.1.4:6000/token/refresh/"
 
     token = {
             "refresh":refresh_token,
