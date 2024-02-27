@@ -42,6 +42,28 @@
 
 						<li class="breadcrumb-item "><a href="javascript:void(0)">Admin</a></li>
 						<li class="breadcrumb-item active"><a href="javascript:void(0)">Edit Admin</a></li>
+						<li class =  "right">
+							{% if response%}
+							
+							{% if response == "Success"%}	
+								<div class=" fadeinalert alert alert-success alert-dismissible alert-alt fade show">
+									<span >
+
+										<strong>Success!</strong>Admin updated successfully.
+									</span>
+								</div>
+								
+								
+								{% else%}
+								<div class=" fadeinalert alert alert-success alert-dismissible alert-alt fade show">
+									<span >
+										<strong>Failure!</strong> Something went wrong.
+									</span>
+								</div>
+								
+								{% endif %}
+							{% endif %}
+					</li>
 						
 					</ol>
                 </div>
