@@ -16,13 +16,13 @@ urlpatterns = [
     path('login-{super_admin_url}/'.format(super_admin_url=super_admin_url),views.dashboard_login_super_admin,name="dashboard-login-Super-Admin"),
     path('logout/',views.logout,name="user-logout"),
     path('add-admin/',views.add_admin,name = "add-admin"),
-    path('edit-admin/<empid>/',views.edit_admin,name = "edit_admin"),
+    path('edit-admin/<str:empid>/',views.edit_admin,name = "edit_admin"),
     path('view-admin/',views.view_admin,name="view-admin"),
     path('view-session/',views.view_session,name="view-session"),
     path('add-merchant/',views.add_merchant,name="add-merchant"),
     path('view-merchant/',views.view_merchant,name="view-merchant"),
     path('active-merchant/',views.active_merchant,name="active-merchant"),
- 
+    path('edit-merchant/<str:merchid>/',views.edit_merchant,name = "edit_merchant"),
 
     
     # path('index-2/',views.index2,name="index-2"),

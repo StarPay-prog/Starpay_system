@@ -24,58 +24,54 @@
                         <div class="col-lg-6 mb-2">
                             <div class="mb-3">
                                 <label class="text-label form-label">First Name*</label>
-                                <input type="text" name="first_name" class="form-control" placeholder="Enter First Name" value="{{first_name}}" required>
+                                <input type="text" name="first_name" class="form-control" placeholder="Enter First Name" required>
                             </div>
                         </div>
                         <div class="col-lg-6 mb-2">
                             <div class="mb-3">
                                 <label class="text-label form-label">Last Name*</label>
-                                <input type="text" name="last_name" class="form-control" placeholder="Enter Last Name" value="{{last_name}}"  required>
+                                <input type="text" name="last_name" class="form-control" placeholder="Enter Last Name" required>
                             </div>
                         </div>
                         
                         <div class="col-lg-6 mb-2">
                             <div class="form-group">
-                                <label class="mb-3 ">
+                                <label class="mb-2 ">
                                   Email*
                                 </label>
-                                <input type="text" name="email" class="form-control" placeholder="Enter Your E-mail" value="{{email}}" required>
-                                {{ form.email|attr:"type:email"|attr:"class:form-control"|attr:"placeholder:Email" }}
+                                {{ form.email|attr:"type:email"|attr:"class:form-control"|attr:"placeholder:Enter Your Email" }}
                                 <div class="text-danger w-100 d-block mt-1">
                                   {{ form.email.errors }}
                                 </div>
                               </div>
                         </div>
                         <div class="col-lg-6 mb-2">
-                            <div class="form-group">
-                                <label class="mb-3 ">
-                                  Password*
-                                </label>
-                                <input type="password" name="password" class="form-control" placeholder="Enter Your Password" value="{{password}}" required>
-                                {{ form.password|attr:"class:form-control"|attr:"placeholder:Password"|attr:"id:dz-password"|attr:"type:password" }}
-                                <div class="text-danger w-100 d-block mt-1">
-                                  {{ form.password.errors }}
-                                </div>
+                            <label class="mb-2">
+                                Password*
+                              </label>
+                              {{ form.password|attr:"class:form-control"|attr:"placeholder:Enter Your Password"|attr:"id:dz-password"|attr:"type:password" }}
+                              <div class="text-danger w-100 d-block mt-1">
+                                {{ form.password.errors }}
                               </div>
                         </div>
                         
                         <div class="col-lg-6 mb-2">
                             <div class="mb-3">
                                 <label class="text-label form-label">Business Name*</label>
-                                <input type="text" name="business_name" class="form-control" placeholder="Enter your Business name" value="{{business_name}}" required>
+                                <input type="text" name="business_name" class="form-control" placeholder="Enter your Business name" required>
                             </div>
                         </div>
                         <div class="col-lg-6 mb-2">
                             <div class="mb-3">
                                 <label class="text-label form-label">GST No.</label>
-                                <input type="text" name="gst_no" class="form-control" placeholder="Enter your GST No." value="{{gst_no}}">
+                                <input type="text" name="gst_no" class="form-control" placeholder="Enter your GST No.">
                             </div>
                         </div>
 
                         <div class="col-lg-6 mb-2">
                             <div class="mb-3">
                                 <label class="text-label form-label">Phone No.*</label>
-                                <input type="tel" name="phone_no." class="form-control" placeholder="Enter Phone No." value="{{phone_no}}" required>
+                                <input type="tel" name="phone_no." class="form-control" placeholder="Enter Phone No." required>
                             </div>
                         </div>
                         <br>
@@ -83,13 +79,13 @@
                         <div class="col-lg-6 mb-2">
                             <div class="mb-3">
                             <label><strong>Service Options</strong></label><br>
-                            <input class="form-check-input" type="checkbox" id="field1" name="field1" value="Payout">
+                            <input class="form-check-input" type="checkbox" id="field1" name="field1" value="9819">
                             <label class="form-check-label" for="vehicle1">Payout</label>
-                            <input class="form-check-input" type="checkbox" id="field2" name="field2" value="PayIn">
+                            <input class="form-check-input" type="checkbox" id="field2" name="field2" value="7314">
                             <label class="form-check-label" for="vehicle2">PayIn</label>
-                            <input class="form-check-input" type="checkbox" id="field3" name="field3" value="Offline">
+                            <input class="form-check-input" type="checkbox" id="field3" name="field3" value="5273">
                             <label class="form-check-label" for="vehicle3">Offline</label>
-                            <input class="form-check-input" type="checkbox" id="field4" name="field4" value="Cards">
+                            <input class="form-check-input" type="checkbox" id="field4" name="field4"value="8008">
                             <label class="form-check-label" for="vehicle3">Cards</label>
                         </div>
                 </div>
@@ -97,6 +93,7 @@
                 <div class="card-body" style="text-align: center;">
                     <button type="submit" class="btn btn-primary btn-lg">Update</button>
                 </div>
+            
             </form>
         </div>
         </div>

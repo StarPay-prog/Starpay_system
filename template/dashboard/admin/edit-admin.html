@@ -3,6 +3,7 @@
 
 {% block additional_css %}
 
+
 	<style>
 		
 		@keyframes fadeIn {  
@@ -39,8 +40,8 @@
 				<div class="row page-titles">
 					<ol class="breadcrumb">
 
-						<li class="breadcrumb-item active"><a href="javascript:void(0)">Admin</a></li>
-						<li class="breadcrumb-item"><a href="javascript:void(0)">Edit Admin</a></li>
+						<li class="breadcrumb-item "><a href="javascript:void(0)">Admin</a></li>
+						<li class="breadcrumb-item active"><a href="javascript:void(0)">Edit Admin</a></li>
 						
 					</ol>
                 </div>
@@ -59,13 +60,13 @@
 										<div class="col-lg-6 mb-2">
 											<div class="mb-3">
 												<label class="text-label form-label">First Name*</label>
-												<input type="text" name="first_name" class="form-control" placeholder="Enter First Name" value = {{first_name}} required>
+												<input type="text" name="first_name" class="form-control" placeholder="Enter First Name" required>
 											</div>
 										</div>
 										<div class="col-lg-6 mb-2">
 											<div class="mb-3">
 												<label class="text-label form-label">Last Name*</label>
-												<input type="text" name="last_name" class="form-control" value = {{last_name}} placeholder="Enter Last Name" required>
+												<input type="text" name="last_name" class="form-control" placeholder="Enter Last Name" required>
 											</div>
 										</div>
 										
@@ -74,18 +75,26 @@
 												<label class="mb-2 ">
 												  Email*
 												</label>
-												{{ form.email|attr:"type:email"|attr:"class:form-control"|attr:"placeholder:Email"|attr:"value = {{email}}" }}
+												{{ form.email|attr:"type:email"|attr:"class:form-control"|attr:"placeholder:Enter Your Email" }}
 												<div class="text-danger w-100 d-block mt-1">
 												  {{ form.email.errors }}
 												</div>
 											  </div>
 										</div>
-										
+										<div class="col-lg-6 mb-2">
+											<label class="mb-2">
+												Password*
+											  </label>
+											  {{ form.password|attr:"class:form-control"|attr:"placeholder:Enter Your Password"|attr:"id:dz-password"|attr:"type:password" }}
+											  <div class="text-danger w-100 d-block mt-1">
+												{{ form.password.errors }}
+											  </div>
+										</div>
 										<div class="col-lg-6 mb-2">
 											<div class="form-group">
 												<div class="mb-3">
 													<label class="text-label form-label">Phone Number*</label>
-													<input type="tel" name="phone_number" class="form-control" placeholder="Enter Your Phone Number" value = {{phone_number}} required>
+													<input type="tel" name="phone_number" class="form-control" placeholder="Enter Your Phone Number" required>
 												</div>
 											  </div>
 										</div>

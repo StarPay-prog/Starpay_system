@@ -15,10 +15,10 @@ from .authentication import *
      
 
 #@login_required(login_url='dashboard:login')
-base_url = "http://192.168.1.4:6000/"   
+base_url = "http://192.168.1.7:6000/"   
 
 def index(request):
-    refresh_jwt(request)
+    # refresh_jwt(request)
 
     print(request.session.get('jwt_token'))
     
@@ -229,7 +229,7 @@ def add_admin(request):
             "first_name": first_name,
             "last_name": last_name,
             "contact_no": phone_number,
-            "ip_address": "192.168.1.4.1",
+            "ip_address": "192.168.1.7.1",
             "password" : password
         }
         
@@ -248,7 +248,7 @@ def add_admin(request):
 
         print(header)
 
-        url = "http://192.168.1.4:6000/register-admin/"
+        url = "http://192.168.1.7:6000/register-admin/"
         response = requests.post(url, data=data2 , headers=header)
         slug = response.json()
         print(slug)
@@ -267,7 +267,7 @@ def add_admin(request):
 
 
 def view_admin(request):
-    refresh_jwt(request)  
+    
 
     jwt_token = request.session.get('jwt_token_access')
 
@@ -277,7 +277,7 @@ def view_admin(request):
         }
 
 
-    url = "http://192.168.1.4:6000/get-admin-list/"
+    url = "http://192.168.1.7:6000/get-admin-list/"
 
     response = requests.get(url, headers=header)
 
@@ -301,7 +301,7 @@ def view_merchant(request):
         }
 
 
-    url = "http://192.168.1.4:6000/get-merchant-list-super/"
+    url = "http://192.168.1.7:6000/get-merchant-list-super/"
 
     response = requests.get(url, headers=header)
 
@@ -314,16 +314,27 @@ def view_merchant(request):
 
 
 def edit_merchant(request,merchid):
+    url = base_url + "get-merchant/" + merchid
+    
+    jwt_token = request.session.get('jwt_token_access')
+
+    header = {
+        "Authorization": f"Bearer {jwt_token}",
+        "Content-Type": "application/json"  # Assuming you are sending JSON data
+        }
+
 
     if request.method == "POST":
 
         return HttpResponseRedirect("view-merchant")
+    form = LoginForm
+    
+    response = requests.get(url, headers=header)
 
+    return render (request,"dashboard/merchant/edit-merchant.html" ,context = {"form":form,
+                                                           'data': response})
 
-    return render (request,"dashboard/merchant/edit-merchant.html")
-
-
-def edit_admin(request,empid):
+def edit_admin(request,empid):          
     url = base_url + "get-admin/" + empid
     
     jwt_token = request.session.get('jwt_token_access')
@@ -337,13 +348,12 @@ def edit_admin(request,empid):
     if request.method == "POST":
 
         return HttpResponseRedirect("view-admin")
-    
+    form = LoginForm
     
     response = requests.get(url, headers=header)
 
-
-
-    return render (request,"dashboard/admin/edit-admin.html")
+    return render (request,"dashboard/admin/edit-admin.html" ,context = {"form":form,
+                                                           'data': response})
 
 
 def active_merchant(request):
@@ -421,7 +431,7 @@ def refresh_jwt(request):
 
     access_token = request.session.get('jwt_token_access')
     refresh_token = request.session.get('jwt_token_refresh')
-    url = "http://192.168.1.4:6000/token/refresh/"
+    url = "http://192.168.1.7:6000/token/refresh/"
 
     token = {
             "refresh":refresh_token,
