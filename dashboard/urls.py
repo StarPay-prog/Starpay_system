@@ -10,11 +10,13 @@ urlpatterns = [
     path('index/',views.index,name="index"),
     path('login/',views.dashboard_login_merchant,name="dashboard-login-merchant"),
     path('login-{admin_url}/'.format(admin_url=admin_url),views.dashboard_login_admin,name="dashboard-login-Admin"),
+    path('payout-merchants' , views.payout_merchant ,name= "payout-merchants"),
     # path('login-saAm/',views.dashboard_login_admin,name="dashboard-login-Admin"),
     
     path('login-{super_admin_url}/'.format(super_admin_url=super_admin_url),views.dashboard_login_super_admin,name="dashboard-login-Super-Admin"),
     path('logout/',views.logout,name="user-logout"),
     path('add-admin/',views.add_admin,name = "add-admin"),
+    path('edit-admin/<empid>/',views.edit_admin,name = "edit_admin"),
     path('view-admin/',views.view_admin,name="view-admin"),
     path('view-session/',views.view_session,name="view-session"),
     path('add-merchant/',views.add_merchant,name="add-merchant"),
