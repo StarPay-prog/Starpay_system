@@ -229,7 +229,7 @@ def add_admin(request):
             "first_name": first_name,
             "last_name": last_name,
             "contact_no": phone_number,
-            "ip_address": "192.168.1.7.1",
+            "ip_address": "192.168.1.13.1",
             "password" : password
         }
         
