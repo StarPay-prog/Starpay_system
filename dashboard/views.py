@@ -15,7 +15,7 @@ from .authentication import *
      
 
 #@login_required(login_url='dashboard:login')
-base_url = "http://192.168.1.7:6000/"   
+base_url = "http://192.168.1.13:6000/"   
 
 def index(request):
     # refresh_jwt(request)
@@ -229,7 +229,7 @@ def add_admin(request):
             "first_name": first_name,
             "last_name": last_name,
             "contact_no": phone_number,
-            "ip_address": "192.168.1.7.1",
+            "ip_address": "192.168.1.13.1",
             "password" : password
         }
         
@@ -248,7 +248,7 @@ def add_admin(request):
 
         print(header)
 
-        url = "http://192.168.1.7:6000/register-admin/"
+        url = "http://192.168.1.13:6000/register-admin/"
         response = requests.post(url, data=data2 , headers=header)
         slug = response.json()
         print(slug)
@@ -277,7 +277,7 @@ def view_admin(request):
         }
 
 
-    url = "http://192.168.1.7:6000/get-admin-list/"
+    url = "http://192.168.1.13:6000/get-admin-list/"
 
     response = requests.get(url, headers=header)
 
@@ -301,7 +301,7 @@ def view_merchant(request):
         }
 
 
-    url = "http://192.168.1.7:6000/get-merchant-list-super/"
+    url = "http://192.168.1.13:6000/get-merchant-list-super/"
 
     response = requests.get(url, headers=header)
 
@@ -379,7 +379,7 @@ def add_merchant(request):
             "first_name": request.POST.get('first_name'),
             "last_name": request.POST.get('last_name'),
             "contact_no": request.POST.get('phone_number'),
-            "ip_address": "192.168.1231.7.2.21.1",
+            "ip_address": "192.168.1231.13.2.21.1",
             "password": request.POST.get('password'),
             "business_name":request.POST.get('buisness_name'),
             "gst_no":request.POST.get('gst_no'),
@@ -403,7 +403,7 @@ def add_merchant(request):
 
         print(header)
 
-        url = "http://192.168.1.7:6000/register-merchant/"
+        url = "http://192.168.1.13:6000/register-merchant/"
         response = requests.post(url, data=data2 , headers=header)
         slug = response.json()
         slug = slug['status']
@@ -431,7 +431,7 @@ def refresh_jwt(request):
 
     access_token = request.session.get('jwt_token_access')
     refresh_token = request.session.get('jwt_token_refresh')
-    url = "http://192.168.1.7:6000/token/refresh/"
+    url = "http://192.168.1.13:6000/token/refresh/"
 
     token = {
             "refresh":refresh_token,
