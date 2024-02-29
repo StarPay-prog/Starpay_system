@@ -25,6 +25,7 @@
 	<!-- FAVICONS ICON -->
 	<link rel="icon" type="image/png" sizes="16x16" href="{% static dz_array.public.favicon  %}" />
 
+    {{request.path}}
     {% for cssurl in dz_array.pagelevel.dashboard.views.css|getdata:request.path %}
     <link rel="stylesheet" href="{% static cssurl %}" >
 	{% endfor %}
@@ -153,6 +154,9 @@
     {% for jsurl in dz_array.global.js.bottom %}
     <script src="{% static jsurl %}"></script>
     {% endfor %}
+    <script src="{% static 'dashboard/vendor/sweetalert2/dist/sweetalert2.min.js' %}"></script>
+    <script src="{% static 'dashboard/vendor/sweetalert2/dist/sweetalert2.min.js'%}"></script>
+    <script src="{% static 'dashboard/vendor/sweetalert2/dist/sweetalert2.min.js' %}"></script>
     
     {% block additional_js %}
     {% endblock %}

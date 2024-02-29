@@ -145,7 +145,7 @@ def dashboard_login_admin(request):
     form = LoginForm
     return render(request,'dashboard/modules/login.html',{"form":form})
 
-def payout_merchant(request):
+def payout_merchants(request):
 
     return render (request , 'dashboard/admin/payout-merchant.html',)
 
@@ -214,7 +214,7 @@ def dashboard_login_super_admin(request):
 
 
 def add_admin(request):
-    refresh_jwt(request)
+    # refresh_jwt(request)
 
     if request.method == "POST":
         
@@ -291,7 +291,7 @@ def view_session(request):
     return render (request, 'dashboard/admin/view-session.html')
 
 def view_merchant(request):
-    refresh_jwt(request)
+    # refresh_jwt(request)
 
     jwt_token = request.session.get('jwt_token_access')
 
@@ -362,7 +362,7 @@ def active_merchant(request):
 
 def add_merchant(request):
 
-    refresh_jwt(request)
+    #refresh_jwt(request)
     emp_id = request.session.get('user_data')
     print(emp_id)
     emp_id =emp_id['data']['emp_id']
@@ -414,17 +414,19 @@ def add_merchant(request):
     return render  (request,'dashboard/merchant/add-merchant.html')
 
 def logout(request):
-    
-    session_key = request.session.session_key
-    
-    # Delete the session using Django's session framework
-    Session.objects.filter(session_key=session_key).delete()
-    
-    # Delete the corresponding CustomSession object
-    CustomSession.objects.filter(session=session_key).delete()
 
 
-    return HttpResponseRedirect ("/login/")
+    return render  (request,'dashboard/plugins/uc-sweetalert.html')
+    # session_key = request.session.session_key
+    
+    # # Delete the session using Django's session framework
+    # Session.objects.filter(session_key=session_key).delete()
+    
+    # # Delete the corresponding CustomSession object
+    # CustomSession.objects.filter(session=session_key).delete()
+
+
+    # return HttpResponseRedirect ("/login/")
 
 
 def refresh_jwt(request):
