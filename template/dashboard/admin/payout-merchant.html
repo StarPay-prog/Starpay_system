@@ -46,13 +46,23 @@
   cursor: pointer;
 }
 
+.scrollmenu {
+   
+   
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.scrollbody{
+    min-width: 1250px;
+}
+
 </style>
 {% endblock %}
 
 {% block content %}
 
-<div class="col-xl-12">
-    <div class="card">
+<div class=" scrollmenu col-xl-12">
+    <div class="card scrollbody">
         <div class="card-header d-block d-sm-flex border-0">
             <div>
                 <h4 class="fs-20 text-black">Payout merchant</h4>
@@ -73,7 +83,7 @@
             </div>
         </div>
        
-            <div class="card-body payment-bx tab-content p-0">
+            <div class="card-body   payment-bx tab-content p-0">
                 
                 <div class="tab-pane active show fade" id="All" role="tabpanel">
 
@@ -83,17 +93,17 @@
                         <div class="accordion__item border-bottom mb-0">
                             <div class="d-flex flex-wrap align-items-center accordion__header collapsed rounded" >
                             
-                                <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">S.No</span>
+                                <span class="  text-black font-w600 px-2 colWid1">S.No</span>
                                 
-                                <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">Status</span>
-                                <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid3">Business Name</span>
-                                <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid3">Mobile No</span>
+                                <span class="  text-black font-w600 px-2 colWid1">Status</span>
+                                <span class="  text-black font-w600 px-2 colWid3">Business Name</span>
+                                <span class="  text-black font-w600 px-2 colWid3">Mobile No</span>
                                 
-                                <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid3">Email</span>
-                                <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid3">Available Balance</span>
-                                <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid3">Hold Balance</span>
-                                <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid3">Transfer</span>
-                                <span class="mb-lg-0 mb-3 text-black font-w600 px-2 "></span>
+                                <span class="  text-black font-w600 px-2 colWid3">Email</span>
+                                <span class="  text-black font-w600 px-2 colWid3">Available Balance</span>
+                                <span class="  text-black font-w600 px-2 colWid3">Hold Balance</span>
+                                <span class="  text-black font-w600 px-2 colWid3">Transfer</span>
+                                <span class="  text-black font-w600 px-2 "></span>
                                 
                                 
                                 
@@ -104,26 +114,27 @@
 
                         <!-- start of section loopto be added here  -->
                             <div class="accordion__item border-bottom mb-0">
-                                <div class="d-flex flex-wrap align-items-center accordion__header collapsed rounded" data-bs-toggle="collapse" data-bs-target="#default_collapseOne1">
+                                <div class=" onclickdrop d-flex flex-wrap align-items-center accordion__header collapsed rounded" data-bs-toggle="collapse" data-bs-target="#default_collapseOne1">
                                    
-                               <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">1</span>
-                                 
-                               <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">
-                                <button class="btn  btn sweet-ajax"><i class="fa fa-lock text-success" aria-hidden="true"></i>  </button>
-                                </span>     
-                            
-                                
-                                <span id = "business_name" class="mb-lg-0 mb-3 font-w100 px-2 colWid3">Good work</span>
-                                <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3">9891713570</span>
-                                
-                                <span id = "business_email" class="mb-lg-0 mb-3  font-w100 px-2 colWid3">aditya@gmail.com</span>
-                                <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3"><i class="fa fa-inr text-active" aria-hidden="true">
-                                </i>50000000</span>
-                                <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3"><i class="fa fa-inr text-active" aria-hidden="true">
-                                </i>500,000</span>
-                                <span id  = "openPopupBtn" class=" colWid3 btn btn-success shadow btn-s sharp me-1"><i class="fa fa-inr text-white" aria-hidden="true"></i>
-                                </span>
-                                <span class="accordion__header--indicator"></span>
+                                                <span class="  text-black font-w600 px-2 colWid1">1</span>
+                                                
+                                                <span class="  text-black font-w600 px-2 colWid1">
+                                                    <button onclick="sweetajax()"  class="btn  btn "><i class="fa fa-lock text-success" aria-hidden="true"></i>  </button>
+                                                </span>     
+                                            
+                                                
+                                                <span id = "business_name" class="  font-w100 px-2 colWid3">Good work</span>
+                                                <span class="   font-w100 px-2 colWid3">9891713570</span>
+                                                
+                                                <span id = "business_email" class="   font-w100 px-2 colWid3">aditya@gmail.com</span>
+                                                <span class="   font-w100 px-2 colWid3"><i class="fa fa-inr text-active" aria-hidden="true">
+                                                </i>50000000</span>
+                                                <span class="   font-w100 px-2 colWid3"><i class="fa fa-inr text-active" aria-hidden="true">
+                                                </i>500,000</span>
+                                                <span id  = "openPopupBtn" class=" colWid3 btn btn-success shadow btn-s sharp me-1"><i class="fa fa-inr text-white" aria-hidden="true"></i>
+                                                </span>
+                                                <span class="accordion__header--indicator"></span>
+
                                 </div>
                                 <div id="default_collapseOne1" class="collapse accordion__body" data-bs-parent="#accordion-one">
                                     <div class="d-flex flex-wrap align-items-center accordion__body--text p-0">
@@ -540,8 +551,19 @@ window.onclick = function(event) {
 
  </script>
  <script>
-    (document.querySelector(".sweet-ajax").onclick = function () {
-    swal(
+
+    function sweetajax(){
+
+        
+        var Toggle = document.querySelector('.onclickdrop');
+        Toggle.click()
+
+        // Check if the element exists
+        
+    
+        
+        
+        swal(
       {
         title: "Sweet ajax request !!",
         text: "Submit to run ajax request !!",
@@ -554,9 +576,29 @@ window.onclick = function(event) {
         setTimeout(function () {
           swal("Hey, your ajax request finished !!");
         }, 2e3);
-      }
-    );
-  });
+        accordionHeader.setAttribute("data-bs-toggle", "collapse");
+            accordionHeader.setAttribute("data-bs-target", "#default_collapseOne1");
+        }, 2000);
+
+    }
+
+//     (document.querySelector(".sweet-ajax").onclick = function () {
+//     swal(
+//       {
+//         title: "Sweet ajax request !!",
+//         text: "Submit to run ajax request !!",
+//         type: "info",
+//         showCancelButton: !0,
+//         closeOnConfirm: !1,
+//         showLoaderOnConfirm: !0,
+//       },
+//       function () {
+//         setTimeout(function () {
+//           swal("Hey, your ajax request finished !!");
+//         }, 2e3);
+//       }
+//     );
+//   });
  </script>
  
 {% endblock %}
