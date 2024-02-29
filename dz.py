@@ -170,7 +170,7 @@ dz_array = {
                         "uc_noui_slider":[
                             f"{foldername}/vendor/nouislider/nouislider.min.css"
                         ],
-                        "uc_sweetalert":[
+                        "payout_merchants":[
                             f"{foldername}/vendor/sweetalert2/dist/sweetalert2.min.css"
                         ],
                         "uc_toastr":[
@@ -395,9 +395,9 @@ dz_array = {
                             f"{foldername}/vendor/wnumb/wNumb.js",
                             f"{foldername}/js/plugins-init/nouislider-init.js"
                         ],
-                        "uc_sweetalert":[
+                        "payout_merchants":[
                             f"{foldername}/vendor/sweetalert2/dist/sweetalert2.min.js",
-                            f"{foldername}/js/plugins-init/sweetalert.init.js",
+                           
 
                         ],
                         "uc_toastr":[

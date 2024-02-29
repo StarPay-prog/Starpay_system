@@ -5,12 +5,12 @@ admin_url = "saAm"
 super_admin_url = "SAam"
 
 urlpatterns = [
-    path('', views.index , name = "Index"),
+    path('', views.index , name = "index"),
     # path('signup/',views.signup),
-    path('index/',views.index,name="index"),
+    # path('index/',views.index,name="index"),
     path('login/',views.dashboard_login_merchant,name="dashboard-login-merchant"),
     path('login-{admin_url}/'.format(admin_url=admin_url),views.dashboard_login_admin,name="dashboard-login-Admin"),
-    path('payout-merchants' , views.payout_merchant ,name= "payout-merchants"),
+    path('payout-merchants' , views.payout_merchants ,name= "payout-merchants"),
     # path('login-saAm/',views.dashboard_login_admin,name="dashboard-login-Admin"),
     
     path('login-{super_admin_url}/'.format(super_admin_url=super_admin_url),views.dashboard_login_super_admin,name="dashboard-login-Super-Admin"),
