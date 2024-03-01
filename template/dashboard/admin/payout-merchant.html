@@ -11,6 +11,14 @@
     .colWid3 {
         width: 117px;
     }
+    .form-control{
+        border: 2px solid gray;
+
+    }
+    .form-control:focus{
+        border: 2px solid skyblue;
+    }
+    
 
     .popup {
         display: none;
@@ -169,7 +177,7 @@
                             <div class="d-flex flex-wrap align-items-center accordion__body--text p-0">
 
                                 <div class="me-3 mb-3">
-                                    <p class="fs-12 mb-2"><strong>Service Charges: Min ₹10</strong></p>
+                                    <p class="fs-12 mb-2"><strong class="text-black">Service Charges: Min ₹10</strong></p>
                                     <span onclick="togglePopups('popupFormIP')"
                                         class="btn btn-outline-primary shadow btn-s sharp me-1">IP Whitelist</span>
                                 </div>
@@ -177,18 +185,18 @@
 
                                 
                                 <div class="me-3 mb-3">
-                                    <p class="fs-12 mb-2"><strong>IMPS : 2%</strong></p>
+                                    <p class="fs-12 mb-2"><strong class="text-black">IMPS : 2%</strong></p>
                                     <span class=" btn btn-outline-primary  shadow btn-s sharp me-1"
                                         onclick="togglePopups('popupFormCallBack')">Call Back</span>
 
                                 </div>
                                 <div class="me-3 mb-3">
-                                    <p class="fs-12 mb-2"><strong>RTGS : 2%</strong></p>
+                                    <p class="fs-12 mb-2"><strong class="text-black">RTGS : 2%</strong></p>
                                     <span class="   btn btn-outline-primary  shadow btn-s sharp me-1">Routes</span>
 
                                 </div>
                                 <div class="me-3 mb-3">
-                                    <p class="fs-12 mb-2"><strong>NEFT : 2%</strong></p>
+                                    <p class="fs-12 mb-2"><strong class="text-black">NEFT : 2%</strong></p>
                                     <span class="  btn btn-outline-primary  shadow btn-s sharp me-1" onclick="togglePopups('popupFormServiceCharge')">Service
                                         charges</span>
 
@@ -600,7 +608,9 @@
                     </tr>
                 </tbody>
             </table>
-            <button class="btn btn-primary  mb-2">Add New IP</button>
+            <hr style="  margin-top: 30px;">
+            <button class="btn btn-primary  mb-2" style="width: 20%;
+            font-size: large;">Add New IP</button>
         </div>
     </form>
 </div>
@@ -611,8 +621,9 @@
         <div class="mb-3">
             <label style="width: -moz-available;"><strong>CallBack URL</strong></label>
             <input class="form-control" type="text" placeholder="Enter Your URL">
-            <hr>
-            <button class="btn btn-primary mb-2">Apply</button>
+            <hr style="  margin-top: 30px;">
+            <button class="btn btn-primary sweet-success  mb-2" style="width: 20%;
+            font-size: large;" type="submit">Apply</button>
         </div>
     </form>
 </div>
@@ -627,8 +638,9 @@
             <input class="form-control" type="text" placeholder=""><br>
             <label><strong>NEFT</strong></label>
             <input class="form-control" type="text" placeholder=""><br>
-            <hr>
-            <button class="btn btn-primary mb-2">Save</button>
+            <hr style="  margin-top: 30px;">
+            <button type="submit" class="btn btn-primary mb-2" style="width: 20%;
+            font-size: large;">Save</button>
         </div>
     </form>
 </div>
@@ -754,5 +766,12 @@
         );
     });
 </script>
+
+<script>
+    document.querySelector(".sweet-success").onclick = function () {
+        swal("Applied Sucessfully!!", "success")
+    }
+</script>
+
 
 {% endblock %}
