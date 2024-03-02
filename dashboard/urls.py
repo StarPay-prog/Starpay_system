@@ -23,6 +23,7 @@ urlpatterns = [
     path('view-merchant/',views.view_merchant,name="view-merchant"),
     path('active-merchant/',views.active_merchant,name="active-merchant"),
     path('edit-merchant/<str:merchid>/',views.edit_merchant, name = "edit_merchant"),
+    path('merchant-status/',views.merchant_status,name='merchant_status'),
 
     
     # path('index-2/',views.index2,name="index-2"),

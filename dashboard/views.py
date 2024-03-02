@@ -452,7 +452,22 @@ def refresh_jwt(request):
     request.session['jwt_token_access'] = jwt_token_access
     request.session['jwt_token_refresh'] = jwt_token_refresh
         
+
+# response for ajax is handeled from here
     
+from django.http import JsonResponse
+
+def merchant_status(request):
+
+    if request.method == "POST":
+
+        print('recieved')
+
+   
+    # Return a JSON response
+        return JsonResponse({'message': 'Response from Django server'})  
+
+
 
 
 
