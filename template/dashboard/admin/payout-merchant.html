@@ -11,14 +11,26 @@
     .colWid3 {
         width: 117px;
     }
-    .form-control{
+
+    .form-control {
         border: 2px solid gray;
 
     }
-    .form-control:focus{
+
+    .form-control:focus {
         border: 2px solid skyblue;
     }
-    
+
+    .buttons {
+        display: flex;
+    }
+
+    .delete-icon {
+        margin-right: 60px;
+
+    }
+
+
 
     .popup {
         display: none;
@@ -72,7 +84,6 @@
         max-width: 661px;
     }
 
-
     .close {
         color: #aaa;
         float: right;
@@ -85,6 +96,11 @@
         color: black;
         text-decoration: none;
         cursor: pointer;
+    }
+
+
+    button #inputFields {
+        margin-right: 10px;
     }
 </style>
 {% endblock %}
@@ -177,13 +193,14 @@
                             <div class="d-flex flex-wrap align-items-center accordion__body--text p-0">
 
                                 <div class="me-3 mb-3">
-                                    <p class="fs-12 mb-2"><strong class="text-black">Service Charges: Min ₹10</strong></p>
+                                    <p class="fs-12 mb-2"><strong class="text-black">Service Charges: Min ₹10</strong>
+                                    </p>
                                     <span onclick="togglePopups('popupFormIP')"
                                         class="btn btn-outline-primary shadow btn-s sharp me-1">IP Whitelist</span>
                                 </div>
 
 
-                                
+
                                 <div class="me-3 mb-3">
                                     <p class="fs-12 mb-2"><strong class="text-black">IMPS : 2%</strong></p>
                                     <span class=" btn btn-outline-primary  shadow btn-s sharp me-1"
@@ -197,7 +214,8 @@
                                 </div>
                                 <div class="me-3 mb-3">
                                     <p class="fs-12 mb-2"><strong class="text-black">NEFT : 2%</strong></p>
-                                    <span class="  btn btn-outline-primary  shadow btn-s sharp me-1" onclick="togglePopups('popupFormServiceCharge')">Service
+                                    <span class="  btn btn-outline-primary  shadow btn-s sharp me-1"
+                                        onclick="togglePopups('popupFormServiceCharge')">Service
                                         charges</span>
 
                                 </div>
@@ -562,7 +580,7 @@
         </div>
         <div class="mb-3 row">
             <label class="me-sm-2">Method</label>
-            <select class="me-sm-2 form-control wide text-black" id="inlineFormCustomSelect">
+            <select class="me-sm-2 form-control text-black" id="inlineFormCustomSelect">
                 <option selected>Choose...</option>
                 <option value="1">Credit</option>
                 <option value="2">Debit</option>
@@ -588,41 +606,36 @@
 <div id="popupFormIP" class="popup">
     <form class="popup-content2" style="border-radius:25px ;" action="#">
         <span class="close" onclick="closebtn('popupFormIP')">&times;</span>
-        <div class="mb-3">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>IP</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
+        <div class="mb-3 ip_block">
+            <label style="width: -moz-available;"><strong>Enter Your IP</strong></label>
+            <div style="display: flex;   justify-content: space-between; align-items: first baseline; 
+            margin-bottom: 40px;">
+                <div>
+                    <!-- <label style=""><strong>CallBack URL</strong></label> -->
+                    <input class="form-control form-ip" type=" text" style="width: 200%;">
+                </div>
+                <span class="delete-icon btn sweet-success-cancel btn-lg">
+                    <i class="fa fa-trash-alt " style="color: red;" onclick="deleteBtn()"></i>
+                </span>
+            </div>
 
-                    <tr>
-                        <td>1.1.1.28</td>
-                        <td><i class="fas fa-trash-alt" style="color: red;"></i></td>
-                    </tr>
-                    <tr>
-                        <td>2.1.6.18</td>
-                        <td><i class="fas fa-trash-alt" style="color: red;"></i></td>
-                    </tr>
-                </tbody>
-            </table>
-            <hr style="  margin-top: 30px;">
-            <button class="btn btn-primary  mb-2" style="width: 20%;
-            font-size: large;">Add New IP</button>
+
         </div>
+        <hr style="  margin-top: 30px;">
+        <button class="btn btn-primary  mb-2" class="buttons" id="inputFields" onclick="addInputField()">Add New
+            IP</button>
+        <button class="btn btn-primary mb-2 btn sweet-auto" class="buttons" id="saveBtn" onclick="save_click('saveBtn')" style="margin-left: 10px;">Save</button>
     </form>
 </div>
 
 <div id="popupFormCallBack" class="popup">
     <form class="popup-content3" style="border-radius:25px ;" action="#">
-        <span class="close" onclick="closebtn('popupFormCallBack')" >&times;</span>
+        <span class="close" onclick="closebtn('popupFormCallBack')">&times;</span>
         <div class="mb-3">
             <label style="width: -moz-available;"><strong>CallBack URL</strong></label>
             <input class="form-control" type="text" placeholder="Enter Your URL">
             <hr style="  margin-top: 30px;">
-            <button class="btn btn-primary sweet-success  mb-2" style="width: 20%;
+            <button class="btn btn-primary mb-2 btn-success btn sweet-success" style="width: 20%;
             font-size: large;" type="submit">Apply</button>
         </div>
     </form>
@@ -630,7 +643,7 @@
 
 <div id="popupFormServiceCharge" class="popup">
     <form class="popup-content4" style="border-radius:25px ;" action="#">
-        <span class="close" onclick="closebtn('popupFormServiceCharge')" >&times;</span>
+        <span class="close" onclick="closebtn('popupFormServiceCharge')">&times;</span>
         <div class="mb-3">
             <label style="width: -moz-available;"><strong>IMPS</strong></label>
             <input class="form-control" type="text" placeholder=""><br>
@@ -639,7 +652,7 @@
             <label><strong>NEFT</strong></label>
             <input class="form-control" type="text" placeholder=""><br>
             <hr style="  margin-top: 30px;">
-            <button type="submit" class="btn btn-primary mb-2" style="width: 20%;
+            <button type="submit" class="btn btn-primary mb-2 btn-success btn sweet-auto" id="sweet-auto-close" style="width: 20%;
             font-size: large;">Save</button>
         </div>
     </form>
@@ -701,50 +714,81 @@
         a.style.display = "block";
     }
 
-    function closebtn(popup){
+    function closebtn(popup) {
         y = document.getElementById(popup);
         console.log(y)
         // When the user clicks on <span> (x), close the popup
-            y.style.display = "none";
+        y.style.display = "none";
     }
 
 
 </script>
 
 <script>
-    // Get the popup
-    // var popup = document.getElementById('popupForm');
-
-    // Get the <span> element that closes the popup
-    // var span = document.getElementsByClassName("close");
-
-    // // When the user clicks on <span> (x), close the popup
-    // span.onclick = function () {
-    //     popup.style.display = "none";
-    // }
-
+    function addInputField() {
+        var a = document.querySelector('.ip_block');
+        a.insertAdjacentHTML('beforeend', `
+    <div style="display: flex; width: -moz-available;  justify-content: space-between; align-items: first baseline; margin-top: 20px;
+            margin-bottom: 40px;">
+        <div>
+            <input class="form-control form-ip" type="text"   style="width: 200%;">
+        </div>
+        
+        <span class="delete-icon btn sweet-success-cancel btn-lg">
+                    <i class="fa fa-trash-alt " style="color: red;" onclick="deleteBtn()"></i>
+                </span>
+    </div>
+    
+`);
+    }
 
 
 </script>
 
 <script>
-        (document.querySelector(".sweet-ajax").onclick = function () {
-            swal(
-                {
-                    title: "Sweet ajax request !!",
-                    text: "Submit to run ajax request !!",
-                    type: "info",
-                    showCancelButton: !0,
-                    closeOnConfirm: !1,
-                    showLoaderOnConfirm: !0,
-                },
-                function () {
-                    setTimeout(function () {
-                        swal("Hey, your ajax request finished !!");
-                    }, 2e3);
-                }
-            );
+    function deleteBtn() {
+        document.querySelector(".sweet-success-cancel").onclick = function () {
+            swal({
+                title: "Are you sure to delete ?",
+                text: "You will not be able to recover this IP Address!!",
+                type: "warning",
+                showCancelButton: !0,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it !!",
+                cancelButtonText: "No, cancel it !!",
+                closeOnConfirm: !1,
+                closeOnCancel: !1
+            }, function (e) {
+                e ? swal("Deleted !!", "Hey, your imaginary file has been deleted !!", "success") : swal("Cancelled !!", "Hey, your imaginary file is safe !!", "error")
+            })
+        }
+        var deleteIcons = document.querySelectorAll('.delete-icon');
+        deleteIcons.forEach(function (icon) {
+            icon.addEventListener('click', function () {
+                var parentDiv = this.parentNode;
+                parentDiv.parentNode.removeChild(parentDiv);
+            });
         });
+    }
+
+</script>
+
+<script>
+    function save_click() {
+        var list = document.querySelectorAll('.form-ip')
+        console.log(list)
+        for (i = 0; i < list.length; i++) {
+            console.log(list[i].value)
+        }
+    }
+    document.querySelector(".sweet-auto").onclick = function () {
+        swal({
+            title: "Saved Successfully !!",
+            timer: 1e3,
+            showConfirmButton: !1
+        })
+    }
+
 </script>
 
 <script>
@@ -768,10 +812,23 @@
 </script>
 
 <script>
-    document.querySelector(".sweet-success").onclick = function () {
-        swal("Applied Sucessfully!!", "success")
+    document.querySelector("#sweet-auto-close").onclick = function () {
+        swal({
+            title: "Saved Successfully !!",
+            timer: 2e3,
+            showConfirmButton: !1
+        })
     }
 </script>
+
+<script>
+    document.querySelector(".sweet-success").onclick = function () {
+        swal("Hey, Good job !!", "Applied Successfully !!", "success")
+    }
+</script>
+
+
+
 
 
 {% endblock %}
