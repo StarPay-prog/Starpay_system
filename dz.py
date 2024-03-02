@@ -400,6 +400,7 @@ dz_array = {
                            
 
                         ],
+                        
                         "uc_toastr":[
                             f"{foldername}/vendor/toastr/js/toastr.min.js",
                             f"{foldername}/js/plugins-init/toastr-init.js"
