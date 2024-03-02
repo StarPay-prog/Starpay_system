@@ -421,17 +421,17 @@ def add_merchant(request):
 def logout(request):
 
 
-    return render  (request,'dashboard/plugins/uc-sweetalert.html')
-    # session_key = request.session.session_key
+    # return render  (request,'dashboard/plugins/uc-sweetalert.html')
+    session_key = request.session.session_key
     
-    # # Delete the session using Django's session framework
-    # Session.objects.filter(session_key=session_key).delete()
+    # Delete the session using Django's session framework
+    Session.objects.filter(session_key=session_key).delete()
     
-    # # Delete the corresponding CustomSession object
-    # CustomSession.objects.filter(session=session_key).delete()
+    # Delete the corresponding CustomSession object
+    CustomSession.objects.filter(session=session_key).delete()
 
 
-    # return HttpResponseRedirect ("/login/")
+    return HttpResponseRedirect ("/login/")
 
 
 def refresh_jwt(request):
