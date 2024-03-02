@@ -11,6 +11,7 @@ urlpatterns = [
     path('login/',views.dashboard_login_merchant,name="dashboard-login-merchant"),
     path('login-{admin_url}/'.format(admin_url=admin_url),views.dashboard_login_admin,name="dashboard-login-Admin"),
     path('payout-merchants' , views.payout_merchants ,name= "payout-merchants"),
+    path('payout-transaction' , views.payout_transaction ,name= "payout-transaction"),
     # path('login-saAm/',views.dashboard_login_admin,name="dashboard-login-Admin"),
     
     path('login-{super_admin_url}/'.format(super_admin_url=super_admin_url),views.dashboard_login_super_admin,name="dashboard-login-Super-Admin"),

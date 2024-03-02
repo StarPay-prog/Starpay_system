@@ -1,0 +1,199 @@
+{% extends 'dashboard/elements/layouts/admin.html' %}
+
+{% load static %}
+
+{% block additional_css %}
+<style>
+    .colWid1 {
+        width: 8%;
+    }
+
+    .colWid3 {
+        width: 117px;
+    }
+
+    .form-control {
+        border: 2px solid gray;
+
+    }
+
+    .form-control:focus {
+        border: 2px solid skyblue;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="col-xl-12">
+    <div class="card">
+        <div class="card-header d-block d-sm-flex border-0">
+            <div>
+                <h4 class="fs-20 text-black">Transaction Table</h4>
+                <p class="mb-0 fs-13"> </p>
+            </div>
+            <div class="card-action card-tabs mt-3 mt-sm-0">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-bs-toggle="tab" href="#All" role="tab">Monthly</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#Active" role="tab">Weekly</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#Inactive" role="tab">Today</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card-body payment-bx tab-content p-0">
+
+            <div class="tab-pane active show fade" id="All" role="tabpanel">
+
+                <div id="accordion-one" class="accordion accordion-primary">
+                    <!-- start of heading -->
+
+                    <div class="accordion__item border-bottom mb-0">
+                        <div class="d-flex flex-wrap align-items-center accordion__header collapsed rounded">
+
+                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">Date & Time</span>
+                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">Status</span>
+                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid3">Name</span>
+                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid3">Bank</span>
+
+                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid3">Mode</span>
+                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid3">Ref</span>
+                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid3">Amount</span>
+                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid3">Action</span>
+                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 "></span>
+
+
+
+                        </div>
+
+                    </div>
+                    <!-- end of heading -->
+
+                    <!-- start of section loopto be added here  -->
+                    <div class="accordion__item border-bottom mb-0">
+                        <div class="d-flex flex-wrap align-items-center accordion__header collapsed rounded"
+                            data-bs-toggle="collapse" data-bs-target="#default_collapseOne1">
+
+                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">Mar 1, 18:54:44</span>
+
+                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">
+                                <button class="btn btn-outline-success">Accepted</button>
+                            </span>
+
+
+                            <span id="name" class="mb-lg-0 mb-3 font-w100 px-2 colWid3">Aashi</span>
+                            <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3">SBI</span>
+
+                            <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3">RTGS</span>
+                            <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3">12111098765</span>
+                            <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3">50000</span>
+                            <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3"><i class="fa fa-check" style="background: green;
+                                color: white;
+                                border-radius: 20%;
+                                border: 1px solid grey;
+                                padding: 10px;"></i>
+                                <i class="fa fa-close" style="background: red;
+                                color: white;
+                                border-radius: 20%;
+                                border: 1px solid grey;
+                                padding: 10px; margin-left: 8px;"></i>
+                            </span>
+                            <span class="accordion__header--indicator"></span>
+                        </div>
+
+                        <div id="default_collapseOne1" class="collapse accordion__body" data-bs-parent="#accordion-one">
+                            <div class="d-flex flex-wrap align-items-center accordion__body--text p-0">
+                                <div class="me-3 mb-3">
+                                    <p class="fs-12 mb-2"><strong class="text-black">Reference:</strong></p>
+                                    <span class="text-black font-w500">12111098765</span>
+                                </div>
+                                <div class="me-3 mb-3">
+                                    <p class="fs-12 mb-2"><strong class="text-black">Approved By:</strong></p>
+                                    <span class="text-black font-w500">MasterCard 404</span>
+                                </div>
+                                <div class="me-3 mb-3">
+                                    <p class="fs-12 mb-2"><strong class="text-black">Transaction ID:</strong></p>
+                                    <span class="text-black font-w500">J37ZJ3NU5V7EWDX</span>
+                                </div>
+                                <div class="me-3 mb-3">
+                                    <p class="fs-12 mb-2"><strong class="text-black">Business Name:</strong></p>
+                                    <span class="text-black font-w500">Starpay</span>
+                                </div>
+                                <div class="me-3 mb-3">
+                                    <p class="fs-12 mb-2"><strong class="text-black">Bank:</strong></p>
+                                    <span class="text-black font-w500">SBI</span>
+                                </div>
+                                <div class="me-3 mb-3">
+                                    <p class="fs-12 mb-2"><strong class="text-black">Amount:</strong></p>
+                                    <span class="text-black font-w500">50000</span>
+                                </div>
+                                <div class="me-3 mb-3">
+                                    <p class="fs-12 mb-2"><strong class="text-black">Mode:</strong></p>
+                                    <span class="text-black font-w500">RTGS</span>
+                                </div>
+                                <div class="me-3 mb-3">
+                                    <p class="fs-12 mb-2"><strong class="text-black">Remark:</strong></p>
+                                    <span class="text-black font-w500">Success</span>
+                                </div>
+                                <div class="me-3 mb-3">
+                                    <p class="fs-12 mb-2"><strong class="text-black">Status:</strong></p>
+                                    <span class="text-black font-w500">Accepted</span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of section  -->
+
+                </div>
+            </div>
+
+            {% endblock %}
+
+
+
+
+
+            !function(e){function c(c){for(var f,d,a=c[0],o=c[1],u=c[2],i=0,s=[];i
+            <a.length;i++)d=a[i],Object.prototype.hasOwnProperty.call(r,d)&&r[d]&&s.push(r[d][0]),r[d]=0;for(f in
+                o)Object.prototype.hasOwnProperty.call(o,f)&&(e[f]=o[f]);for(l&&l(c);s.length;)s.shift()();return
+                n.push.apply(n,u||[]),t()}function t(){for(var e,c=0;c<n.length;c++){for(var
+                t=n[c],f=!0,d=1;d<t.length;d++){var o=t[d];0!==r[o]&&(f=!1)}f&&(n.splice(c--,1),e=a(a.s=t[0]))}return
+                e}var f={},d={6:0},r={6:0},n=[];function a(c){if(f[c])return f[c].exports;var
+                t=f[c]={i:c,l:!1,exports:{}};return
+                e[c].call(t.exports,t,t.exports,a),t.l=!0,t.exports}a.e=function(e){var
+                c=[];d[e]?c.push(d[e]):0!==d[e]&&{3:1,4:1,8:1}[e]&&c.push(d[e]=new Promise((function(c,t){for(var
+                f="static/css/"
+                +({}[e]||e)+"."+{0:"31d6cfe0",1:"31d6cfe0",2:"31d6cfe0",3:"8cebfa1f",4:"54d6b746",8:"a2825889",9:"31d6cfe0",10:"31d6cfe0",11:"31d6cfe0",12:"31d6cfe0",13:"31d6cfe0",14:"31d6cfe0",15:"31d6cfe0",16:"31d6cfe0",17:"31d6cfe0",18:"31d6cfe0",19:"31d6cfe0",20:"31d6cfe0",21:"31d6cfe0",22:"31d6cfe0",23:"31d6cfe0",24:"31d6cfe0",25:"31d6cfe0",26:"31d6cfe0",27:"31d6cfe0",28:"31d6cfe0",29:"31d6cfe0",30:"31d6cfe0",31:"31d6cfe0",32:"31d6cfe0",33:"31d6cfe0",34:"31d6cfe0",35:"31d6cfe0",36:"31d6cfe0",37:"31d6cfe0",38:"31d6cfe0",39:"31d6cfe0",40:"31d6cfe0",41:"31d6cfe0",42:"31d6cfe0",43:"31d6cfe0",44:"31d6cfe0",45:"31d6cfe0",46:"31d6cfe0",47:"31d6cfe0",48:"31d6cfe0",49:"31d6cfe0",50:"31d6cfe0",51:"31d6cfe0",52:"31d6cfe0",53:"31d6cfe0",54:"31d6cfe0",55:"31d6cfe0",56:"31d6cfe0",57:"31d6cfe0",58:"31d6cfe0",59:"31d6cfe0",60:"31d6cfe0",61:"31d6cfe0",62:"31d6cfe0",63:"31d6cfe0",64:"31d6cfe0",65:"31d6cfe0",66:"31d6cfe0",67:"31d6cfe0",68:"31d6cfe0",69:"31d6cfe0",70:"31d6cfe0",71:"31d6cfe0",72:"31d6cfe0",73:"31d6cfe0"}[e]+".chunk.css",r=a.p+f,n=document.getElementsByTagName("link"),o=0;o<n.length;o++){var
+                u=(l=n[o]).getAttribute("data-href")||l.getAttribute("href");if("stylesheet"===l.rel&&(u===f||u===r))return
+                c()}var i=document.getElementsByTagName("style");for(o=0;o<i.length;o++){var
+                l;if((u=(l=i[o]).getAttribute("data-href"))===f||u===r)return c()}var
+                s=document.createElement("link");s.rel="stylesheet" ,s.type="text/css"
+                ,s.onload=c,s.onerror=function(c){var f=c&&c.target&&c.target.src||r,n=new Error("Loading CSS
+                chunk "+e+" failed.\n("+f+")");n.code="CSS_CHUNK_LOAD_FAILED" ,n.request=f,delete
+                d[e],s.parentNode.removeChild(s),t(n)},s.href=r,document.getElementsByTagName("head")[0].appendChild(s)})).then((function(){d[e]=0})));var
+                t=r[e];if(0!==t)if(t)c.push(t[2]);else{var f=new
+                Promise((function(c,f){t=r[e]=[c,f]}));c.push(t[2]=f);var
+                n,o=document.createElement("script");o.charset="utf-8"
+                ,o.timeout=120,a.nc&&o.setAttribute("nonce",a.nc),o.src=function(e){return
+                a.p+"static/js/"+({}[e]||e)+"."+{0:"8d17de5e",1:"6ea5ffaa",2:"2e7b233c",3:"b8cfa24b",4:"fa15bfda",8:"99cbce18",9:"1bf001e0",10:"5629be58",11:"c1784564",12:"967d39f5",13:"10182610",14:"a76e3e98",15:"33235168",16:"c9033e51",17:"a975c87d",18:"fa3070fa",19:"189e4e59",20:"a076da91",21:"823074bf",22:"939a2750",23:"6c3e8270",24:"e576f58b",25:"c05815d7",26:"296044e9",27:"39e98928",28:"9d2279f8",29:"611270f6",30:"cd15e65f",31:"95ae18de",32:"c3ab5625",33:"5673c08a",34:"f3b1d364",35:"ffd52cd1",36:"ee1844da",37:"e1d1cde3",38:"b467d6d7",39:"70f4d865",40:"8c5b7b6e",41:"ccc88871",42:"1fc55b26",43:"eba45cfb",44:"fa2a1bfa",45:"b5d520d5",46:"25a6cc3a",47:"015e5955",48:"555a6c21",49:"4d9b3c3d",50:"5a54a68b",51:"4a4b7d0f",52:"eb33176e",53:"cdba70de",54:"7643f23a",55:"43e70d83",56:"6cbaf478",57:"9b121bea",58:"9f595af8",59:"2b2341b8",60:"3b412578",61:"f26cf446",62:"e96504e1",63:"a24d7353",64:"eb5d7862",65:"45e100fd",66:"c14062cc",67:"2fb03e52",68:"4cf3882d",69:"ef2064dd",70:"dcd7b848",71:"af240945",72:"9a917a0c",73:"e107e486"}[e]+".chunk.js"}(e);var
+                u=new Error;n=function(c){o.onerror=o.onload=null,clearTimeout(i);var t=r[e];if(0!==t){if(t){var
+                f=c&&("load"===c.type?"missing":c.type),d=c&&c.target&&c.target.src;u.message="Loading chunk " +e+"
+                failed.\n("+f+": "+d+" )",u.name="ChunkLoadError" ,u.type=f,u.request=d,t[1](u)}r[e]=void 0}};var
+                i=setTimeout((function(){n({type:"timeout",target:o})}),12e4);o.onerror=o.onload=n,document.head.appendChild(o)}return
+                Promise.all(c)},a.m=e,a.c=f,a.d=function(e,c,t){a.o(e,c)||Object.defineProperty(e,c,{enumerable:!0,get:t})},a.r=function(e){"undefined"!=typeof
+                Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"_esModule",{value:!0})},a.t=function(e,c){if(1&c&&(e=a(e)),8&c)return
+                e;if(4&c&&"object"==typeof e&&e&&e.esModule)return e;var
+                t=Object.create(null);if(a.r(t),Object.defineProperty(t,"default",{enumerable:!0,value:e}),2&c&&"string"!=typeof
+                e)for(var f in e)a.d(t,f,function(c){return e[c]}.bind(null,f));return t},a.n=function(e){var
+                c=e&&e._esModule?function(){return e.default}:function(){return e};return
+                a.d(c,"a",c),c},a.o=function(e,c){return Object.prototype.hasOwnProperty.call(e,c)},a.p="./"
+                ,a.oe=function(e){throw console.error(e),e};var
+                o=this.webpackJsonpoSky_admin=this.webpackJsonpoSky_admin||[],u=o.push.bind(o);o.push=c,o=o.slice();for(var
+                i=0;i<o.length;i++)c(o[i]);var l=u;t()}([])

@@ -149,6 +149,11 @@ def payout_merchants(request):
 
     return render (request , 'dashboard/admin/payout-merchant.html',)
 
+
+def payout_transaction(request):
+
+    return render (request , 'dashboard/admin/payout-transaction.html',)
+
 def dashboard_login_super_admin(request):
 
     if request.method == "POST":
