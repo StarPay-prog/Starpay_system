@@ -150,6 +150,10 @@ def payout_merchants(request):
     return render (request , 'dashboard/admin/payout-merchant.html',)
 
 
+def request_table(request):
+
+    return render (request , 'dashboard/admin/request-table.html',)
+
 def payout_transaction(request):
 
     return render (request , 'dashboard/admin/payout-transaction.html',)
@@ -365,6 +369,10 @@ def active_merchant(request):
 
     return render  (request,'dashboard/merchant/active-merchant.html')
 
+def my_wallet(request):
+
+    return render  (request,'dashboard/merchant-dashboard/my_wallet.html')
+
 def add_merchant(request):
 
     #refresh_jwt(request)
@@ -374,10 +382,6 @@ def add_merchant(request):
 
     if request.method == "POST":
 
-        
-        
-        
-       
         data2 = {
             
             "email": request.POST.get('email'),
@@ -476,12 +480,7 @@ def merchant_status(request):
 
 
 
-#@login_required(login_url='dashboard:login')
-def my_wallet(request):
-    context={
-        "page_title":"My Wallet"
-    }
-    return render(request,'dashboard/my-wallet.html',context)
+
 
 #@login_required(login_url='dashboard:login')
 def invoices(request):

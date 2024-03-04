@@ -9,9 +9,14 @@ urlpatterns = [
     # path('signup/',views.signup),
     # path('index/',views.index,name="index"),
     path('login/',views.dashboard_login_merchant,name="dashboard-login-merchant"),
+    path('my_wallet/',views.my_wallet,name='my_wallet'),
+
+
+
     path('login-{admin_url}/'.format(admin_url=admin_url),views.dashboard_login_admin,name="dashboard-login-Admin"),
     path('payout-merchants' , views.payout_merchants ,name= "payout-merchants"),
     path('payout-transaction' , views.payout_transaction ,name= "payout-transaction"),
+    path('request-table' , views.request_table ,name= "request-table"),
     # path('login-saAm/',views.dashboard_login_admin,name="dashboard-login-Admin"),
     
     path('login-{super_admin_url}/'.format(super_admin_url=super_admin_url),views.dashboard_login_super_admin,name="dashboard-login-Super-Admin"),
@@ -25,10 +30,11 @@ urlpatterns = [
     path('active-merchant/',views.active_merchant,name="active-merchant"),
     path('edit-merchant/<str:merchid>/',views.edit_merchant, name = "edit_merchant"),
     path('merchant-status/',views.merchant_status,name='merchant_status'),
+   
 
     
     # path('index-2/',views.index2,name="index-2"),
-    path('my-wallet/',views.my_wallet,name="my-wallet"),
+    
     path('invoices/',views.invoices,name="invoices"),
     path('cards-center/',views.cards_center,name="cards-center"),
     path('transactions/',views.transactions,name="transactions"),
