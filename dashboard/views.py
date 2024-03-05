@@ -15,7 +15,8 @@ from .authentication import *
      
 
 #@login_required(login_url='dashboard:login')
-base_url = "http://192.168.1.13:6000/"   
+base_url = "http://192.168.1.13:6000/"  
+payout_url = "http://192.168.1.14:7000/"
 
 def index(request):
     # refresh_jwt(request)
@@ -145,14 +146,6 @@ def dashboard_login_admin(request):
     form = LoginForm
     return render(request,'dashboard/modules/login.html',{"form":form})
 
-def payout_merchants(request):
-
-    return render (request , 'dashboard/admin/payout-merchant.html',)
-
-
-def payout_transaction(request):
-
-    return render (request , 'dashboard/admin/payout-transaction.html',)
 
 def dashboard_login_super_admin(request):
 
@@ -189,6 +182,7 @@ def dashboard_login_super_admin(request):
         
         request.session['user_data'] = user_data
         request.session['ip'] = user_ip
+        request.session['user_type'] = "superadmin"
         
 
         print(request.session)
@@ -305,8 +299,13 @@ def view_merchant(request):
         "Content-Type": "application/json"  # Assuming you are sending JSON data
         }
 
+    if request.session.get('user_type') == 'admin':
+        
+        url = "http://192.168.1.13:6000/get-merchant-list-admin/"
 
-    url = "http://192.168.1.13:6000/get-merchant-list-super/"
+    elif request.session.get('user_type') == 'superadmin':
+       
+        url = "http://192.168.1.13:6000/get-merchant-list-super/"
 
     response = requests.get(url, headers=header)
 
@@ -377,19 +376,23 @@ def add_merchant(request):
         
         
         
-       
+        serviceoptn = [request.POST.get('field1'),request.POST.get('field2'),request.POST.get('field3'),request.POST.get('field4')]
+        print(serviceoptn)
+        serviceoptn = [optn for optn in serviceoptn if optn is not None]
+        print(serviceoptn)
+        
         data2 = {
             
             "email": request.POST.get('email'),
             "first_name": request.POST.get('first_name'),
             "last_name": request.POST.get('last_name'),
-            "contact_no": request.POST.get('phone_number'),
+            "contact_no": request.POST.get('phone_no'),
             "ip_address": "192.168.1231.13.2.21.1",
             "password": request.POST.get('password'),
-            "business_name":request.POST.get('buisness_name'),
+            "business_name":request.POST.get('business_name'),
             "gst_no":request.POST.get('gst_no'),
             "emp_id":emp_id,
-            "service_option":[request.POST.get('field1'),request.POST.get('field2'),request.POST.get('field3'),request.POST.get('field4')]
+            "service_option":serviceoptn
         
         }
         
@@ -457,21 +460,71 @@ def refresh_jwt(request):
     request.session['jwt_token_access'] = jwt_token_access
     request.session['jwt_token_refresh'] = jwt_token_refresh
         
+def payout_merchants(request):
+
+    url = payout_url+'Rest/payout-get-merchant-list-admin/'
+
+    jwt_token = request.session.get('jwt_token_access')
+    header = {
+        "Access": jwt_token,
+        "Content-Type": "application/json"  # Assuming you are sending JSON data
+        }
+    
+    response = requests.get(url, headers=header)
+    slug = response.json()
+    print(slug)
+
+
+    return render (request , 'dashboard/admin/payout-merchant.html',)
+
+
+def payout_transaction(request):
+
+    return render (request , 'dashboard/admin/payout-transaction.html',)
 
 # response for ajax is handeled from here
     
 from django.http import JsonResponse
-
+# from django.views.decorators.csrf import csrf_exempt
+# @csrf_exempt
 def merchant_status(request):
 
     if request.method == "POST":
+        try:
+            # Retrieve JSON data from request body
+            data = json.loads(request.body)
+            user = data.get('user')
+            print(user)  # This should print 'aditya' if 'data' contains the value 'aditya'
+            
+            # Process the user data as needed
+            
+            # Return a JSON response
+            return JsonResponse({'message': 'Success'})
+        except json.JSONDecodeError:
+            # Handle JSON decoding error
+            return JsonResponse({'error': 'Invalid JSON data'}, status=400)
+    else:
+        return JsonResponse({'error': 'Method not allowed'}, status=405)     
 
-        print('recieved')
 
-   
-    # Return a JSON response
-        return JsonResponse({'message': 'Response from Django server'})  
+def merchant_ip(request):
 
+    if request.method == "POST":
+        try:
+            # Retrieve JSON data from request body
+            data = json.loads(request.body)
+            user = data.get('user')
+            print(user)  # This should print 'aditya' if 'data' contains the value 'aditya'
+            
+            # Process the user data as needed
+            
+            # Return a JSON response
+            return JsonResponse({'message': 'Success'})
+        except json.JSONDecodeError:
+            # Handle JSON decoding error
+            return JsonResponse({'error': 'Invalid JSON data'}, status=400)
+    else:
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
 
 
 

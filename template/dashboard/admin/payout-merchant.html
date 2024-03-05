@@ -3,6 +3,7 @@
 {% load static %}
 
 {% block additional_css %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style>
     .colWid1 {
         width: 8%;
@@ -166,7 +167,7 @@
                             <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">1</span>
 
                             <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">
-                                <button class="btn  btn sweet-ajax"><i class="fa fa-lock text-success"
+                                <button class="btn  btn " onclick="sweetajax('aditya',this)"><i class="fa fa-lock text-success"
                                         aria-hidden="true"></i> </button>
                             </span>
 
@@ -792,24 +793,78 @@
 </script>
 
 <script>
-    (document.querySelector(".sweet-ajax").onclick = function () {
-        swal(
-            {
-                title: "Sweet ajax request !!",
-                text: "Submit to run ajax request !!",
-                type: "info",
-                showCancelButton: !0,
-                closeOnConfirm: !1,
-                showLoaderOnConfirm: !0,
+    
+    
+
+
+     function  sweetajax(data,button) {
+        
+
+        swal({
+            title: "Deactivate!!",
+            text: "Click on Deactivate or Cancel !!",
+            type: "info",
+            showCancelButton: true,
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true,
+            confirmButtonText: "Deactivate",
+            preConfirm: async (d) => {
+                try {
+                    console.log(data)
+                    // Obtain CSRF token
+                    const csrftoken = getCookie('csrftoken'); // Function to get CSRF token from cookie, see below
+
+                    const djangoUrl = '/merchant-status/';
+                    const response = await fetch(djangoUrl, {
+                        method: 'POST', // or 'GET' depending on your Django view
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': csrftoken // Include CSRF token in the header
+                        },
+                        body: JSON.stringify({user: data })
+                    });
+                    console.log(response)
+                    if (!response.ok) {
+                        throw new Error(await response.text());
+                    }
+
+                    var icon = button.querySelector('i');
+                    console.log(icon)
+                    icon.classList.remove("fa-lock");
+                    icon.classList.add("fa-unlock");
+                    icon.classList.remove("text-success");
+                    icon.classList.add("text-danger");
+
+                   
+                    return response.json();
+                } 
+                catch (error) {
+                    throw new Error(`Request failed: ${error}`);
+                }
             },
-            function () {
-                setTimeout(function () {
-                    swal("Hey, your ajax request finished !!");
-                }, 2e3);
+           
+                });
+        };
+
+    // Function to get CSRF token from cookie
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
             }
-        );
-    });
+            console.log(cookieValue)
+            return cookieValue;
+        }
 </script>
+
 
 <script>
     document.querySelector("#sweet-auto-close").onclick = function () {
