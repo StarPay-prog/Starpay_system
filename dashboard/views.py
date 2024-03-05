@@ -459,10 +459,12 @@ def refresh_jwt(request):
     # Store user data in session
     request.session['jwt_token_access'] = jwt_token_access
     request.session['jwt_token_refresh'] = jwt_token_refresh
+    
         
 def payout_merchants(request):
 
     url = payout_url+'Rest/payout-get-merchant-list-admin/'
+    url1 = base_url + 'get-merchant-list-admin/'
 
     jwt_token = request.session.get('jwt_token_access')
     header = {
@@ -470,9 +472,25 @@ def payout_merchants(request):
         "Content-Type": "application/json"  # Assuming you are sending JSON data
         }
     
-    response = requests.get(url, headers=header)
-    slug = response.json()
-    print(slug)
+    header1 = {
+        "Authorization": f"Bearer {jwt_token}",
+        "Content-Type": "application/json"  # Assuming you are sending JSON data
+        }
+    response1 = requests.get(url, headers=header)
+    response2 = requests.get(url1, headers=header1)
+    
+    slug1 = response1.json()
+    slug2 = response2.json()
+
+    for i in slug2['data']:
+        for j in slug1['data']:
+            if j['merchant_id'] == i['merchant_id']:
+                i.update(j)
+
+    
+    print(slug2)
+
+    print(type(slug2))
 
 
     return render (request , 'dashboard/admin/payout-merchant.html',)
