@@ -15,8 +15,8 @@ from .authentication import *
      
 
 #@login_required(login_url='dashboard:login')
-base_url = "http://192.168.1.13:6000/"  
-payout_url = "http://192.168.1.14:7000/"
+base_url = "http://192.168.1.13:9000/"  
+payout_url = "http://192.168.1.13:7000/"
 
 def index(request):
     # refresh_jwt(request)
@@ -247,7 +247,7 @@ def add_admin(request):
 
         print(header)
 
-        url = "http://192.168.1.13:6000/register-admin/"
+        url = "http://192.168.1.13:9000/register-admin/"
         response = requests.post(url, data=data2 , headers=header)
         slug = response.json()
         print(slug)
@@ -276,7 +276,7 @@ def view_admin(request):
         }
 
 
-    url = "http://192.168.1.13:6000/get-admin-list/"
+    url = "http://192.168.1.13:9000/get-admin-list/"
 
     response = requests.get(url, headers=header)
 
@@ -301,11 +301,11 @@ def view_merchant(request):
 
     if request.session.get('user_type') == 'admin':
         
-        url = "http://192.168.1.13:6000/get-merchant-list-admin/"
+        url = "http://192.168.1.13:9000/get-merchant-list-admin/"
 
     elif request.session.get('user_type') == 'superadmin':
        
-        url = "http://192.168.1.13:6000/get-merchant-list-super/"
+        url = "http://192.168.1.13:9000/get-merchant-list-super/"
 
     response = requests.get(url, headers=header)
 
@@ -411,7 +411,7 @@ def add_merchant(request):
 
         print(header)
 
-        url = "http://192.168.1.13:6000/register-merchant/"
+        url = "http://192.168.1.13:9000/register-merchant/"
         response = requests.post(url, data=data2 , headers=header)
         slug = response.json()
         slug = slug['status']
@@ -441,7 +441,7 @@ def refresh_jwt(request):
 
     access_token = request.session.get('jwt_token_access')
     refresh_token = request.session.get('jwt_token_refresh')
-    url = "http://192.168.1.13:6000/token/refresh/"
+    url = "http://192.168.1.13:9000/token/refresh/"
 
     token = {
             "refresh":refresh_token,
@@ -459,10 +459,12 @@ def refresh_jwt(request):
     # Store user data in session
     request.session['jwt_token_access'] = jwt_token_access
     request.session['jwt_token_refresh'] = jwt_token_refresh
+    
         
 def payout_merchants(request):
 
     url = payout_url+'Rest/payout-get-merchant-list-admin/'
+    url1 = base_url + 'get-merchant-list-admin/'
 
     jwt_token = request.session.get('jwt_token_access')
     header = {
@@ -470,9 +472,25 @@ def payout_merchants(request):
         "Content-Type": "application/json"  # Assuming you are sending JSON data
         }
     
-    response = requests.get(url, headers=header)
-    slug = response.json()
-    print(slug)
+    header1 = {
+        "Authorization": f"Bearer {jwt_token}",
+        "Content-Type": "application/json"  # Assuming you are sending JSON data
+        }
+    response1 = requests.get(url, headers=header)
+    response2 = requests.get(url1, headers=header1)
+    
+    slug1 = response1.json()
+    slug2 = response2.json()
+
+    for i in slug2['data']:
+        for j in slug1['data']:
+            if j['merchant_id'] == i['merchant_id']:
+                i.update(j)
+
+    
+    print(slug2)
+
+    print(type(slug2))
 
 
     return render (request , 'dashboard/admin/payout-merchant.html',)
