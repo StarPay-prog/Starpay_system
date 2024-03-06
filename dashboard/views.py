@@ -15,7 +15,7 @@ from .authentication import *
      
 
 #@login_required(login_url='dashboard:login')
-base_url = "http://192.168.1.13:6000/"   
+base_url = "http://192.168.1.13:9000/"   
 
 def index(request):
     # refresh_jwt(request)
@@ -257,7 +257,7 @@ def add_admin(request):
 
         print(header)
 
-        url = "http://192.168.1.13:6000/register-admin/"
+        url = "http://192.168.1.13:9000/register-admin/"
         response = requests.post(url, data=data2 , headers=header)
         slug = response.json()
         print(slug)
@@ -286,7 +286,7 @@ def view_admin(request):
         }
 
 
-    url = "http://192.168.1.13:6000/get-admin-list/"
+    url = "http://192.168.1.13:9000/get-admin-list/"
 
     response = requests.get(url, headers=header)
 
@@ -310,7 +310,7 @@ def view_merchant(request):
         }
 
 
-    url = "http://192.168.1.13:6000/get-merchant-list-super/"
+    url = "http://192.168.1.13:9000/get-merchant-list-super/"
 
     response = requests.get(url, headers=header)
 
@@ -373,6 +373,10 @@ def my_wallet(request):
 
     return render  (request,'dashboard/merchant-dashboard/my_wallet.html')
 
+def my_settings(request):
+
+    return render  (request,'dashboard/merchant-dashboard/settings.html')
+
 def add_merchant(request):
 
     #refresh_jwt(request)
@@ -412,7 +416,7 @@ def add_merchant(request):
 
         print(header)
 
-        url = "http://192.168.1.13:6000/register-merchant/"
+        url = "http://192.168.1.13:9000/register-merchant/"
         response = requests.post(url, data=data2 , headers=header)
         slug = response.json()
         slug = slug['status']
@@ -442,7 +446,7 @@ def refresh_jwt(request):
 
     access_token = request.session.get('jwt_token_access')
     refresh_token = request.session.get('jwt_token_refresh')
-    url = "http://192.168.1.13:6000/token/refresh/"
+    url = "http://192.168.1.13:9000/token/refresh/"
 
     token = {
             "refresh":refresh_token,
