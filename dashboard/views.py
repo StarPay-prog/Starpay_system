@@ -11,12 +11,11 @@ from django.views.decorators.csrf import csrf_protect
 from django.utils.decorators import method_decorator
 from .authentication import *
 # for i in range(0,10000):
-
+from starpay.settings import base_url,payout_url
      
 
 #@login_required(login_url='dashboard:login')
-base_url = "http://192.168.1.14:8000/"  
-payout_url = "http://192.168.1.14:7000/"
+
 
 def index(request):
     # refresh_jwt(request)
@@ -98,6 +97,7 @@ def dashboard_login_admin(request):
 
         url = base_url + "login/"
         response = requests.post(url, data=data)
+        print(response)
         jwt_token_access = response.headers['access']
         jwt_token_refresh = response.headers['refresh']
         user_data = response.json()
@@ -120,7 +120,7 @@ def dashboard_login_admin(request):
         request.session['jwt_token_access'] = jwt_token_access
         request.session['jwt_token_refresh'] = jwt_token_refresh
         
-        request.session['user_data'] = user_data
+        request.session['user_data'] = user
         request.session['ip'] = user_ip
         request.session['user_type'] = "admin"
         session_key = request.session.session_key
@@ -518,48 +518,8 @@ def payout_transaction(request):
     return render (request , 'dashboard/admin/payout-transaction.html',)
 
 # response for ajax is handeled from here
-    
-from django.http import JsonResponse
-# from django.views.decorators.csrf import csrf_exempt
-# @csrf_exempt
-def merchant_status(request):
-
-    if request.method == "POST":
-        try:
-            # Retrieve JSON data from request body
-            data = json.loads(request.body)
-            user = data.get('user')
-            print(user)  # This should print 'aditya' if 'data' contains the value 'aditya'
-            
-            # Process the user data as needed
-            
-            # Return a JSON response
-            return JsonResponse({'message': 'Success'})
-        except json.JSONDecodeError:
-            # Handle JSON decoding error
-            return JsonResponse({'error': 'Invalid JSON data'}, status=400)
-    else:
-        return JsonResponse({'error': 'Method not allowed'}, status=405)     
 
 
-def merchant_ip(request):
-
-    if request.method == "POST":
-        try:
-            # Retrieve JSON data from request body
-            data = json.loads(request.body)
-            user = data.get('user')
-            print(user)  # This should print 'aditya' if 'data' contains the value 'aditya'
-            
-            # Process the user data as needed
-            
-            # Return a JSON response
-            return JsonResponse({'message': 'Success'})
-        except json.JSONDecodeError:
-            # Handle JSON decoding error
-            return JsonResponse({'error': 'Invalid JSON data'}, status=400)
-    else:
-        return JsonResponse({'error': 'Method not allowed'}, status=405)
 
 
 

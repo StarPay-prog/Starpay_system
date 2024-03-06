@@ -165,9 +165,8 @@
                         <div class="d-flex flex-wrap align-items-center accordion__header collapsed rounded"
                             data-bs-toggle="collapse" data-bs-target="#default_collapseOne1" style="font-size: 13px;">
 
-                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">{{forloop.counter}}</span>
-
-                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">
+                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">{{forloop.counter}} </span>
+                          <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">
                                 <button class="btn  btn " onclick="sweetajax('aditya',this)"><i class="fa fa-lock text-success"
                                         aria-hidden="true"></i> </button>
                             </span>
@@ -586,7 +585,6 @@
                 <option selected>Choose...</option>
                 <option value="1">Credit</option>
                 <option value="2">Debit</option>
-                <option value="3">Hold</option>
             </select>
         </div>
         <div class="mb-3 row">
@@ -594,11 +592,11 @@
             <div class="input-group mb-3  input-info">
                 <span class="input-group-text search_icon" style="
                     background-color: #a4a4a4; border: 2px solid gray;">₹</span>
-                <input type="tel" name="amount" class="form-control" style="border: 2px solid gray;">
+                <input type="number" name="amount" class="form-control" style="border: 2px solid gray;">
 
             </div>
         </div>
-        <button type="submit" class="btn btn-primary Confirm-btn mb-2">Transfer</button>
+        <button type="submit" id="transfer_button" class="btn btn-primary Confirm-btn mb-2">Transfer</button>
     </form>
 
 
@@ -883,7 +881,41 @@
     }
 </script>
 
+<!-- Virtual Transaction -->
+<script>
+    $(document).ready(function () {
+        $("#transfer_button").click(function (e) {
+            e.preventDefault(); // Prevent the form from submitting normally
 
+            // Get form data
+            var businessName = $("#popupFormTransfer input[name='business_name']").val();
+            var method = $("#inlineFormCustomSelect").val();
+            var amount = $("#popupFormTransfer input[name='amount']").val();
+
+            // Make AJAX request
+            $.ajax({
+                type: "POST",
+                url: 'Rest/virtual-transaction/',
+                headers: {
+                "X-CSRFToken": '{{csrf_token}}'
+            },
+                data: {
+                    businessName: businessName,
+                    method: method,
+                    amount: amount
+                },
+                success: function (response) {
+                    // Handle success response
+                    console.log("Transfer successful");
+                },
+                error: function (xhr, status, error) {
+                    // Handle error response
+                    console.error("Error:", error);
+                }
+            });
+        });
+    });
+</script>
 
 
 
