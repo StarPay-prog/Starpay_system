@@ -159,12 +159,13 @@
                         </div>
                         <!-- end of heading -->
 
+                        {% for i in data %}
                     <!-- start of section loopto be added here  -->
                     <div class="accordion__item border-bottom mb-0">
                         <div class="d-flex flex-wrap align-items-center accordion__header collapsed rounded"
                             data-bs-toggle="collapse" data-bs-target="#default_collapseOne1" style="font-size: 13px;">
 
-                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">1</span>
+                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">{{forloop.counter}}</span>
 
                             <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">
                                 <button class="btn  btn " onclick="sweetajax('aditya',this)"><i class="fa fa-lock text-success"
@@ -172,17 +173,17 @@
                             </span>
 
 
-                            <span id="business_name" class="mb-lg-0 mb-3 font-w100 px-2 colWid3">Good work</span>
-                            <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3">9891713570</span>
+                            <span id="business_name" class="mb-lg-0 mb-3 font-w100 px-2 colWid3">{{i.business_name}}</span>
+                            <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3">{{i.user.contact_no}}</span>
 
                             <span id="business_email"
-                                class="mb-lg-0 mb-3  font-w100 px-2 colWid3">aditya@gmail.com</span>
+                                class="mb-lg-0 mb-3  font-w100 px-2 colWid3">{{i.user.email}}</span>
                             <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3"><i class="fa fa-inr text-active"
                                     aria-hidden="true">
-                                </i>50000000</span>
+                                </i>{{i.wallet_balance}}</span>
                             <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3"><i class="fa fa-inr text-active"
                                     aria-hidden="true">
-                                </i>500,000</span>
+                                </i>{{i.hold_balance}}</span>
                             <span id="openPopupBtn" class=" colWid3 btn btn-success shadow btn-s sharp me-1"
                                 onclick="togglePopups('popupFormTransfer')"><i class="fa fa-inr text-white"
                                     aria-hidden="true"></i>
@@ -196,27 +197,27 @@
                                 <div class="me-3 mb-3">
                                     <p class="fs-12 mb-2"><strong class="text-black">Service Charges: Min ₹10</strong>
                                     </p>
-                                    <span onclick="togglePopups('popupFormIP')"
+                                    <span onclick="togglePopups('popupFormIP', {{i.ip_address}} )"
                                         class="btn btn-outline-primary shadow btn-s sharp me-1">IP Whitelist</span>
                                 </div>
 
 
 
                                 <div class="me-3 mb-3">
-                                    <p class="fs-12 mb-2"><strong class="text-black">IMPS : 2%</strong></p>
+                                    <p class="fs-12 mb-2"><strong class="text-black">IMPS : {{i.imps_charges}} %</strong></p>
                                     <span class=" btn btn-outline-primary  shadow btn-s sharp me-1"
                                         onclick="togglePopups('popupFormCallBack')">Call Back</span>
 
                                 </div>
                                 <div class="me-3 mb-3">
-                                    <p class="fs-12 mb-2"><strong class="text-black">RTGS : 2%</strong></p>
+                                    <p class="fs-12 mb-2"><strong class="text-black">RTGS : {{i.rtgs_charges}}%</strong></p>
                                     <span class="   btn btn-outline-primary  shadow btn-s sharp me-1">Routes</span>
 
                                 </div>
                                 <div class="me-3 mb-3">
-                                    <p class="fs-12 mb-2"><strong class="text-black">NEFT : 2%</strong></p>
+                                    <p class="fs-12 mb-2"><strong class="text-black">NEFT : {{i.neft_charges}}%</strong></p>
                                     <span class="  btn btn-outline-primary  shadow btn-s sharp me-1"
-                                        onclick="togglePopups('popupFormServiceCharge')">Service
+                                        onclick="togglePopups('popupFormServiceCharge',{{i.imps_charges}},{{i.rtgs_charges}},{{i.neft_charges}},{{i.service_charges}})">Service
                                         charges</span>
 
                                 </div>
@@ -233,7 +234,7 @@
                         </div>
                     </div>
                     <!-- End of section  -->
-
+                        {% endfor %}
                 </div>
             </div>
 
