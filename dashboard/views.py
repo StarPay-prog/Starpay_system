@@ -385,7 +385,7 @@ def add_merchant(request):
     #refresh_jwt(request)
     emp_id = request.session.get('user_data')
     print(emp_id)
-    emp_id =emp_id['data']['emp_id']
+    emp_id =emp_id['emp_id']
 
     if request.method == "POST":
 
