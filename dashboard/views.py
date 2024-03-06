@@ -403,7 +403,6 @@ def add_merchant(request):
             "first_name": request.POST.get('first_name'),
             "last_name": request.POST.get('last_name'),
             "contact_no": request.POST.get('phone_no'),
-            "ip_address": "192.168.1231.13.2.21.1",
             "password": request.POST.get('password'),
             "business_name":request.POST.get('business_name'),
             "gst_no":request.POST.get('gst_no'),
