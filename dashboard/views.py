@@ -506,9 +506,11 @@ def payout_merchants(request):
     print(slug2)
 
     print(type(slug2))
+    context = {
+        'data':slug2['data']
+    }
 
-
-    return render (request , 'dashboard/admin/payout-merchant.html',)
+    return render (request , 'dashboard/admin/payout-merchant.html',context)
 
 
 def payout_transaction(request):
