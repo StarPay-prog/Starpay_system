@@ -997,7 +997,7 @@
                                 try {
                                     console.log(data)
                                     // Obtain CSRF token
-                                    const csrftoken = getCookie('csrftoken'); // Function to get CSRF token from cookie, see below
+                                    const csrftoken = '{{csrf_token}}'; // Function to get CSRF token from cookie, see below
         
                                     const djangoUrl = '/Rest/merchant-status/';
                                     const response = await fetch(djangoUrl, {

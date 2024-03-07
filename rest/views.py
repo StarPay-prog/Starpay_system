@@ -5,15 +5,34 @@ import requests
 from dashboard.models import *
 from django.http import JsonResponse
 from starpay.settings import base_url,payout_url
+from django.http import JsonResponse
+# from django.views.decorators.csrf import csrf_exempt
+# @csrf_exempt
 def merchant_status(request):
-
     if request.method == "POST":
         try:
             # Retrieve JSON data from request body
             data = json.loads(request.body)
             user = data.get('user')
+            service = data.get('ser')
+            print(service,type(service))
             print(user)  # This should print 'aditya' if 'data' contains the value 'aditya'
-            
+            url = base_url + 'update-merchant-admin/'+user
+            jwt_token = request.session.get('jwt_token_access')
+            header = {
+            "Authorization": f"Bearer {jwt_token}",
+            "Content-Type": "application/json"  # Assuming you are sending JSON data
+            }
+            data2={
+                "data":{
+                "service_option": service
+                }
+            }
+            data2 = json.dumps(data2)
+            print(data2)
+            response = requests.patch(url,data = data2, headers=header,)
+            data = response.json()
+            print(data)
             # Process the user data as needed
             
             # Return a JSON response
@@ -24,15 +43,25 @@ def merchant_status(request):
     else:
         return JsonResponse({'error': 'Method not allowed'}, status=405)     
 
-def merchant_ip(request):
 
+def merchant_ip(request):
     if request.method == "POST":
         try:
             # Retrieve JSON data from request body
             data = json.loads(request.body)
             user = data.get('user')
-            print(user)  # This should print 'aditya' if 'data' contains the value 'aditya'
-            
+            ip = data.get('ser')
+            print("data",user,ip)  # This should print 'aditya' if 'data' contains the value 'aditya'
+            url = payout_url+'Rest/payout-update-merchant-admin/'+user
+            jwt_token = request.session.get('jwt_token_access')
+            header = {
+                "Access": jwt_token,
+                "Content-Type": "application/json"  # Assuming you are sending JSON data
+                }
+            data2 ={
+                "ip_addres": ip
+            }
+            response1 = requests.patch(url, headers=header,data = json.dumps(data2))
             # Process the user data as needed
             
             # Return a JSON response
@@ -42,7 +71,6 @@ def merchant_ip(request):
             return JsonResponse({'error': 'Invalid JSON data'}, status=400)
     else:
         return JsonResponse({'error': 'Method not allowed'}, status=405)
-
 
 def virtual_transaction(request):
     if request.method == "POST":
