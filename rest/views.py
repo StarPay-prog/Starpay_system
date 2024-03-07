@@ -136,4 +136,38 @@ def update_callbackurl(request):
             return JsonResponse({'error': 'Invalid JSON data'}, status=400)
     else:
         return JsonResponse({'error': 'Method not allowed'}, status=405)
+    
         
+def service_charge(request):
+    if request.method == 'POST':
+        try:
+            # Retrieve JSON data from request body
+            data = json.loads(request.body)
+            user = data.get('user')
+            url1 = data.get('ser1')
+            url2 = data.get('ser2')
+            url3 = data.get('ser3')
+            url4 = data.get('ser4')
+            print("data",user,url1,url2,url3,url4)
+            url = payout_url+'Rest/payout-update-merchant-admin/'+ user
+            jwt_token = request.session.get('jwt_token_access')
+            header = {
+                "Access": jwt_token,
+                "Content-Type": "application/json"  # Assuming you are sending JSON data
+                }
+            data2 = {
+                "neft_charge":url1,
+                "imps_charge":url2,
+                "upi_charge": url3,
+                "minimum_charge":url4
+            }
+            response1 = requests.patch(url, headers=header,data = json.dumps(data2))
+            # Process the user data as needed
+            
+            # Return a JSON response
+            return JsonResponse({'message': 'Success'})
+        except json.JSONDecodeError:
+            # Handle JSON decoding error
+            return JsonResponse({'error': 'Invalid JSON data'}, status=400)
+    else:
+        return JsonResponse({'error': 'Method not allowed'}, status=405)

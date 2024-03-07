@@ -214,13 +214,12 @@
                                 <div class="me-3 mb-3">
                                     <p class="fs-12 mb-2"><strong class="text-black">Service Charges: Min ₹10</strong>
                                     </p>
-                                    <span onclick="ippopup({{i.ip_addres}},'{{i.merchant_id}}')"
+                                    <span onclick="ippopup('{{i.ip_addres}},{{i.merchant_id}}')"
                                         class="btn btn-outline-primary shadow btn-s sharp me-1">IP Whitelist</span>
                                 </div>
 
                                 <div class="me-3 mb-3">
-                                    <p class="fs-12 mb-2"><strong class="text-black">IMPS : {{i.imps_charges}} %</strong></p>
-                                    <span class=" btn btn-outline-primary  shadow btn-s sharp me-1"
+                                    <p class="fs-12 mb-2"><strong class="text-black">IMPS : {{i.imps_charges}} %</strong></p>                                    <span class=" btn btn-outline-primary  shadow btn-s sharp me-1"
                                         onclick="callBack('{{i.webhook_url}}','{{i.merchant_id}}')">Call Back</span>
 
                                 </div>
@@ -232,7 +231,7 @@
                                 <div class="me-3 mb-3">
                                     <p class="fs-12 mb-2"><strong class="text-black">NEFT : {{i.neft_charges}}%</strong></p>
                                     <span class="  btn btn-outline-primary  shadow btn-s sharp me-1"
-                                        onclick="togglePopups('popupFormServiceCharge',{{i.imps_charges}},{{i.rtgs_charges}},{{i.neft_charges}},{{i.service_charges}})">Service
+                                        onclick="updateServiceCharge( '{{i.imps_charges}}','{{i.rtgs_charges}}','{{i.neft_charges}}','{{i.service_charges}}', '{{i.merchant_id}}')">Service
                                         charges</span>
 
                                 </div>
@@ -684,12 +683,14 @@
 <div id="popupFormServiceCharge" class="popup">
     <form class="popup-content4" style="border-radius:25px ;" action="#">
         <span class="close" onclick="closebtn('popupFormServiceCharge')">&times;</span>
-        <div class="mb-3">
+        <div class="mb-3" id = 'serviceCharge'>
             <label style="width: -moz-available;"><strong>IMPS</strong></label>
             <input class="form-control" type="text" placeholder=""><br>
             <label><strong>RTGS</strong></label>
             <input class="form-control" type="text" placeholder=""><br>
             <label><strong>NEFT</strong></label>
+            <input class="form-control" type="text" placeholder=""><br>
+            <label><strong>Service Charges</strong></label>
             <input class="form-control" type="text" placeholder=""><br>
             <hr style="  margin-top: 30px;">
             <button type="submit" class="btn btn-primary mb-2 btn-success btn sweet-auto" id="sweet-auto-close" style="width: 20%;
@@ -757,7 +758,6 @@
 
     function ippopup(data,id){
         console.log(data,typeof(data))
-
         length = data.length
         console.log(length)
         
@@ -789,6 +789,7 @@
         `;
         
         }
+
         else
         {
             container.innerHTML = `<span id = 'mid' hidden >${id}</span>`
@@ -800,9 +801,6 @@
                 let label = document.createElement('label');
                 label.setAttribute('style', 'width: -moz-available;');
                 label.innerHTML = '<strong>Enter Your IP</strong>';
-
-
-
 
                 // Create div element
                 let div = document.createElement('div');
@@ -940,12 +938,6 @@
         
         
     }
-
-    
-
-
-    
-    
 
 // to activate payout of merchant it will show popup in order to activate the merchant
     function  statusMerchant(data,button,services) 
@@ -1101,10 +1093,6 @@
 
             console.log(data,typeof(data))
     
-           
-           
-            
-    
            // Get the popup form element
             let popupForm = document.querySelector('#popupFormCallBack');
             popupForm.style.display = "block";
@@ -1113,10 +1101,7 @@
             let container = popupForm.querySelector('#callBackUrl');
     
             // Values to pass into the elements
-           
-            
             {
-                
                 container.innerHTML = `
                 <span id = 'mid' hidden >${id}</span>
                 <label style="width: -moz-available;"><strong>CallBack URL</strong></label>
@@ -1127,9 +1112,6 @@
             `;
             
             }
-            
-            
-    
         }
 // to save the url by sending post request to server 
         function callBackSubmit(ele){
@@ -1170,14 +1152,118 @@
             console.error('Fetch error:', error);
           });
 
-
         }
 
+        // function to update service charges
+        function updateServiceCharge(data1,data2,data3,data4,id){
+            console.log(data1,typeof(data1),'kutta')
+                
+            if (data1 == '' ){
 
+                // Get the popup form element
+            let popupForm = document.querySelector('#popupFormServiceCharge');
+            popupForm.style.display = "block";
+    
+            // Get the container inside the popup form where you want to append the new elements
+            let container = popupForm.querySelector('#serviceCharge');
+            // Values to pass into the elements
+            {
+                container.innerHTML = `
+                <span id = 'mid' hidden >${id}</span>
+    
+            <label style="width: -moz-available;"><strong>IMPS</strong></label>
+            <input class="form-control" type="text"  id="input1" placeholder=" enter RTGS"><br>
+            <label><strong>RTGS</strong></label>
+            <input class="form-control" type="text"  id="input2" placeholder="enter NEFT"><br>
+            <label><strong>NEFT</strong></label>
+            <input class="form-control" type="text"  id="input3" placeholder="enter Service Charge"><br>
+            <label><strong>Service Charge</strong></label>
+            <input class="form-control" type="text"  id="input4" placeholder=""><br>
+            <hr style="  margin-top: 30px;">
+            <a class="btn btn-primary mb-2 btn-success btn sweet-auto" id="sweet-auto-close" style="width: 20%;
+            font-size: large;" onClick= 'serviceChargeSubmit(this)'>Save</a>
+            `;
+            
+            }
+                
+            }
+            else{
 
+           // Get the popup form element
+            let popupForm = document.querySelector('#popupFormServiceCharge');
+            popupForm.style.display = "block";
+    
+            // Get the container inside the popup form where you want to append the new elements
+            let container = popupForm.querySelector('#serviceCharge');
+            // Values to pass into the elements
+            {
+                container.innerHTML = `
+                <span id = 'mid' hidden >${id}</span>
+    
+            <label style="width: -moz-available;"><strong>IMPS</strong></label>
+            <input class="form-control" type="text" value = ${data1} id="input1" placeholder=""><br>
+            <label><strong>RTGS</strong></label>
+            <input class="form-control" type="text" value = ${data2} id="input2" placeholder=""><br>
+            <label><strong>NEFT</strong></label>
+            <input class="form-control" type="text" value = ${data3} id="input3" placeholder=""><br>
+            <label><strong>Service Charge</strong></label>
+            <input class="form-control" type="text" value = ${data4} id="input4" placeholder=""><br>
+            <hr style="  margin-top: 30px;">
+            <a class="btn btn-primary mb-2 btn-success btn sweet-auto" id="sweet-auto-close" style="width: 20%;
+            font-size: large;" onClick= 'serviceChargeSubmit(this)'>Save</a>
+            `;
+            
+            }
+        }
+        }
 
+        // to save the inputs of service charges by sending post request to server
+        function serviceChargeSubmit(e){
+            var a = e.parentNode.querySelector('#input1')
+            var b = e.parentNode.querySelector('#input2')
+            var c = e.parentNode.querySelector('#input3')
+            var d = e.parentNode.querySelector('#input4')
+            var x = e.parentNode.querySelector('#mid')
+           
+            let mid = x.innerHTML
+            let url1 = a.value
+            let url2 = b.value
+            let url3 = c.value
+            let url4 = d.value
 
+            console.log(e,a,b,c,d,url1,url2, url3, url4,mid,x)
+            const csrftoken = getCookie('csrftoken')
+            var Data = {
+            user: mid,
+            ser1: url1,
+            ser2: url2,
+            ser3: url3,
+            ser4: url4
+          };
+          fetch('/Rest/service-charge/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken
+            },
+            body: JSON.stringify(Data)
+          })
+          .then(response => {
+            // Check if the request was successful
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            swal("Hey, Good job !!", "You clicked the button !!", "success")
+            
+            return response.json();
+          })
+          .catch(error => {
+            // Handle error if request failed
+            swal("Hey, bad job !!", "You clicked the button !!", "success")
+            console.error('Fetch error:', error);
+          });
 
+        }
 
     </script>
 

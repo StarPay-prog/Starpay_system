@@ -9,5 +9,6 @@ urlpatterns = [
     path('virtual-transaction/',views.virtual_transaction,name='virtual_transaction'),
     path('ip-update/',views.merchant_ip,name='merchant_ip'),
     path('update-callback/',views.update_callbackurl,name = 'update_callbackurl'),
+    path('service-charge/',views.service_charge,name = 'service-charge'),
 
 ]
