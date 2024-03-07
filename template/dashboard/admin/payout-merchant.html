@@ -174,11 +174,20 @@
 
                             <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">{{forloop.counter}}</span>
 
-                        
+                            {% for j in  i.service_option%}
+                            {% if j.service_name == 'Payout'%}
                             <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">
-                                <button class="btn  btn " onclick="sweetajax('{{i.merchant_id}}',this,{{i.service_option}})"><i class="fa fa-lock text-success"
+                                <button class="btn  btn " onclick="statusMerchant('{{i.merchant_id}}',this,{{i.service_option}})"><i class="fa fa-lock text-success"
                                         aria-hidden="true"></i> </button>
                             </span>
+                            {% else %}
+                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">
+                                <button class="btn  btn " onclick="statusMerchant('{{i.merchant_id}}',this,{{i.service_option}})"><i class="fa fa-unlock text-danger"
+                                        aria-hidden="true"></i> </button>
+                            </span>
+                            {% endif %}
+                            {% endfor %}
+
 
 
                             <span id="business_name" class="mb-lg-0 mb-3 font-w100 px-2 colWid3">{{i.business_name}}</span>
@@ -212,7 +221,7 @@
                                 <div class="me-3 mb-3">
                                     <p class="fs-12 mb-2"><strong class="text-black">IMPS : {{i.imps_charges}} %</strong></p>
                                     <span class=" btn btn-outline-primary  shadow btn-s sharp me-1"
-                                        onclick="togglePopups('popupFormCallBack')">Call Back</span>
+                                        onclick="callBack('{{i.webhook_url}}','{{i.merchant_id}}')">Call Back</span>
 
                                 </div>
                                 <div class="me-3 mb-3">
@@ -662,7 +671,7 @@
 <div id="popupFormCallBack" class="popup">
     <form class="popup-content3" style="border-radius:25px ;" action="#">
         <span class="close" onclick="closebtn('popupFormCallBack')">&times;</span>
-        <div class="mb-3">
+        <div class="mb-3" id = 'callBackUrl' >
             <label style="width: -moz-available;"><strong>CallBack URL</strong></label>
             <input class="form-control" type="text" placeholder="Enter Your URL">
             <hr style="  margin-top: 30px;">
@@ -938,70 +947,132 @@
     
     
 
-
-    function  sweetajax(data,button,services) 
-     {
+// to activate payout of merchant it will show popup in order to activate the merchant
+    function  statusMerchant(data,button,services) 
+    {
 
                 console.log(services)
                 console.log(typeof(services))
                 let service = [];
-                for (let i = 0; i < services.length; i++) {
-                    // Check if service_name is 'Payout'
-                    if (services[i].service_name === 'Payout') {
-                        // Set payoutExists to true if found
-                        // No need to continue looping once found
-                    }
-                    else
-                    service.push(services[i].slug)
-                }
+                var icon = button.querySelector('i');
                 
+                if (icon.classList.contains('fa-unlock')){
 
-                swal({
-                    title: "Deactivate!!",
-                    text: "Click on Deactivate or Cancel !!",
-                    type: "info",
-                    showCancelButton: true,
-                    closeOnConfirm: false,
-                    showLoaderOnConfirm: true,
-                    confirmButtonText: "Deactivate",
-                    preConfirm: async (d) => {
-                        try {
-                            console.log(data)
-                            // Obtain CSRF token
-                            const csrftoken = getCookie('csrftoken'); // Function to get CSRF token from cookie, see below
-
-                            const djangoUrl = '/merchant-status/';
-                            const response = await fetch(djangoUrl, {
-                                method: 'POST', // or 'GET' depending on your Django view
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'X-CSRFToken': csrftoken // Include CSRF token in the header
-                                },
-                                body: JSON.stringify({user: data,
-                                    ser:service
-                                })
-                            });
-                            console.log(response)
-                            if (!response.ok) {
-                                throw new Error(await response.text());
-                            }
-
-                            var icon = button.querySelector('i');
-                            console.log(icon)
-                            icon.classList.remove("fa-lock");
-                            icon.classList.add("fa-unlock");
-                            icon.classList.remove("text-success");
-                            icon.classList.add("text-danger");
+                
+                        for (let i = 0; i < services.length; i++) {
+                            // Check if service_name is 'Payout'
+                        
+                                service.push(services[i].slug)
 
                         
-                            return response.json();
-                        } 
-                        catch (error) {
-                            throw new Error(`Request failed: ${error}`);
                         }
-                    },
+                        service.push(9819)
+                        swal({
+                            title: "Activate!!",
+                            text: "Click on Activate or Cancel !!",
+                            type: "info",
+                            showCancelButton: true,
+                            closeOnConfirm: false,
+                            showLoaderOnConfirm: true,
+                            confirmButtonText: "Activate",
+                            preConfirm: async (d) => {
+                                try {
+                                    console.log(data)
+                                    // Obtain CSRF token
+                                    const csrftoken = getCookie('csrftoken'); // Function to get CSRF token from cookie, see below
+        
+                                    const djangoUrl = '/Rest/merchant-status/';
+                                    const response = await fetch(djangoUrl, {
+                                        method: 'POST', // or 'GET' depending on your Django view
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                            'X-CSRFToken': csrftoken // Include CSRF token in the header
+                                        },
+                                        body: JSON.stringify({user: data,
+                                            ser:service
+                                        })
+                                    });
+                                    console.log(response)
+                                    if (!response.ok) {
+                                        throw new Error(await response.text());
+                                    }
+        
+                                    
+                                    icon.classList.remove("fa-unlock");
+                                    icon.classList.add("fa-lock");
+                                    icon.classList.remove("text-danger");
+                                    icon.classList.add("text-success");
+        
+                                
+                                    return response.json();
+                                } 
+                                catch (error) {
+                                    throw new Error(`Request failed: ${error}`);
+                                }
+                            },
+                        
+                                });
                 
-                        });
+                }
+            else{
+                        for (let i = 0; i < services.length; i++) {
+                            // Check if service_name is 'Payout'
+                            if (services[i].service_name == 'Payout') {
+                                // Set payoutExists to true if found
+                                // No need to continue looping once found
+                            }
+                            else
+                            service.push(services[i].slug)
+                        }
+                        swal({
+                            title: "Deactivate!!",
+                            text: "Click on Deactivate or Cancel !!",
+                            type: "info",
+                            showCancelButton: true,
+                            closeOnConfirm: false,
+                            showLoaderOnConfirm: true,
+                            confirmButtonText: "Deactivate",
+                            preConfirm: async (d) => {
+                                try {
+                                    console.log(data)
+                                    // Obtain CSRF token
+                                    const csrftoken = getCookie('csrftoken'); // Function to get CSRF token from cookie, see below
+        
+                                    const djangoUrl = '/Rest/merchant-status/';
+                                    const response = await fetch(djangoUrl, {
+                                        method: 'POST', // or 'GET' depending on your Django view
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                            'X-CSRFToken': csrftoken // Include CSRF token in the header
+                                        },
+                                        body: JSON.stringify({user: data,
+                                            ser:service
+                                        })
+                                    });
+                                    console.log(response)
+                                    if (!response.ok) {
+                                        throw new Error(await response.text());
+                                    }
+        
+                                    var icon = button.querySelector('i');
+                                    console.log(icon)
+                                    icon.classList.remove("fa-lock");
+                                    icon.classList.add("fa-unlock");
+                                    icon.classList.remove("text-success");
+                                    icon.classList.add("text-danger");
+        
+                                
+                                    return response.json();
+                                } 
+                                catch (error) {
+                                    throw new Error(`Request failed: ${error}`);
+                                }
+                            },
+                        
+                                });
+
+                }
+                
         };
 
     
@@ -1022,26 +1093,134 @@
             console.log(cookieValue)
             return cookieValue;
         }
-</script>
 
 
+    // to update callBack url of merchant using admin
+        function callBack(data,id)
+        {
+
+            console.log(data,typeof(data))
+    
+           
+           
+            
+    
+           // Get the popup form element
+            let popupForm = document.querySelector('#popupFormCallBack');
+            popupForm.style.display = "block";
+    
+            // Get the container inside the popup form where you want to append the new elements
+            let container = popupForm.querySelector('#callBackUrl');
+    
+            // Values to pass into the elements
+           
+            
+            {
+                
+                container.innerHTML = `
+                <span id = 'mid' hidden >${id}</span>
+                <label style="width: -moz-available;"><strong>CallBack URL</strong></label>
+                <input class="form-control" type="text" value = ${data} placeholder="Enter Your URL">
+                <hr style="  margin-top: 30px;">
+                <a class="btn btn-primary mb-2 btn-success btn sweet-success" style="width: 20%;
+                font-size: large;" onClick = 'callBackSubmit(this)'>Apply</a>
+            `;
+            
+            }
+            
+            
+    
+        }
+// to save the url by sending post request to server 
+        function callBackSubmit(ele){
+
+            var a = ele.parentNode.querySelector('input')
+            var b = ele.parentNode.querySelector('#mid')
+            
+            
+            let mid = b.innerHTML
+            let url = a.value
+            console.log(ele,a,b,url,mid)
+            const csrftoken = getCookie('csrftoken');
+        
+        var Data = {
+            user: mid,
+            ser:url
+          };
+          fetch('/Rest/update-callback/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken
+            },
+            body: JSON.stringify(Data)
+          })
+          .then(response => {
+            // Check if the request was successful
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            swal("Hey, Good job !!", "You clicked the button !!", "success")
+            
+            return response.json();
+          })
+          .catch(error => {
+            // Handle error if request failed
+            swal("Hey, bad job !!", "You clicked the button !!", "success")
+            console.error('Fetch error:', error);
+          });
+
+
+        }
+
+
+
+
+
+
+
+    </script>
+
+
+
+
+
+
+<!-- Virtual Transaction -->
 <script>
-    document.querySelector("#sweet-auto-close").onclick = function () {
-        swal({
-            title: "Saved Successfully !!",
-            timer: 2e3,
-            showConfirmButton: !1
-        })
-    }
+    $(document).ready(function () {
+        $("#transfer_button").click(function (e) {
+            e.preventDefault(); // Prevent the form from submitting normally
+
+            // Get form data
+            var businessName = $("#popupFormTransfer input[name='business_name']").val();
+            var method = $("#inlineFormCustomSelect").val();
+            var amount = $("#popupFormTransfer input[name='amount']").val();
+
+            // Make AJAX request
+            $.ajax({
+                type: "POST",
+                url: 'Rest/virtual-transaction/',
+                headers: {
+                "X-CSRFToken": '{{csrf_token}}'
+            },
+                data: {
+                    businessName: businessName,
+                    method: method,
+                    amount: amount
+                },
+                success: function (response) {
+                    // Handle success response
+                    console.log("Transfer successful");
+                },
+                error: function (xhr, status, error) {
+                    // Handle error response
+                    console.error("Error:", error);
+                }
+            });
+        });
+    });
 </script>
-
-<script>
-    document.querySelector(".sweet-success").onclick = function () {
-        swal("Hey, Good job !!", "Applied Successfully !!", "success")
-    }
-</script>
-
-
 
 
 
