@@ -600,7 +600,36 @@ def merchant_ip(request):
         return JsonResponse({'error': 'Method not allowed'}, status=405)
 
 
+def update_CallBackUrl(request):
 
+    if request.method == 'post':
+        try:
+            # Retrieve JSON data from request body
+            data = json.loads(request.body)
+            user = data.get('user')
+            url = data.get('ser')
+            print("data",user,url)  # This should print 'aditya' if 'data' contains the value 'aditya'
+            url = payout_url+'Rest/payout-update-merchant-admin/'+user
+            jwt_token = request.session.get('jwt_token_access')
+            header = {
+                "Access": jwt_token,
+                "Content-Type": "application/json"  # Assuming you are sending JSON data
+                }
+            data2 ={
+                "webhook_url":url
+
+            }
+            response1 = requests.patch(url, headers=header,data = json.dumps(data2))
+            # Process the user data as needed
+            
+            # Return a JSON response
+            return JsonResponse({'message': 'Success'})
+        except json.JSONDecodeError:
+            # Handle JSON decoding error
+            return JsonResponse({'error': 'Invalid JSON data'}, status=400)
+    else:
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+        
 
 
 
