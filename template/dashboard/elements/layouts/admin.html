@@ -86,7 +86,7 @@
         <!--**********************************
             Sidebar start
         ***********************************-->
-        {% if request.session.user_type == 'super_admin'%}
+        {% if request.session.user_type == 'superadmin'%}
 		{% include 'dashboard/elements/super-admin.html' %}
         {%elif request.session.user_type == 'admin' %}
         {% include 'dashboard/elements/admin.html' %}
