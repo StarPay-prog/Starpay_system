@@ -910,7 +910,7 @@
 
 // to activate payout of merchant it will show popup in order to activate the merchant
     function  statusMerchant(data,button,services) 
-     {
+    {
 
                 console.log(services)
                 console.log(typeof(services))
@@ -942,7 +942,7 @@
                                     // Obtain CSRF token
                                     const csrftoken = getCookie('csrftoken'); // Function to get CSRF token from cookie, see below
         
-                                    const djangoUrl = '/merchant-status/';
+                                    const djangoUrl = '/Rest/merchant-status/';
                                     const response = await fetch(djangoUrl, {
                                         method: 'POST', // or 'GET' depending on your Django view
                                         headers: {
@@ -999,7 +999,7 @@
                                     // Obtain CSRF token
                                     const csrftoken = getCookie('csrftoken'); // Function to get CSRF token from cookie, see below
         
-                                    const djangoUrl = '/merchant-status/';
+                                    const djangoUrl = '/Rest/merchant-status/';
                                     const response = await fetch(djangoUrl, {
                                         method: 'POST', // or 'GET' depending on your Django view
                                         headers: {
@@ -1054,74 +1054,11 @@
             console.log(cookieValue)
             return cookieValue;
         }
-// to deactivate payout of merchant it will show popup in order to deactivate the merchant
-        function  deactivateMerchant(data,button,services) 
-     {
 
-                console.log(services)
-                console.log(typeof(services))
-                let service = [];
-                for (let i = 0; i < services.length; i++) {
-                    // Check if service_name is 'Payout'
-                    if (services[i].service_name == 'Payout') {
-                        // Set payoutExists to true if found
-                        // No need to continue looping once found
-                    }
-                    else
-                    service.push(services[i].slug)
-                }
-                
 
-                swal({
-                    title: "Deactivate!!",
-                    text: "Click on Deactivate or Cancel !!",
-                    type: "info",
-                    showCancelButton: true,
-                    closeOnConfirm: false,
-                    showLoaderOnConfirm: true,
-                    confirmButtonText: "Deactivate",
-                    preConfirm: async (d) => {
-                        try {
-                            console.log(data)
-                            // Obtain CSRF token
-                            const csrftoken = getCookie('csrftoken'); // Function to get CSRF token from cookie, see below
-
-                            const djangoUrl = '/merchant-status/';
-                            const response = await fetch(djangoUrl, {
-                                method: 'POST', // or 'GET' depending on your Django view
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'X-CSRFToken': csrftoken // Include CSRF token in the header
-                                },
-                                body: JSON.stringify({user: data,
-                                    ser:service
-                                })
-                            });
-                            console.log(response)
-                            if (!response.ok) {
-                                throw new Error(await response.text());
-                            }
-
-                            var icon = button.querySelector('i');
-                            console.log(icon)
-                            icon.classList.remove("fa-lock");
-                            icon.classList.add("fa-unlock");
-                            icon.classList.remove("text-success");
-                            icon.classList.add("text-danger");
-
-                        
-                            return response.json();
-                        } 
-                        catch (error) {
-                            throw new Error(`Request failed: ${error}`);
-                        }
-                    },
-                
-                        });
-        };
-
-    
-        function callBack(data,id){
+    // to update callBack url of merchant using admin
+        function callBack(data,id)
+        {
 
             console.log(data,typeof(data))
     
@@ -1142,11 +1079,12 @@
             {
                 
                 container.innerHTML = `
+                <span id = 'mid' hidden >${id}</span>
                 <label style="width: -moz-available;"><strong>CallBack URL</strong></label>
                 <input class="form-control" type="text" value = ${data} placeholder="Enter Your URL">
                 <hr style="  margin-top: 30px;">
-                <button class="btn btn-primary mb-2 btn-success btn sweet-success" style="width: 20%;
-                font-size: large;" type="submit">Apply</button>
+                <a class="btn btn-primary mb-2 btn-success btn sweet-success" style="width: 20%;
+                font-size: large;" onClick = 'callBackSubmit(this)'>Apply</a>
             `;
             
             }
@@ -1154,20 +1092,27 @@
             
     
         }
+// to save the url by sending post request to server 
+        function callBackSubmit(ele){
 
-        function callBackSubmit(url,mid){
-
+            var a = ele.parentNode.querySelector('input')
+            var b = ele.parentNode.querySelector('#mid')
+            
+            
+            let mid = b.innerHTML
+            let url = a.value
+            console.log(ele,a,b,url,mid)
             const csrftoken = getCookie('csrftoken');
         
         var Data = {
             user: mid,
             ser:url
           };
-          fetch('/ip-update/', {
+          fetch('/Rest/update-callback/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRFToken': csrftoken // Include CSRF token in the header
+                'X-CSRFToken': csrftoken
             },
             body: JSON.stringify(Data)
           })

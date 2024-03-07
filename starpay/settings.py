@@ -145,5 +145,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 FILE_UPLOAD_MAX_MEMORY_SIZE = 10 * 1024 * 1024 # 10 Mb limit
 
-base_url = "http://192.168.1.14:8000/"  
-payout_url = "http://192.168.1.14:7000/"
+base_url = "http://192.168.1.13:9000/"  
+payout_url = "http://192.168.1.13:7000/"
