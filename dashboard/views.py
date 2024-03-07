@@ -380,6 +380,10 @@ def my_wallet(request):
 
     return render  (request,'dashboard/merchant-dashboard/my_wallet.html')
 
+def my_settings(request):
+
+    return render  (request,'dashboard/merchant-dashboard/settings.html')
+
 def add_merchant(request):
 
     #refresh_jwt(request)

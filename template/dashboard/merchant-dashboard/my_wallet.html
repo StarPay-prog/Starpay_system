@@ -3,6 +3,57 @@
 {% load static %}
 
 {% block additional_css %}
+<style>
+	.form-control {
+        border: 2px solid gray;
+
+    }
+
+    .form-control:focus {
+        border: 2px solid skyblue;
+    }
+
+	.popup {
+        display: none;
+        position: fixed;
+        z-index: 3;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .popup-content {
+        color: black;
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 700px;
+    }
+	.close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#openPopupBtn :hover{
+	cursor: pointer;
+
+}
+
+</style>
 {% endblock %}
 
 {% block content %}
@@ -166,7 +217,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-xl-3 col-xxl-12">
+			<div class="col-xl-3 col-xxl-12" id="openPopupBtn" onclick="togglePopups('popupFormTransfer')">
 				<div class="row">
 					<div class="col-xl-12 col-xxl-6 col-sm-6">
 						<div class="card bg-primary">
@@ -185,7 +236,7 @@
 											</defs>
 										</svg>
 									</span>
-									<span class="fs-20 text-white">Request Money </span>
+									<span class="fs-20 text-white"  >Request Money </span>
 								</div>
 							</div>
 						</div>
@@ -200,17 +251,29 @@
 			<form class="popup-content" style="border-radius:25px ;" action="#">
 				<span class="close" onclick="closebtn('popupFormTransfer')">&times;</span>
 				<div class="mb-3">
-					<label style="width: -moz-available;">Business Name</label>
-					<input class="form-control" type="text" value="ASj media PVT LTD" readonly>
-				</div>
-				<div class="mb-3">
-					<label class="me-sm-2">Method</label>
+					<label class="me-sm-2" style="width: -moz-available;">Bank Name</label>
 					<select class=" form-control text-black" id="inlineFormCustomSelect">
 						<option selected>Choose...</option>
-						<option value="1">Credit</option>
-						<option value="2">Debit</option>
-						<option value="3">Hold</option>
+						<option value="1">SBI</option>
+						<option value="2">HDFC</option>
+						<option value="3">ICICI</option>
 					</select>
+				</div>
+				<div class="mb-3">
+					<label style="width: -moz-available;">Account No.</label>
+					<input class="form-control" type="text" readonly>
+				</div>
+				<div class="mb-3">
+					<label style="width: -moz-available;">UTR No.</label>
+					<input class="form-control" type="text">
+				</div>
+				<div class="mb-3">
+					<label style="width: -moz-available;">Transaction Date</label>
+					<input class="form-control" type="text">
+				</div>
+				<div class="mb-3">
+					<label style="width: -moz-available;">Remarks</label>
+					<input class="form-control" type="text">
 				</div>
 				<div class="mb-3 row">
 					<label class="col-sm-3 col-form-label">Amount</label>
@@ -218,16 +281,33 @@
 						<span class="input-group-text search_icon" style="
 							background-color: #a4a4a4; border: 2px solid gray;">₹</span>
 						<input type="tel" name="amount" class="form-control" style="border: 2px solid gray;">
-		
 					</div>
 				</div>
 				<button type="submit" class="btn btn-primary Confirm-btn mb-2">Transfer</button>
 			</form>
-		
-		
 		</div>
+
+		
+
 {% endblock %}
 
 {% block additional_js %}
+<script>
+	function togglePopups(x) {
+		console.log(x)
+		a = document.querySelector('#' + x)
+		console.log(a)
+		a.style.display = "block";
+	}
+
+	function closebtn(popup) {
+		y = document.getElementById(popup);
+		console.log(y)
+		// When the user clicks on <span> (x), close the popup
+		y.style.display = "none";
+	}
+
+
+</script>
 
 {% endblock %}
