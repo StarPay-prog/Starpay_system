@@ -11,12 +11,11 @@ from django.views.decorators.csrf import csrf_protect
 from django.utils.decorators import method_decorator
 from .authentication import *
 # for i in range(0,10000):
-
+from starpay.settings import base_url,payout_url
      
 
 #@login_required(login_url='dashboard:login')
-base_url = "http://192.168.1.13:9000/"  
-payout_url = "http://192.168.1.13:7000/"
+
 
 def index(request):
     # refresh_jwt(request)
@@ -98,6 +97,7 @@ def dashboard_login_admin(request):
 
         url = base_url + "login/"
         response = requests.post(url, data=data)
+        print(response)
         jwt_token_access = response.headers['access']
         jwt_token_refresh = response.headers['refresh']
         user_data = response.json()
@@ -120,7 +120,7 @@ def dashboard_login_admin(request):
         request.session['jwt_token_access'] = jwt_token_access
         request.session['jwt_token_refresh'] = jwt_token_refresh
         
-        request.session['user_data'] = user_data
+        request.session['user_data'] = user
         request.session['ip'] = user_ip
         request.session['user_type'] = "admin"
         session_key = request.session.session_key
@@ -259,7 +259,7 @@ def add_admin(request):
 
         print(header)
 
-        url = "http://192.168.1.13:9000/register-admin/"
+        url = base_url + "register-admin/"
         response = requests.post(url, data=data2 , headers=header)
         slug = response.json()
         print(slug)
@@ -288,7 +288,7 @@ def view_admin(request):
         }
 
 
-    url = "http://192.168.1.13:9000/get-admin-list/"
+    url = "http://192.168.1.14:8000/get-admin-list/"
 
     response = requests.get(url, headers=header)
 
@@ -313,11 +313,11 @@ def view_merchant(request):
 
     if request.session.get('user_type') == 'admin':
         
-        url = "http://192.168.1.13:9000/get-merchant-list-admin/"
+        url = "http://192.168.1.14:8000/get-merchant-list-admin/"
 
     elif request.session.get('user_type') == 'superadmin':
        
-        url = "http://192.168.1.13:9000/get-merchant-list-super/"
+        url = "http://192.168.1.14:8000/get-merchant-list-super/"
 
     response = requests.get(url, headers=header)
 
@@ -389,7 +389,7 @@ def add_merchant(request):
     #refresh_jwt(request)
     emp_id = request.session.get('user_data')
     print(emp_id)
-    emp_id =emp_id['data']['emp_id']
+    emp_id =emp_id['emp_id']
 
     if request.method == "POST":
 
@@ -407,7 +407,6 @@ def add_merchant(request):
             "first_name": request.POST.get('first_name'),
             "last_name": request.POST.get('last_name'),
             "contact_no": request.POST.get('phone_no'),
-            "ip_address": "192.168.1231.13.2.21.1",
             "password": request.POST.get('password'),
             "business_name":request.POST.get('business_name'),
             "gst_no":request.POST.get('gst_no'),
@@ -431,7 +430,7 @@ def add_merchant(request):
 
         print(header)
 
-        url = "http://192.168.1.13:9000/register-merchant/"
+        url = "http://192.168.1.14:8000/register-merchant/"
         response = requests.post(url, data=data2 , headers=header)
         slug = response.json()
         slug = slug['status']
@@ -462,7 +461,7 @@ def refresh_jwt(request):
 
     access_token = request.session.get('jwt_token_access')
     refresh_token = request.session.get('jwt_token_refresh')
-    url = "http://192.168.1.13:9000/token/refresh/"
+    url = "http://192.168.1.14:8000/token/refresh/"
 
     token = {
             "refresh":refresh_token,
@@ -528,76 +527,8 @@ def payout_transaction(request):
     return render (request , 'dashboard/admin/payout-transaction.html',)
 
 # response for ajax is handeled from here
-    
-from django.http import JsonResponse
-# from django.views.decorators.csrf import csrf_exempt
-# @csrf_exempt
-def merchant_status(request):
-
-    if request.method == "POST":
-        try:
-            # Retrieve JSON data from request body
-            data = json.loads(request.body)
-            user = data.get('user')
-            service = data.get('ser')
-            print(service,type(service))
-
-            print(user)  # This should print 'aditya' if 'data' contains the value 'aditya'
-            url = base_url + 'update-merchant-admin/'+user
-            jwt_token = request.session.get('jwt_token_access')
-            header = {
-            "Authorization": f"Bearer {jwt_token}",
-            "Content-Type": "application/json"  # Assuming you are sending JSON data
-            }
-
-            data2={
-                "service_option": service
-            }
-            data2 = json.dumps(data2)
-
-            response = requests.patch(url,data = data2, headers=header,)
-            data = response.json()
-            print(data)
-            # Process the user data as needed
-            
-            # Return a JSON response
-            return JsonResponse({'message': 'Success'})
-        except json.JSONDecodeError:
-            # Handle JSON decoding error
-            return JsonResponse({'error': 'Invalid JSON data'}, status=400)
-    else:
-        return JsonResponse({'error': 'Method not allowed'}, status=405)     
 
 
-def merchant_ip(request):
-
-    if request.method == "POST":
-        try:
-            # Retrieve JSON data from request body
-            data = json.loads(request.body)
-            user = data.get('user')
-            ip = data.get('ser')
-            print("data",user,ip)  # This should print 'aditya' if 'data' contains the value 'aditya'
-            url = payout_url+'Rest/payout-update-merchant-admin/'+user
-            jwt_token = request.session.get('jwt_token_access')
-            header = {
-                "Access": jwt_token,
-                "Content-Type": "application/json"  # Assuming you are sending JSON data
-                }
-            data2 ={
-                "ip_addres": ip
-
-            }
-            response1 = requests.patch(url, headers=header,data = json.dumps(data2))
-            # Process the user data as needed
-            
-            # Return a JSON response
-            return JsonResponse({'message': 'Success'})
-        except json.JSONDecodeError:
-            # Handle JSON decoding error
-            return JsonResponse({'error': 'Invalid JSON data'}, status=400)
-    else:
-        return JsonResponse({'error': 'Method not allowed'}, status=405)
 
 
 def update_CallBackUrl(request):
