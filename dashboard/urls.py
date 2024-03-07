@@ -30,7 +30,7 @@ urlpatterns = [
     path('active-merchant/',views.active_merchant,name="active-merchant"),
     path('edit-merchant/<str:merchid>/',views.edit_merchant, name = "edit_merchant"),
     path('merchant-status/',views.merchant_status,name='merchant_status'),
-   
+    path('ip-update/',views.merchant_ip,name='merchant_ip'),
 
     
     # path('index-2/',views.index2,name="index-2"),

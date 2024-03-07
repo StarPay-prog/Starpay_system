@@ -167,8 +167,9 @@
 
                             <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">{{forloop.counter}}</span>
 
+                        
                             <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">
-                                <button class="btn  btn " onclick="sweetajax('aditya',this)"><i class="fa fa-lock text-success"
+                                <button class="btn  btn " onclick="sweetajax('{{i.merchant_id}}',this,{{i.service_option}})"><i class="fa fa-lock text-success"
                                         aria-hidden="true"></i> </button>
                             </span>
 
@@ -197,7 +198,7 @@
                                 <div class="me-3 mb-3">
                                     <p class="fs-12 mb-2"><strong class="text-black">Service Charges: Min ₹10</strong>
                                     </p>
-                                    <span onclick="togglePopups('popupFormIP', {{i.ip_address}} )"
+                                    <span onclick="ippopup({{i.ip_addres}},'{{i.merchant_id}}')"
                                         class="btn btn-outline-primary shadow btn-s sharp me-1">IP Whitelist</span>
                                 </div>
 
@@ -609,24 +610,14 @@
     <form class="popup-content2" style="border-radius:25px ;" action="#">
         <span class="close" onclick="closebtn('popupFormIP')">&times;</span>
         <div class="mb-3 ip_block">
-            <label style="width: -moz-available;"><strong>Enter Your IP</strong></label>
-            <div style="display: flex;   justify-content: space-between; align-items: first baseline; 
-            margin-bottom: 40px;">
-                <div>
-                    <!-- <label style=""><strong>CallBack URL</strong></label> -->
-                    <input class="form-control form-ip" type=" text" style="width: 200%;">
-                </div>
-                <span class="delete-icon btn sweet-success-cancel btn-lg">
-                    <i class="fa fa-trash-alt " style="color: red;" onclick="deleteBtn()"></i>
-                </span>
-            </div>
+           
 
 
         </div>
         <hr style="  margin-top: 30px;">
-        <button class="btn btn-primary  mb-2" class="buttons" id="inputFields" onclick="addInputField()">Add New
-            IP</button>
-        <button class="btn btn-primary mb-2 btn sweet-auto" class="buttons" id="saveBtn" onclick="save_click('saveBtn')" style="margin-left: 10px;">Save</button>
+        <a class="btn btn-primary  mb-2" class="buttons" id="inputFields" onclick="addInputField()">Add New
+            IP</a>
+        <a class="btn btn-primary mb-2 btn sweet-auto" class="buttons" id="saveBtn" onclick="save_ip()" style="margin-left: 10px;">Save</a>
     </form>
 </div>
 
@@ -712,8 +703,89 @@
     function togglePopups(x) {
         console.log(x)
         a = document.querySelector('#' + x)
-        console.log(a)
+        
         a.style.display = "block";
+    }
+
+
+    function ippopup(data,id){
+        console.log(data,typeof(data))
+
+        length = data.length
+        console.log(length)
+        
+
+       // Get the popup form element
+        let popupForm = document.querySelector('#popupFormIP');
+        popupForm.style.display = "block";
+
+        // Get the container inside the popup form where you want to append the new elements
+        let container = popupForm.querySelector('.ip_block');
+
+        // Values to pass into the elements
+        let values = ['Value 1', 'Value 2', 'Value 3'];
+        if (length == 0)
+        {
+            console.log('goodboy')
+            container.innerHTML = `
+            <label style="width: -moz-available;"><strong>Enter Your IP</strong></label>
+            <div style="display: flex; justify-content: space-between; align-items: first baseline; margin-bottom: 40px;">
+                <div>
+                    <span id = 'mid' hidden >${id}</span>
+                    <!-- <label style=""><strong>CallBack URL</strong></label> -->
+                    <input class="form-control form-ip" type="text" style="width: 200%;">
+                </div>
+                <span class="delete-icon btn sweet-success-cancel btn-lg">
+                    <i class="fa fa-trash-alt" style="color: red;" onclick="deleteBtn()"></i>
+                </span>
+            </div>
+        `;
+        
+        }
+        else
+        {
+            container.innerHTML = `<span id = 'mid' hidden >${id}</span>`
+
+        // Loop to create three sets of elements with different values
+        for (let i = 0; i < length; i++) 
+            {
+                // Create label element
+                let label = document.createElement('label');
+                label.setAttribute('style', 'width: -moz-available;');
+                label.innerHTML = '<strong>Enter Your IP</strong>';
+
+
+
+
+                // Create div element
+                let div = document.createElement('div');
+                div.setAttribute('style', 'display: flex; justify-content: space-between; align-items: first baseline; margin-bottom: 40px;');
+
+                // Create input element
+                let input = document.createElement('input');
+                input.setAttribute('class', 'form-control form-ip');
+                input.setAttribute('type', 'text');
+                input.setAttribute('style', 'width: 200%;');
+                input.value = values[i];
+
+                // Create span element
+                let span = document.createElement('span');
+                span.setAttribute('class', 'delete-icon btn sweet-success-cancel btn-lg');
+                span.innerHTML = '<i class="fa fa-trash-alt" style="color: red;" onclick="deleteBtn()"></i>';
+
+                
+
+                // Append input and span elements to div element
+                div.appendChild(input);
+                div.appendChild(span);
+                
+
+                // Append label and div elements to container
+                container.appendChild(label);
+                container.appendChild(div);
+            }
+        }
+
     }
 
     function closebtn(popup) {
@@ -773,81 +845,129 @@
         });
     }
 
-</script>
 
-<script>
-    function save_click() {
-        var list = document.querySelectorAll('.form-ip')
-        console.log(list)
+    function save_ip() {
+
+        var frm = document.querySelector('#popupFormIP')
+        console.log(frm)
+        
+        list = frm.querySelectorAll('.form-ip')
+        mid = frm.querySelector('#mid')
+        mid =mid.innerHTML
+        var iplist = []
         for (i = 0; i < list.length; i++) {
             console.log(list[i].value)
+            iplist.push(list[i].value)
+            
         }
-    }
-    document.querySelector(".sweet-auto").onclick = function () {
-        swal({
-            title: "Saved Successfully !!",
-            timer: 1e3,
-            showConfirmButton: !1
-        })
-    }
-
-</script>
-
-<script>
-    
-    
-
-
-     function  sweetajax(data,button) {
         
-
-        swal({
-            title: "Deactivate!!",
-            text: "Click on Deactivate or Cancel !!",
-            type: "info",
-            showCancelButton: true,
-            closeOnConfirm: false,
-            showLoaderOnConfirm: true,
-            confirmButtonText: "Deactivate",
-            preConfirm: async (d) => {
-                try {
-                    console.log(data)
-                    // Obtain CSRF token
-                    const csrftoken = getCookie('csrftoken'); // Function to get CSRF token from cookie, see below
-
-                    const djangoUrl = '/merchant-status/';
-                    const response = await fetch(djangoUrl, {
-                        method: 'POST', // or 'GET' depending on your Django view
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRFToken': csrftoken // Include CSRF token in the header
-                        },
-                        body: JSON.stringify({user: data })
-                    });
-                    console.log(response)
-                    if (!response.ok) {
-                        throw new Error(await response.text());
-                    }
-
-                    var icon = button.querySelector('i');
-                    console.log(icon)
-                    icon.classList.remove("fa-lock");
-                    icon.classList.add("fa-unlock");
-                    icon.classList.remove("text-success");
-                    icon.classList.add("text-danger");
-
-                   
-                    return response.json();
-                } 
-                catch (error) {
-                    throw new Error(`Request failed: ${error}`);
-                }
+        console.log(iplist,mid)
+        const csrftoken = getCookie('csrftoken');
+        
+        var Data = {
+            user: mid,
+            ser:iplist
+          };
+          fetch('/ip-update/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken // Include CSRF token in the header
             },
-           
-                });
+            body: JSON.stringify(Data)
+          })
+          .then(response => {
+            // Check if the request was successful
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            swal("Hey, Good job !!", "You clicked the button !!", "success")
+            
+            return response.json();
+          })
+          .catch(error => {
+            // Handle error if request failed
+            swal("Hey, bad job !!", "You clicked the button !!", "success")
+            console.error('Fetch error:', error);
+          });
+        
+        
+    }
+
+    
+
+
+    
+    
+
+
+    function  sweetajax(data,button,services) 
+     {
+
+                console.log(services)
+                console.log(typeof(services))
+                let service = [];
+                for (let i = 0; i < services.length; i++) {
+                    // Check if service_name is 'Payout'
+                    if (services[i].service_name === 'Payout') {
+                        // Set payoutExists to true if found
+                        // No need to continue looping once found
+                    }
+                    else
+                    service.push(services[i].slug)
+                }
+                
+
+                swal({
+                    title: "Deactivate!!",
+                    text: "Click on Deactivate or Cancel !!",
+                    type: "info",
+                    showCancelButton: true,
+                    closeOnConfirm: false,
+                    showLoaderOnConfirm: true,
+                    confirmButtonText: "Deactivate",
+                    preConfirm: async (d) => {
+                        try {
+                            console.log(data)
+                            // Obtain CSRF token
+                            const csrftoken = getCookie('csrftoken'); // Function to get CSRF token from cookie, see below
+
+                            const djangoUrl = '/merchant-status/';
+                            const response = await fetch(djangoUrl, {
+                                method: 'POST', // or 'GET' depending on your Django view
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRFToken': csrftoken // Include CSRF token in the header
+                                },
+                                body: JSON.stringify({user: data,
+                                    ser:service
+                                })
+                            });
+                            console.log(response)
+                            if (!response.ok) {
+                                throw new Error(await response.text());
+                            }
+
+                            var icon = button.querySelector('i');
+                            console.log(icon)
+                            icon.classList.remove("fa-lock");
+                            icon.classList.add("fa-unlock");
+                            icon.classList.remove("text-success");
+                            icon.classList.add("text-danger");
+
+                        
+                            return response.json();
+                        } 
+                        catch (error) {
+                            throw new Error(`Request failed: ${error}`);
+                        }
+                    },
+                
+                        });
         };
 
-    // Function to get CSRF token from cookie
+    
+        // Function to get CSRF token from cookie
         function getCookie(name) {
             var cookieValue = null;
             if (document.cookie && document.cookie !== '') {

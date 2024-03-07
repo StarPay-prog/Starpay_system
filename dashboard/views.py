@@ -431,6 +431,7 @@ def add_merchant(request):
         response = requests.post(url, data=data2 , headers=header)
         slug = response.json()
         slug = slug['status']
+        
 
 
     print(emp_id)
@@ -481,6 +482,7 @@ def payout_merchants(request):
 
     url = payout_url+'Rest/payout-get-merchant-list-admin/'
     url1 = base_url + 'get-merchant-list-admin/'
+    print(url)
 
     jwt_token = request.session.get('jwt_token_access')
     header = {
@@ -492,9 +494,12 @@ def payout_merchants(request):
         "Authorization": f"Bearer {jwt_token}",
         "Content-Type": "application/json"  # Assuming you are sending JSON data
         }
+    
     response1 = requests.get(url, headers=header)
+
     response2 = requests.get(url1, headers=header1)
     
+    print(response1.json())
     slug1 = response1.json()
     slug2 = response2.json()
 
@@ -530,8 +535,25 @@ def merchant_status(request):
             # Retrieve JSON data from request body
             data = json.loads(request.body)
             user = data.get('user')
+            service = data.get('ser')
+            print(service,type(service))
+
             print(user)  # This should print 'aditya' if 'data' contains the value 'aditya'
-            
+            url = base_url + 'update-merchant-admin/'+user
+            jwt_token = request.session.get('jwt_token_access')
+            header = {
+            "Authorization": f"Bearer {jwt_token}",
+            "Content-Type": "application/json"  # Assuming you are sending JSON data
+            }
+
+            data2={
+                "service_option": service
+            }
+            data2 = json.dumps(data2)
+
+            response = requests.patch(url,data = data2, headers=header,)
+            data = response.json()
+            print(data)
             # Process the user data as needed
             
             # Return a JSON response
@@ -550,8 +572,19 @@ def merchant_ip(request):
             # Retrieve JSON data from request body
             data = json.loads(request.body)
             user = data.get('user')
-            print(user)  # This should print 'aditya' if 'data' contains the value 'aditya'
-            
+            ip = data.get('ser')
+            print("data",user,ip)  # This should print 'aditya' if 'data' contains the value 'aditya'
+            url = payout_url+'Rest/payout-update-merchant-admin/'+user
+            jwt_token = request.session.get('jwt_token_access')
+            header = {
+                "Access": jwt_token,
+                "Content-Type": "application/json"  # Assuming you are sending JSON data
+                }
+            data2 ={
+                "ip_addres": ip
+
+            }
+            response1 = requests.patch(url, headers=header,data = json.dumps(data2))
             # Process the user data as needed
             
             # Return a JSON response

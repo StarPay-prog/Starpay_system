@@ -1,10 +1,13 @@
 {'data': [
-        {'user': {'last_login': None, 'email': 'Aashi@asjmedia.in', 'first_name': 'Aashi', 'last_name': 'aggarwal', 'contact_no': 1234567440, 'date_joined': '2024-03-05', 'updated_history': [
+        {'user': 
+            {'last_login': None, 'email': 'Aashi@asjmedia.in', 'first_name': 'Aashi', 'last_name': 'aggarwal', 'contact_no': 1234567440, 'date_joined': '2024-03-05', 'updated_history': [
                     {'date_time': '20240305 141231', 'remark': 'Merchant created by 192.168.1.13'
                     }
                 ], 'is_active': True, 'is_Admin': False, 'is_Merchant': True, 'is_Super_Admin': False
-            }, 'created_by': {'emp_id': 'sp8216'
-            }, 'service_option': [
+            }, 
+            'created_by': {'emp_id': 'sp8216'
+            },
+             'service_option': [
                 {'service_name': 'Payout', 'slug': 9819
                 }
             ], 'business_name': 'aashipvt', 'merchant_id': 'aaaaag2908', 'gst_no': '12345678967', 'updated_history': [
