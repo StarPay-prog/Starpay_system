@@ -74,6 +74,17 @@
         max-width: 661px;
     }
 
+    textarea {
+        width: 100%;
+        height: 150px;
+        padding: 12px 20px;
+        box-sizing: border-box;
+        border: 2px solid #897c7c;
+        border-radius: 4px;
+        font-size: 16px;
+        resize: none;
+    }
+
     .popup-content4 {
         color: black;
         background-color: #fefefe;
@@ -91,12 +102,12 @@
         font-weight: bold;
     }
 
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
 
 
     button #inputFields {
@@ -107,8 +118,9 @@
 
 {% block content %}
 
-<div class=" scrollmenu col-xl-12">
-    <div class="card scrollbody">
+<div class=" col-xl-12">
+    <div class="card" style="overflow: auto;
+    white-space: nowrap;">
         <div class="card-header d-block d-sm-flex border-0">
             <div>
                 <h4 class="fs-20 text-black">Payout merchant</h4>
@@ -128,36 +140,31 @@
                 </ul>
             </div>
         </div>
-       
-            <div class="card-body payment-bx tab-content p-0">
-                
-                <div class="tab-pane active show fade" id="All" role="tabpanel">
 
-                    <div id="accordion-one" class="accordion accordion-primary">
-                        <!-- start of heading -->
-                        
-                        <div class="accordion__item border-bottom mb-0">
-                            <div class="d-flex flex-wrap align-items-center accordion__header collapsed rounded" >
-                            
-                                <span class="  text-black font-w600 px-2 colWid1">S.No</span>
-                                
-                                <span class="  text-black font-w600 px-2 colWid1">Status</span>
-                                <span class="  text-black font-w600 px-2 colWid3">Business Name</span>
-                                <span class="  text-black font-w600 px-2 colWid3">Mobile No</span>
-                                
-                                <span class="  text-black font-w600 px-2 colWid3">Email</span>
-                                <span class="  text-black font-w600 px-2 colWid3">Available Balance</span>
-                                <span class="  text-black font-w600 px-2 colWid3">Hold Balance</span>
-                                <span class="  text-black font-w600 px-2 colWid3">Transfer</span>
-                                <span class="  text-black font-w600 px-2 "></span>
-                                
-                                
-                                
-                            </div>
-                            
+        <div class="card-body payment-bx tab-content p-0"  style="min-width: 1200px;">
+
+            <div class="tab-pane active show fade" id="All" role="tabpanel">
+
+                <div id="accordion-one" class="accordion accordion-primary">
+                    <!-- start of heading -->
+
+                    <div class="accordion__item border-bottom mb-0">
+                        <div class="d-flex flex-wrap align-items-center accordion__header collapsed rounded">
+
+                            <span class="  text-black font-w600 px-2 colWid1">S.No</span>
+
+                            <span class="  text-black font-w600 px-2 colWid1">Status</span>
+                            <span class="  text-black font-w600 px-2 colWid3">Business Name</span>
+                            <span class="  text-black font-w600 px-2 colWid3">Mobile No</span>
+
+                            <span class="  text-black font-w600 px-2 colWid3">Email</span>
+                            <span class="  text-black font-w600 px-2 colWid3">Available Balance</span>
+                            <span class="  text-black font-w600 px-2 colWid3">Hold Balance</span>
+                            <span class="  text-black font-w600 px-2 colWid3">Transfer</span>
+                            <span class="  text-black font-w600 px-2 "></span>
                         </div>
-                        <!-- end of heading -->
-
+                    </div>
+                    <!-- end of heading -->
                     <!-- start of section loopto be added here  -->
                     <div class="accordion__item border-bottom mb-0">
                         <div class="d-flex flex-wrap align-items-center accordion__header collapsed rounded"
@@ -198,8 +205,6 @@
                                     <span onclick="togglePopups('popupFormIP')"
                                         class="btn btn-outline-primary shadow btn-s sharp me-1">IP Whitelist</span>
                                 </div>
-
-
 
                                 <div class="me-3 mb-3">
                                     <p class="fs-12 mb-2"><strong class="text-black">IMPS : 2%</strong></p>
@@ -576,7 +581,7 @@
         <span class="close" onclick="closebtn('popupFormTransfer')">&times;</span>
         <div class="mb-3">
             <label style="width: -moz-available;">Business Name</label>
-            <input class="form-control" type="text" value="ASj media PVT LTD" readonly>
+            <input class="form-control" type="text" value="" >
         </div>
         <div class="mb-3">
             <label class="me-sm-2">Method</label>
@@ -584,8 +589,12 @@
                 <option selected>Choose...</option>
                 <option value="1">Credit</option>
                 <option value="2">Debit</option>
-                <option value="3">Hold</option>
             </select>
+        </div>
+        <div class="mb-3">
+            <label style="width: -moz-available;">UTR</label>
+            <input class="form-control" type="text" value="">
+                
         </div>
         <div class="mb-3 row">
             <label class="col-sm-3 col-form-label">Amount</label>
@@ -593,14 +602,43 @@
                 <span class="input-group-text search_icon" style="
                     background-color: #a4a4a4; border: 2px solid gray;">₹</span>
                 <input type="tel" name="amount" class="form-control" style="border: 2px solid gray;">
-
             </div>
+        </div>
+        <div class="mb-3">
+            <label style="width: -moz-available;">Remarks</label>
+            <input class="form-control" type="text" value="">
+                
         </div>
         <button type="submit" class="btn btn-primary Confirm-btn mb-2">Transfer</button>
     </form>
-
-
 </div>
+
+
+
+<!-- <div id="popupFormTransfer" class="popup">
+    <form class="popup-content" style="border-radius:25px ;" action="#">
+        <span class="close" onclick="closebtn('popupFormTransfer')">&times;</span>
+        <div class="mb-3">
+            <label style="width: -moz-available;">Business Name</label>
+            <input class="form-control" type="text" value="">
+        </div>
+        <div class="mb-3 row">
+            <label class="col-sm-3 col-form-label">Amount</label>
+            <div class="input-group mb-3  input-info">
+                <span class="input-group-text search_icon" style="
+                    background-color: #a4a4a4; border: 2px solid gray;">₹</span>
+                <input type="tel" name="amount" class="form-control" style="border: 2px solid gray;">
+            </div>
+        </div>
+        <div class="mb-3">
+            <label style="width: -moz-available;">Remarks</label>
+            <textarea name="message" style="height: 115px;">
+                </textarea>
+        </div>
+        <button type="submit" class="btn btn-primary Confirm-btn mb-2">Transfer</button>
+        <button type="submit" class="btn btn-primary Confirm-btn mb-2" style="margin-left: 8px;" >Withdraw</button>
+    </form>
+</div> -->
 
 
 <div id="popupFormIP" class="popup">
@@ -618,12 +656,13 @@
                     <i class="fa fa-trash-alt " style="color: red;" onclick="deleteBtn()"></i>
                 </span>
             </div>
-            
+
         </div>
         <hr style="  margin-top: 30px;">
-        <button class="btn btn-primary  mb-2" class="buttons" id="inputFields" onclick="addInputField()">Add New
-            IP</button>
-        <button class="btn btn-primary mb-2 btn sweet-auto" class="buttons" id="saveBtn" onclick="save_click('saveBtn')" style="margin-left: 10px;">Save</button>
+        <a class="btn btn-primary  mb-2" class="buttons" id="inputFields" onclick="addInputField()">Add New
+            IP</a>
+        <a class="btn btn-primary mb-2 btn sweet-auto" class="buttons" id="saveBtn" onclick="save_click('saveBtn')"
+            style="margin-left: 10px;">Save</a>
     </form>
 </div>
 
@@ -791,23 +830,23 @@
 </script>
 
 <script>
-    (document.querySelector(".sweet-ajax").onclick = function () {
-        swal(
-            {
-                title: "Sweet ajax request !!",
-                text: "Submit to run ajax request !!",
-                type: "info",
-                showCancelButton: !0,
-                closeOnConfirm: !1,
-                showLoaderOnConfirm: !0,
-            },
-            function () {
-                setTimeout(function () {
-                    swal("Hey, your ajax request finished !!");
-                }, 2e3);
-            }
-        );
-    });
+        (document.querySelector(".sweet-ajax").onclick = function () {
+            swal(
+                {
+                    title: "Sweet ajax request !!",
+                    text: "Submit to run ajax request !!",
+                    type: "info",
+                    showCancelButton: !0,
+                    closeOnConfirm: !1,
+                    showLoaderOnConfirm: !0,
+                },
+                function () {
+                    setTimeout(function () {
+                        swal("Hey, your ajax request finished !!");
+                    }, 2e3);
+                }
+            );
+        });
 </script>
 
 <script>
