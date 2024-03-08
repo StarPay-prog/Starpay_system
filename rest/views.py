@@ -74,7 +74,8 @@ def merchant_ip(request):
 
 def virtual_transaction(request):
     if request.method == "POST":
-        data = request.POST
+        data = json.loads(request.body)
+        print(data)
         userdata=request.session.get('user_data')
        
         if data.get('method') == '1':
@@ -84,7 +85,8 @@ def virtual_transaction(request):
                         "Transaction_amount": data.get('amount'),
                         "Transaction_remark": (data.get('remarks') or ' ') + 'Wallet of merchant credited by ' + userdata['data']['emp_id']
                     }
-        elif data.get('method') == '1':
+            
+        elif data.get('method') == '2':
             json_data ={
                         "Debit": "papasy3988",
                         "Credit": "starpay_account",
@@ -106,7 +108,9 @@ def virtual_transaction(request):
             return JsonResponse(response_data) 
         else:
             return JsonResponse({"message":"Transaction Failed"})
-      
+
+
+
 def update_callbackurl(request):
 
     if request.method == 'POST':

@@ -167,19 +167,33 @@
 
                             <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">{{forloop.counter}}</span>
 
+
+                            {% if i.service_option    %}
                             {% for j in  i.service_option%}
                             {% if j.service_name == 'Payout'%}
-                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">
-                                <button class="btn  btn " onclick="statusMerchant('{{i.merchant_id}}',this,{{i.service_option}})"><i class="fa fa-lock text-success"
-                                        aria-hidden="true"></i> </button>
-                            </span>
+                                <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">
+                                    <button class="btn  btn " onclick="statusMerchant('{{i.merchant_id}}',this,{{i.service_option}})"><i class="fa fa-lock text-success"
+                                            aria-hidden="true"></i> </button>
+                                </span>
+                            {% else %}
+                                <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">
+                                    <button class="btn  btn " onclick="statusMerchant('{{i.merchant_id}}',this,{{i.service_option}})"><i class="fa fa-unlock text-danger"
+                                            aria-hidden="true"></i> </button>
+                                </span>
+                            {% endif %}
+                    {% endfor %}
+                            
+                                
                             {% else %}
                             <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">
                                 <button class="btn  btn " onclick="statusMerchant('{{i.merchant_id}}',this,{{i.service_option}})"><i class="fa fa-unlock text-danger"
                                         aria-hidden="true"></i> </button>
                             </span>
+                               
+                               
+
                             {% endif %}
-                            {% endfor %}
+
 
 
 
@@ -195,7 +209,7 @@
                                     aria-hidden="true">
                                 </i>{{i.hold_balance}}</span>
                             <span id="openPopupBtn" class=" colWid3 btn btn-success shadow btn-s sharp me-1"
-                                onclick="togglePopups('popupFormTransfer')"><i class="fa fa-inr text-white"
+                                onclick="paymentTransfer('{{i.merchant_id}}','{{i.business_name}}')"><i class="fa fa-inr text-white"
                                     aria-hidden="true"></i>
                             </span>
                             <span class="accordion__header--indicator"></span>
@@ -207,7 +221,7 @@
                                 <div class="me-3 mb-3">
                                     <p class="fs-12 mb-2"><strong class="text-black">Service Charges: Min ₹10</strong>
                                     </p>
-                                    <span onclick="ippopup({{i.ip_addres}},'{{i.merchant_id}}')"
+                                    <span onclick="ippopup('{{i.ip_addres}}','{{i.merchant_id}}')"
                                         class="btn btn-outline-primary shadow btn-s sharp me-1">IP Whitelist</span>
                                 </div>
 
@@ -584,31 +598,7 @@
 
 
 <div id="popupFormTransfer" class="popup">
-    <form class="popup-content" style="border-radius:25px ;" action="#">
-        <span class="close" onclick="closebtn('popupFormTransfer')">&times;</span>
-        <div class="mb-3">
-            <label style="width: -moz-available;">Business Name</label>
-            <input class="form-control" type="text" value="ASj media PVT LTD" readonly>
-        </div>
-        <div class="mb-3">
-            <label class="me-sm-2">Method</label>
-            <select class=" form-control text-black" id="inlineFormCustomSelect">
-                <option selected>Choose...</option>
-                <option value="1">Credit</option>
-                <option value="2">Debit</option>
-            </select>
-        </div>
-        <div class="mb-3 row">
-            <label class="col-sm-3 col-form-label">Amount</label>
-            <div class="input-group mb-3  input-info">
-                <span class="input-group-text search_icon" style="
-                    background-color: #a4a4a4; border: 2px solid gray;">₹</span>
-                <input type="number" name="amount" class="form-control" style="border: 2px solid gray;">
-
-            </div>
-        </div>
-        <button type="submit" id="transfer_button" class="btn btn-primary Confirm-btn mb-2">Transfer</button>
-    </form>
+    
 
 
 </div>
@@ -708,11 +698,42 @@
 </script>
 
 <script>
-    function togglePopups(x) {
-        console.log(x)
-        a = document.querySelector('#' + x)
+    function paymentTransfer(mid,bname) 
+    {
+        console.log(mid)
+        a = document.querySelector('#popupFormTransfer')
         
         a.style.display = "block";
+        a.innerHTML = ` 
+        <form class="popup-content" style="border-radius:25px ;" action="#">
+            <span class="close" onclick="closebtn('popupFormTransfer')">&times;</span>
+            <div class="mb-3">
+                <label style="width: -moz-available;">Business Name</label>
+                <input class="form-control" type="text" value = ${bname} readonly>
+                <input hidden class="form-control " name = 'mid' type="text" value = ${mid} readonly>
+            </div>
+            <div class="mb-3">
+                <label class="me-sm-2">Method</label>
+                <select class=" form-control text-black" id="inlineFormCustomSelect">
+                    <option selected>Choose...</option>
+                    <option value="1">Credit</option>
+                    <option value="2">Debit</option>
+                </select>
+            </div>
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">Amount</label>
+                <div class="input-group mb-3  input-info">
+                    <span class="input-group-text search_icon" style="
+                        background-color: #a4a4a4; border: 2px solid gray;">₹</span>
+                    <input type="number" name="amount" class="form-control" style="border: 2px solid gray;">
+    
+                </div>
+            </div>
+            <a  onClick = 'transfer_button()' class="btn btn-primary Confirm-btn mb-2">Transfer</a>
+        </form>
+        `
+    
+    
     }
 
 
@@ -731,7 +752,7 @@
         let container = popupForm.querySelector('.ip_block');
 
         // Values to pass into the elements
-        let values = ['Value 1', 'Value 2', 'Value 3'];
+       
         if (length == 0)
         {
             console.log('goodboy')
@@ -914,20 +935,14 @@
 
                 console.log(services)
                 console.log(typeof(services))
-                let service = [];
+                let service = [9819];
                 var icon = button.querySelector('i');
                 
                 if (icon.classList.contains('fa-unlock')){
 
                 
-                        for (let i = 0; i < services.length; i++) {
-                            // Check if service_name is 'Payout'
-                        
-                                service.push(services[i].slug)
-
-                        
-                        }
-                        service.push(9819)
+                       
+                
                         swal({
                             title: "Activate!!",
                             text: "Click on Activate or Cancel !!",
@@ -976,15 +991,7 @@
                 
                 }
             else{
-                        for (let i = 0; i < services.length; i++) {
-                            // Check if service_name is 'Payout'
-                            if (services[i].service_name == 'Payout') {
-                                // Set payoutExists to true if found
-                                // No need to continue looping once found
-                            }
-                            else
-                            service.push(services[i].slug)
-                        }
+                
                         swal({
                             title: "Deactivate!!",
                             text: "Click on Deactivate or Cancel !!",
@@ -1149,38 +1156,46 @@
 
 <!-- Virtual Transaction -->
 <script>
-    $(document).ready(function () {
-        $("#transfer_button").click(function (e) {
-            e.preventDefault(); // Prevent the form from submitting normally
+ function transfer_button() 
+ {
+            // Prevent the form from submitting normally
 
             // Get form data
-            var businessName = $("#popupFormTransfer input[name='business_name']").val();
+            var businessName = $("#popupFormTransfer input[name='mid']").val();
             var method = $("#inlineFormCustomSelect").val();
             var amount = $("#popupFormTransfer input[name='amount']").val();
-
+            console.log("fghjk",businessName,method,amount)
             // Make AJAX request
-            $.ajax({
-                type: "POST",
-                url: 'Rest/virtual-transaction/',
+            var Data = {
+                bname: mid,
+                typ:method,
+                amnt: amount
+              };
+            fetch('Rest/virtual-transaction/', {
+                method: 'POST',
                 headers: {
-                "X-CSRFToken": '{{csrf_token}}'
-            },
-                data: {
-                    businessName: businessName,
-                    method: method,
-                    amount: amount
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken':'{{csrf_token}}'
                 },
-                success: function (response) {
-                    // Handle success response
-                    console.log("Transfer successful");
-                },
-                error: function (xhr, status, error) {
-                    // Handle error response
-                    console.error("Error:", error);
+                body: JSON.stringify(Data)
+              })
+              .then(response => {
+                // Check if the request was successful
+                if (!response.ok) {
+                  throw new Error('Network response was not ok');
                 }
-            });
-        });
-    });
+                swal("Hey, Good job !!", "You clicked the button !!", "success")
+                
+                return response.json();
+              })
+              .catch(error => {
+                // Handle error if request failed
+                swal("Hey, bad job !!", "You clicked the button !!", "success")
+                console.error('Fetch error:', error);
+              });
+
+            
+        }
 </script>
 
 
