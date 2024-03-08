@@ -9,14 +9,11 @@
     }
 
     .colWid3 {
-        width: 134px;
+        width: 108px;
     }
-    .colWid2 {
-        width: 135px;
-    }
-
+    
     .form-control {
-        border: 2px solid gray;
+        border: 2px solid #c0baba
 
     }
 
@@ -80,16 +77,16 @@
                     <div class="accordion__item border-bottom mb-0">
                         <div class="d-flex flex-wrap align-items-center accordion__header collapsed rounded" >
 
-                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1" >Time</span>
-                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">Status</span>
-                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid3">User</span>
-                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid3">Route</span>
+                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1" >Transaction Date</span>
+                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">Business Name</span>
+                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">Route Name</span>
+                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">PG Ref</span>
+                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid3">Merchant Ref</span>
 
-                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">Client ID</span>
-                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">TXN ID</span>
-                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">Ref No.</span>
-                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid2">Amount</span>
-                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid2 ">Wallet</span>
+                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid3">Bank Ref</span>
+                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid3">Amount</span>
+                            
+                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid3">PG Ref Status</span>
                             <span class="mb-lg-0 mb-3 text-black font-w600 px-2 "></span>
 
                         </div>
@@ -103,24 +100,22 @@
                         <div class="d-flex flex-wrap align-items-center accordion__header collapsed rounded"
                             data-bs-toggle="collapse" data-bs-target="#default_collapseOne1" style="font-size: 13px;">
 
-                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">Mar 1, 18:54:44</span>
+                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">March 1, 2024</span>
 
-                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">
-                                <button class=" badge light badge-success">Accepted</button>
+                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">IMoneyPay
+                               
                             </span>
 
+                            <span id="name" class="mb-lg-0 mb-3 font-w100 px-2 colWid1">WVZQTNXL0H7K</span>
+                            <span class="mb-lg-0 mb-3  font-w100 px-2 colWid1">YSOSJVB</span>
+                            <span class="mb-lg-0 mb-3  font-w100 px-2 colWid1">YSOS</span>
 
-
-                            <span id="name" class="mb-lg-0 mb-3 font-w100 px-2 colWid1">XYZ</span>
-                            <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3">Aces958</span>
-
-                            <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3">WVZQTNXL0H7K</span>
-                            <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3">YSOSJVB</span>
-                            <span class="mb-lg-0 mb-3  font-w100 px-2 colWid2">RATN2406767</span>
-                            <span class="mb-lg-0 mb-3  font-w100 px-2 colWid2">
-                                ₹ 14.00
+                            <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3">₹3000</span>
+                            <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3">SBI</span>
+                            <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3"> 
+                                <button class="btn btn-sm badge light badge-success">Accepted</button>
                             </span>
-                            <span class="mb-lg-0 mb-3  font-w100 px-2 colWid2">₹ 552.40</span>
+                            
                             <span class="accordion__header--indicator"></span>
                         </div>
 
@@ -140,11 +135,18 @@
                                                     Name:
                                                     <b>Test Merchant</b>
                                                     <br>
+                                                    Bank Name:
+                                                    <b>SBI</b><br>
                                                     Account:
                                                     <b>9999888877</b>
                                                     <br>
                                                     IFSC:
                                                     <b>406227190688</b>
+                                                    <br>
+                                                    Mobile Number:
+                                                    <b>7654445678</b><br>
+                                                    Transaction Mode:
+                                                    <b>IMPS</b>
                                                     <br>
                                                 </span>
                                             </div>
@@ -152,17 +154,20 @@
 
                                         <div class="col-lg-3 col-md-6 col-12">
                                             <p class="d-lg-flex justify-content-center align-items-center mt-2"
-                                                style="font-family: monospace; color: black"><b>Transaction Details</b>
+                                                style="font-family: monospace; color: black"><b>Bank Details</b>
                                             </p>
                                             <div class="d-lg-flex justify-content-center align-items-center">
                                                 <span style="color: black;">
-                                                    TXN ID:
+                                                    Bank Status:
                                                     <b>Test Merchant</b>
                                                     <br>
-                                                    Amount:
+                                                    Bank Remark:
                                                     <b>9999888877</b>
                                                     <br>
-                                                    Status:
+                                                    Bank Ref No2:
+                                                    <b>406227190688</b>
+                                                    <br>
+                                                    Updated Date:
                                                     <b>406227190688</b>
                                                     <br>
                                                 </span>
@@ -181,9 +186,7 @@
                                                     GST:
                                                     <b>9999888877</b>
                                                     <br>
-                                                    Wallet:
-                                                    <b>406227190688</b>
-                                                    <br>
+                                                   
                                                 </span>
                                             </div>
                                         </div>
@@ -198,7 +201,7 @@
                                                     Check Status</button>
                                                 <button class="btn btn-outline-primary  m-1"
                                                     type="button"><i class="fa fa-university" aria-hidden="true"></i>
-                                                    Check API Response</button>
+                                                    Resend CallBack</button>
                                             </div>
                                         </div>
                                     </div>
