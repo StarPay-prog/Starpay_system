@@ -14,7 +14,7 @@
     }
 
     .form-control {
-        border: 2px solid gray;
+        border: 2px solid #c0baba
 
     }
 
@@ -75,6 +75,17 @@
         max-width: 661px;
     }
 
+    textarea {
+        width: 100%;
+        height: 150px;
+        padding: 12px 20px;
+        box-sizing: border-box;
+        border: 2px solid #897c7c;
+        border-radius: 4px;
+        font-size: 16px;
+        resize: none;
+    }
+
     .popup-content4 {
         color: black;
         background-color: #fefefe;
@@ -92,12 +103,12 @@
         font-weight: bold;
     }
 
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
 
 
     button #inputFields {
@@ -108,8 +119,9 @@
 
 {% block content %}
 
-<div class=" scrollmenu col-xl-12">
-    <div class="card scrollbody">
+<div class=" col-xl-12">
+    <div class="card" style="overflow: auto;
+    white-space: nowrap;">
         <div class="card-header d-block d-sm-flex border-0">
             <div>
                 <h4 class="fs-20 text-black">Payout merchant</h4>
@@ -129,33 +141,28 @@
                 </ul>
             </div>
         </div>
-       
-            <div class="card-body payment-bx tab-content p-0">
-                
-                <div class="tab-pane active show fade" id="All" role="tabpanel">
 
-                    <div id="accordion-one" class="accordion accordion-primary">
-                        <!-- start of heading -->
-                        
-                        <div class="accordion__item border-bottom mb-0">
-                            <div class="d-flex flex-wrap align-items-center accordion__header collapsed rounded" >
-                            
-                                <span class="  text-black font-w600 px-2 colWid1">S.No</span>
-                                
-                                <span class="  text-black font-w600 px-2 colWid1">Status</span>
-                                <span class="  text-black font-w600 px-2 colWid3">Business Name</span>
-                                <span class="  text-black font-w600 px-2 colWid3">Mobile No</span>
-                                
-                                <span class="  text-black font-w600 px-2 colWid3">Email</span>
-                                <span class="  text-black font-w600 px-2 colWid3">Available Balance</span>
-                                <span class="  text-black font-w600 px-2 colWid3">Hold Balance</span>
-                                <span class="  text-black font-w600 px-2 colWid3">Transfer</span>
-                                <span class="  text-black font-w600 px-2 "></span>
-                                
-                                
-                                
-                            </div>
-                            
+        <div class="card-body payment-bx tab-content p-0"  style="min-width: 1200px;">
+
+            <div class="tab-pane active show fade" id="All" role="tabpanel">
+
+                <div id="accordion-one" class="accordion accordion-primary">
+                    <!-- start of heading -->
+
+                    <div class="accordion__item border-bottom mb-0">
+                        <div class="d-flex flex-wrap align-items-center accordion__header collapsed rounded">
+
+                            <span class="  text-black font-w600 px-2 colWid1">S.No</span>
+
+                            <span class="  text-black font-w600 px-2 colWid1">Status</span>
+                            <span class="  text-black font-w600 px-2 colWid3">Business Name</span>
+                            <span class="  text-black font-w600 px-2 colWid3">Mobile No</span>
+
+                            <span class="  text-black font-w600 px-2 colWid3">Email</span>
+                            <span class="  text-black font-w600 px-2 colWid3">Available Balance</span>
+                            <span class="  text-black font-w600 px-2 colWid3">Hold Balance</span>
+                            <span class="  text-black font-w600 px-2 colWid3">Transfer</span>
+                            <span class="  text-black font-w600 px-2 "></span>
                         </div>
                         <!-- end of heading -->
 
@@ -225,11 +232,8 @@
                                         class="btn btn-outline-primary shadow btn-s sharp me-1">IP Whitelist</span>
                                 </div>
 
-
-
                                 <div class="me-3 mb-3">
-                                    <p class="fs-12 mb-2"><strong class="text-black">IMPS : {{i.imps_charges}} %</strong></p>
-                                    <span class=" btn btn-outline-primary  shadow btn-s sharp me-1"
+                                    <p class="fs-12 mb-2"><strong class="text-black">IMPS : {{i.imps_charges}} %</strong></p>                                    <span class=" btn btn-outline-primary  shadow btn-s sharp me-1"
                                         onclick="callBack('{{i.webhook_url}}','{{i.merchant_id}}')">Call Back</span>
 
                                 </div>
@@ -241,7 +245,7 @@
                                 <div class="me-3 mb-3">
                                     <p class="fs-12 mb-2"><strong class="text-black">NEFT : {{i.neft_charges}}%</strong></p>
                                     <span class="  btn btn-outline-primary  shadow btn-s sharp me-1"
-                                        onclick="togglePopups('popupFormServiceCharge',{{i.imps_charges}},{{i.rtgs_charges}},{{i.neft_charges}},{{i.service_charges}})">Service
+                                        onclick="updateServiceCharge( '{{i.imps_charges}}','{{i.rtgs_charges}}','{{i.neft_charges}}','{{i.service_charges}}', '{{i.merchant_id}}')">Service
                                         charges</span>
 
                                 </div>
@@ -598,10 +602,45 @@
 
 
 <div id="popupFormTransfer" class="popup">
-    
-
-
+    <form class="popup-content" style="border-radius:25px ;" action="#">
+        <span class="close" onclick="closebtn('popupFormTransfer')">&times;</span>
+        <div class="mb-3">
+            <label style="width: -moz-available;">Business Name</label>
+            <input class="form-control" type="text" value="" >
+        </div>
+        <div class="mb-3">
+            <label class="me-sm-2">Method</label>
+            <select class=" form-control text-black" id="inlineFormCustomSelect">
+                <option selected>Choose...</option>
+                <option value="1">Credit</option>
+                <option value="2">Debit</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label style="width: -moz-available;">UTR</label>
+            <input class="form-control" type="text" value="">
+                
+        </div>
+        <div class="mb-3 row">
+            <label class="col-sm-3 col-form-label">Amount</label>
+            <div class="input-group mb-3  input-info">
+                <span class="input-group-text search_icon" style="
+                    background-color: #a4a4a4; border: 2px solid gray;">₹</span>
+                <input type="tel" name="amount" class="form-control" style="border: 2px solid gray;">
+            </div>
+        </div>
+        <div class="mb-3">
+            <label style="width: -moz-available;">Remarks</label>
+            <input class="form-control" type="text" value="">
+                
+        </div>
+        <button type="submit" class="btn btn-primary Confirm-btn mb-2">Transfer</button>
+    </form>
 </div>
+
+
+
+
 
 
 <div id="popupFormIP" class="popup">
@@ -635,12 +674,14 @@
 <div id="popupFormServiceCharge" class="popup">
     <form class="popup-content4" style="border-radius:25px ;" action="#">
         <span class="close" onclick="closebtn('popupFormServiceCharge')">&times;</span>
-        <div class="mb-3">
+        <div class="mb-3" id = 'serviceCharge'>
             <label style="width: -moz-available;"><strong>IMPS</strong></label>
             <input class="form-control" type="text" placeholder=""><br>
             <label><strong>RTGS</strong></label>
             <input class="form-control" type="text" placeholder=""><br>
             <label><strong>NEFT</strong></label>
+            <input class="form-control" type="text" placeholder=""><br>
+            <label><strong>Service Charges</strong></label>
             <input class="form-control" type="text" placeholder=""><br>
             <hr style="  margin-top: 30px;">
             <button type="submit" class="btn btn-primary mb-2 btn-success btn sweet-auto" id="sweet-auto-close" style="width: 20%;
@@ -739,7 +780,6 @@
 
     function ippopup(data,id){
         console.log(data,typeof(data))
-
         length = data.length
         console.log(length)
         
@@ -771,6 +811,7 @@
         `;
         
         }
+
         else
         {
             container.innerHTML = `<span id = 'mid' hidden >${id}</span>`
@@ -782,9 +823,6 @@
                 let label = document.createElement('label');
                 label.setAttribute('style', 'width: -moz-available;');
                 label.innerHTML = '<strong>Enter Your IP</strong>';
-
-
-
 
                 // Create div element
                 let div = document.createElement('div');
@@ -922,12 +960,6 @@
         
         
     }
-
-    
-
-
-    
-    
 
 // to activate payout of merchant it will show popup in order to activate the merchant
     function  statusMerchant(data,button,services) 
@@ -1069,10 +1101,6 @@
 
             console.log(data,typeof(data))
     
-           
-           
-            
-    
            // Get the popup form element
             let popupForm = document.querySelector('#popupFormCallBack');
             popupForm.style.display = "block";
@@ -1081,10 +1109,7 @@
             let container = popupForm.querySelector('#callBackUrl');
     
             // Values to pass into the elements
-           
-            
             {
-                
                 container.innerHTML = `
                 <span id = 'mid' hidden >${id}</span>
                 <label style="width: -moz-available;"><strong>CallBack URL</strong></label>
@@ -1095,9 +1120,6 @@
             `;
             
             }
-            
-            
-    
         }
 // to save the url by sending post request to server 
         function callBackSubmit(ele){
@@ -1138,14 +1160,118 @@
             console.error('Fetch error:', error);
           });
 
-
         }
 
+        // function to update service charges
+        function updateServiceCharge(data1,data2,data3,data4,id){
+            console.log(data1,typeof(data1),'kutta')
+                
+            if (data1 == '' ){
 
+                // Get the popup form element
+            let popupForm = document.querySelector('#popupFormServiceCharge');
+            popupForm.style.display = "block";
+    
+            // Get the container inside the popup form where you want to append the new elements
+            let container = popupForm.querySelector('#serviceCharge');
+            // Values to pass into the elements
+            {
+                container.innerHTML = `
+                <span id = 'mid' hidden >${id}</span>
+    
+            <label style="width: -moz-available;"><strong>IMPS</strong></label>
+            <input class="form-control" type="text"  id="input1" placeholder=" enter RTGS"><br>
+            <label><strong>RTGS</strong></label>
+            <input class="form-control" type="text"  id="input2" placeholder="enter NEFT"><br>
+            <label><strong>NEFT</strong></label>
+            <input class="form-control" type="text"  id="input3" placeholder="enter Service Charge"><br>
+            <label><strong>Service Charge</strong></label>
+            <input class="form-control" type="text"  id="input4" placeholder=""><br>
+            <hr style="  margin-top: 30px;">
+            <a class="btn btn-primary mb-2 btn-success btn sweet-auto" id="sweet-auto-close" style="width: 20%;
+            font-size: large;" onClick= 'serviceChargeSubmit(this)'>Save</a>
+            `;
+            
+            }
+                
+            }
+            else{
 
+           // Get the popup form element
+            let popupForm = document.querySelector('#popupFormServiceCharge');
+            popupForm.style.display = "block";
+    
+            // Get the container inside the popup form where you want to append the new elements
+            let container = popupForm.querySelector('#serviceCharge');
+            // Values to pass into the elements
+            {
+                container.innerHTML = `
+                <span id = 'mid' hidden >${id}</span>
+    
+            <label style="width: -moz-available;"><strong>IMPS</strong></label>
+            <input class="form-control" type="text" value = ${data1} id="input1" placeholder=""><br>
+            <label><strong>RTGS</strong></label>
+            <input class="form-control" type="text" value = ${data2} id="input2" placeholder=""><br>
+            <label><strong>NEFT</strong></label>
+            <input class="form-control" type="text" value = ${data3} id="input3" placeholder=""><br>
+            <label><strong>Service Charge</strong></label>
+            <input class="form-control" type="text" value = ${data4} id="input4" placeholder=""><br>
+            <hr style="  margin-top: 30px;">
+            <a class="btn btn-primary mb-2 btn-success btn sweet-auto" id="sweet-auto-close" style="width: 20%;
+            font-size: large;" onClick= 'serviceChargeSubmit(this)'>Save</a>
+            `;
+            
+            }
+        }
+        }
 
+        // to save the inputs of service charges by sending post request to server
+        function serviceChargeSubmit(e){
+            var a = e.parentNode.querySelector('#input1')
+            var b = e.parentNode.querySelector('#input2')
+            var c = e.parentNode.querySelector('#input3')
+            var d = e.parentNode.querySelector('#input4')
+            var x = e.parentNode.querySelector('#mid')
+           
+            let mid = x.innerHTML
+            let url1 = a.value
+            let url2 = b.value
+            let url3 = c.value
+            let url4 = d.value
 
+            console.log(e,a,b,c,d,url1,url2, url3, url4,mid,x)
+            const csrftoken = getCookie('csrftoken')
+            var Data = {
+            user: mid,
+            ser1: url1,
+            ser2: url2,
+            ser3: url3,
+            ser4: url4
+          };
+          fetch('/Rest/service-charge/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken
+            },
+            body: JSON.stringify(Data)
+          })
+          .then(response => {
+            // Check if the request was successful
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            swal("Hey, Good job !!", "You clicked the button !!", "success")
+            
+            return response.json();
+          })
+          .catch(error => {
+            // Handle error if request failed
+            swal("Hey, bad job !!", "You clicked the button !!", "success")
+            console.error('Fetch error:', error);
+          });
 
+        }
 
     </script>
 

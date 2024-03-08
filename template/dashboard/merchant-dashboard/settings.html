@@ -207,8 +207,8 @@
             <div class="text-center">
                 <a class="btn btn-outline-primary m-1" onclick="togglePopup('popupChangeAPI')">
                     <img class="me-2 mb-1"
-                        src="{% static 'dashboard/icons/lock-xxxx.png' %}" width="18" height="18" >Change API
-                    TOKEN</a>
+                        src="{% static 'dashboard/icons/lock-xxxx.png' %}" width="18" height="18" >Generate API
+                    Token</a>
             </div>
         </div>
     </form>
@@ -229,7 +229,7 @@
                 required>
         </div>
         <div class="modal-footer">
-            <button class="btn btn-outline-primary "  type="submit" form="MyForm">Change API Key</button>
+            <button class="btn btn-outline-primary "  type="submit" form="MyForm">Generate</button>
         </div>
         
     </form>
@@ -246,7 +246,7 @@
             <div class="text-center">
                 <button class="btn btn-outline-primary m-1" onclick="togglePopup('popupChangeHash')"> 
                     <img class="me-2 mb-1"
-                        src="{% static 'dashboard/icons/lock-xxxx.png' %}" width="18" height="18">Change Hash
+                        src="{% static 'dashboard/icons/lock-xxxx.png' %}" width="18" height="18">Generate Hash
                     Key</button>
             </div>
         </div>
@@ -257,7 +257,7 @@
     <form class="popup-content2" style="border-radius: 25px;" action="#">
         <span class="close" onclick="closebtn('popupChangeHash')">&times;</span>
         <div class="modal-header">
-            <h4 class="modal-title"><strong>API TOKEN Settings</strong></h4>
+            <h4 class="modal-title"><strong>Hash Key Settings</strong></h4>
         </div>
         <div class="modal-body" style="margin-left: -20px;">
             <div>
@@ -268,7 +268,7 @@
                 required>
         </div>
         <div class="modal-footer">
-            <button class="btn btn-outline-primary "  type="submit" form="MyForm">Change Hash Key</button>
+            <a class="btn btn-outline-primary" form="MyForm">Generate</a>
         </div>
         
     </form>

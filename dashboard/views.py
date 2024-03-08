@@ -384,6 +384,10 @@ def my_settings(request):
 
     return render  (request,'dashboard/merchant-dashboard/settings.html')
 
+def my_profile(request):
+
+    return render  (request,'dashboard/merchant-dashboard/profile.html')
+
 def add_merchant(request):
 
     #refresh_jwt(request)

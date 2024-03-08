@@ -9,9 +9,9 @@
     }
 
     .colWid3 {
-        width: 117px;
+        width: 82px;
     }
-
+    
     .form-control {
         border: 2px solid gray;
 
@@ -30,7 +30,7 @@
     white-space: nowrap;">
         <div class="card-header d-block d-sm-flex border-0">
             <div>
-                <h4 class="fs-20 text-black">Requests</h4>
+                <h4 class="fs-20 text-black">Wallet-Requests</h4>
                 <p class="mb-0 fs-13"> </p>
             </div>
             <div class="card-action card-tabs mt-3 mt-sm-0">
@@ -63,14 +63,14 @@
                     <div class="accordion__item border-bottom mb-0">
                         <div class="d-flex flex-wrap align-items-center accordion__header collapsed rounded">
 
-                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">Date & Time</span>
-                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">Status</span>
-                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid3">Name</span>
-                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid3">Bank</span>
+                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">Transfer Date</span>
+                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">Business Name</span>
+                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid3">Bank Name</span>
+                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid3">UTR</span>
 
-                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid3">Mode</span>
-                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid3">Ref</span>
                             <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid3">Amount</span>
+                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid3">Payment Type</span>
+                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid3">Status</span>
                             <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid3">Action</span>
                             <span class="mb-lg-0 mb-3 text-black font-w600 px-2 "></span>
 
@@ -86,18 +86,19 @@
                         <div class="d-flex flex-wrap align-items-center accordion__header collapsed rounded"
                             data-bs-toggle="collapse" data-bs-target="#default_collapseOne1" >
 
-                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">Mar 1, 18:54:44</span>
+                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">Mar 1</span>
 
-                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">
-                                <button class=" badge light badge-success">Accepted</button>
+                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">Imoney
                             </span>
 
-                            <span id="name" class="mb-lg-0 mb-3 font-w100 px-2 colWid3">Aashi</span>
-                            <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3">SBI</span>
+                            <span id="name" class="mb-lg-0 mb-3 font-w100 px-2 colWid3">SBI</span>
+                            <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3">5637388</span>
 
-                            <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3">RTGS</span>
-                            <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3">12111098765</span>
-                            <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3">50000</span>
+                            <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3">₹30000</span>
+                            <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3">Credit</span>
+                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid3">
+                                <button class=" badge light badge-success">Accepted</button>
+                            </span>
                             <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3"><i class="fa fa-check" style="background: green;
                                 color: white;
                                 border-radius: 20%;
@@ -114,10 +115,7 @@
 
                         <div id="default_collapseOne1" class="collapse accordion__body" data-bs-parent="#accordion-one">
                             <div class="d-flex flex-wrap align-items-center accordion__body--text p-0">
-                                <div class="me-3 mb-3">
-                                    <p class="fs-12 mb-2"><strong class="text-black">Reference:</strong></p>
-                                    <span class="text-black font-w500">12111098765</span>
-                                </div>
+                                
                                 <div class="me-3 mb-3">
                                     <p class="fs-12 mb-2"><strong class="text-black">Approved By:</strong></p>
                                     <span class="text-black font-w500">MasterCard 404</span>
@@ -126,20 +124,10 @@
                                     <p class="fs-12 mb-2"><strong class="text-black">Transaction ID:</strong></p>
                                     <span class="text-black font-w500">J37ZJ3NU5V7EWDX</span>
                                 </div>
+                                
+                                
                                 <div class="me-3 mb-3">
-                                    <p class="fs-12 mb-2"><strong class="text-black">Business Name:</strong></p>
-                                    <span class="text-black font-w500">Starpay</span>
-                                </div>
-                                <div class="me-3 mb-3">
-                                    <p class="fs-12 mb-2"><strong class="text-black">Bank:</strong></p>
-                                    <span class="text-black font-w500">SBI</span>
-                                </div>
-                                <div class="me-3 mb-3">
-                                    <p class="fs-12 mb-2"><strong class="text-black">Amount:</strong></p>
-                                    <span class="text-black font-w500">50000</span>
-                                </div>
-                                <div class="me-3 mb-3">
-                                    <p class="fs-12 mb-2"><strong class="text-black">Mode:</strong></p>
+                                    <p class="fs-12 mb-2"><strong class="text-black">Transaction Mode:</strong></p>
                                     <span class="text-black font-w500">RTGS</span>
                                 </div>
                                 <div class="me-3 mb-3">
