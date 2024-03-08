@@ -159,6 +159,10 @@ def payout_transaction(request):
 
     return render (request , 'dashboard/admin/payout-transaction.html',)
 
+def api_logs(request):
+
+    return render (request , 'dashboard/admin/api-logs.html',)
+
 def dashboard_login_super_admin(request):
 
     if request.method == "POST":
