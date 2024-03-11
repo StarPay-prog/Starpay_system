@@ -602,40 +602,7 @@
 
 
 <div id="popupFormTransfer" class="popup">
-    <form class="popup-content" style="border-radius:25px ;" action="#">
-        <span class="close" onclick="closebtn('popupFormTransfer')">&times;</span>
-        <div class="mb-3">
-            <label style="width: -moz-available;">Business Name</label>
-            <input class="form-control" type="text" value="" >
-        </div>
-        <div class="mb-3">
-            <label class="me-sm-2">Method</label>
-            <select class=" form-control text-black" id="inlineFormCustomSelect">
-                <option selected>Choose...</option>
-                <option value="1">Credit</option>
-                <option value="2">Debit</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label style="width: -moz-available;">UTR</label>
-            <input class="form-control" type="text" value="">
-                
-        </div>
-        <div class="mb-3 row">
-            <label class="col-sm-3 col-form-label">Amount</label>
-            <div class="input-group mb-3  input-info">
-                <span class="input-group-text search_icon" style="
-                    background-color: #a4a4a4; border: 2px solid gray;">₹</span>
-                <input type="tel" name="amount" class="form-control" style="border: 2px solid gray;">
-            </div>
-        </div>
-        <div class="mb-3">
-            <label style="width: -moz-available;">Remarks</label>
-            <input class="form-control" type="text" value="">
-                
-        </div>
-        <button type="submit" class="btn btn-primary Confirm-btn mb-2">Transfer</button>
-    </form>
+    
 </div>
 
 
@@ -761,17 +728,27 @@
                     <option value="2">Debit</option>
                 </select>
             </div>
+            <div class="mb-3">
+                <label style="width: -moz-available;">UTR</label>
+                <input class="form-control" name = 'utr' type="text" value="">
+                    
+            </div>
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">Amount</label>
                 <div class="input-group mb-3  input-info">
                     <span class="input-group-text search_icon" style="
                         background-color: #a4a4a4; border: 2px solid gray;">₹</span>
-                    <input type="number" name="amount" class="form-control" style="border: 2px solid gray;">
-    
+                    <input type="tel" name="amount" class="form-control" style="border: 2px solid gray;">
                 </div>
+            </div>
+            <div class="mb-3">
+                <label style="width: -moz-available;">Remarks</label>
+                <input class="form-control" name = 'remarks' type="text" value="">
+                    
             </div>
             <a  onClick = 'transfer_button()' class="btn btn-primary Confirm-btn mb-2">Transfer</a>
         </form>
+       
         `
     
     
@@ -1290,13 +1267,18 @@
             var businessName = $("#popupFormTransfer input[name='mid']").val();
             var method = $("#inlineFormCustomSelect").val();
             var amount = $("#popupFormTransfer input[name='amount']").val();
+            var remarks = $("#popupFormTransfer input['remarks']".val())
+            var utr = $("#popupFormTransfer input['utr']".val())
             console.log("fghjk",businessName,method,amount)
             // Make AJAX request
             var Data = {
                 bname: mid,
                 typ:method,
-                amnt: amount
+                amnt: amount,
+                
+                Rmrk: remarks
               };
+            console.log(Data)
             fetch('Rest/virtual-transaction/', {
                 method: 'POST',
                 headers: {
