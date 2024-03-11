@@ -81,17 +81,17 @@ def virtual_transaction(request):
         if data.get('method') == '1':
             json_data ={
                         "Debit": "starpay_account",
-                        "Credit": "papasy3988",
-                        "Transaction_amount": data.get('amount'),
-                        "Transaction_remark": (data.get('remarks') or ' ') + 'Wallet of merchant credited by ' + userdata['data']['emp_id']
+                        "Credit": data.get('bname'),
+                        "Transaction_amount": data.get('amnt'),
+                        "Transaction_remark": (data.get('Rmrk') or ' ') + 'Wallet of merchant credited by ' + userdata['data']['emp_id']
                     }
             
         elif data.get('method') == '2':
             json_data ={
-                        "Debit": "papasy3988",
+                        "Debit": data.get('bname'),
                         "Credit": "starpay_account",
-                        "Transaction_amount": data.get('amount'),
-                        "Transaction_remark": (data.get('remarks') or ' ') + 'Wallet of merchant Debited by ' + userdata['data']['emp_id']
+                        "Transaction_amount": data.get('amnt'),
+                        "Transaction_remark": (data.get('Rmrk') or ' ') + 'Wallet of merchant Debited by ' + userdata['data']['emp_id']
                     }
         else:
             return JsonResponse("Not working")
