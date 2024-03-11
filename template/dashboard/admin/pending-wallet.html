@@ -3,6 +3,7 @@
 {% load static %}
 
 {% block additional_css %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style>
     .colWid1 {
         width: 8%;
@@ -11,7 +12,7 @@
     .colWid3 {
         width: 82px;
     }
-    
+
     .form-control {
         border: 2px solid gray;
 
@@ -26,19 +27,20 @@
 {% block content %}
 
 <div class="col-xl-12">
-    <div class="card"style="overflow: auto;
+    <div class="card" style="overflow: auto;
     white-space: nowrap;">
         <div class="card-header d-block d-sm-flex border-0">
             <div>
-                <h4 class="fs-20 text-black">Wallet-Requests</h4>
+                <h4 class="fs-20 text-black">Pending Wallet Requests</h4>
                 <p class="mb-0 fs-13"> </p>
             </div>
             <div class="card-action card-tabs mt-3 mt-sm-0">
                 <label class="search-bar" style="color: black;">Search:
-                    <input type="search"  placeholder="" aria-controls="example" style="border: 1px solid black; height: 30px; border-radius: 0.5rem ; padding: 7px;">
+                    <input type="search" placeholder="" aria-controls="example"
+                        style="border: 1px solid black; height: 30px; border-radius: 0.5rem ; padding: 7px;">
 
                 </label>
-                
+
                 <!-- <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" data-bs-toggle="tab" href="#All" role="tab">Monthly</a>
@@ -84,9 +86,9 @@
                     <!-- start of section loopto be added here  -->
                     <div class="accordion__item border-bottom mb-0">
                         <div class="d-flex flex-wrap align-items-center accordion__header collapsed rounded"
-                            data-bs-toggle="collapse" data-bs-target="#default_collapseOne1" >
+                            data-bs-toggle="collapse" data-bs-target="#default_collapseOne1">
 
-                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">Mar 1</span>
+                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">March 1, 2024 <br> 13:40:13</span>
 
                             <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">Imoney
                             </span>
@@ -97,25 +99,26 @@
                             <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3">₹30000</span>
                             <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3">Credit</span>
                             <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid3">
-                                <button class=" badge light badge-success">Accepted</button>
+                                <button class=" badge light badge-warning">Pending</button>
                             </span>
-                            <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3"><i class="fa fa-check" style="background: green;
+                            <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3" >
+                                <a class="fa fa-check sweet-success-cancel" onclick="accept_status()" style="background: green; 
                                 color: white;
                                 border-radius: 20%;
                                 border: 1px solid grey;
-                                padding: 10px;"></i>
-                                <i class="fa fa-close" style="background: red;
+                                padding: 10px;" ></a>
+                                <button class="fa fa-close sweet-success-cancel" onclick="reject_status()" style="background: red;
                                 color: white;
                                 border-radius: 20%;
                                 border: 1px solid grey;
-                                padding: 10px; margin-left: 8px;"></i>
+                                padding: 10px; margin-left: 8px;"></button>
                             </span>
                             <span class="accordion__header--indicator"></span>
                         </div>
 
                         <div id="default_collapseOne1" class="collapse accordion__body" data-bs-parent="#accordion-one">
                             <div class="d-flex flex-wrap align-items-center accordion__body--text p-0">
-                                
+
                                 <div class="me-3 mb-3">
                                     <p class="fs-12 mb-2"><strong class="text-black">Approved By:</strong></p>
                                     <span class="text-black font-w500">MasterCard 404</span>
@@ -124,8 +127,8 @@
                                     <p class="fs-12 mb-2"><strong class="text-black">Transaction ID:</strong></p>
                                     <span class="text-black font-w500">J37ZJ3NU5V7EWDX</span>
                                 </div>
-                                
-                                
+
+
                                 <div class="me-3 mb-3">
                                     <p class="fs-12 mb-2"><strong class="text-black">Transaction Mode:</strong></p>
                                     <span class="text-black font-w500">RTGS</span>
@@ -136,7 +139,7 @@
                                 </div>
                                 <div class="me-3 mb-3">
                                     <p class="fs-12 mb-2"><strong class="text-black">Status:</strong></p>
-                                    <span class="text-black font-w500">Accepted</span>
+                                    <span class="text-black font-w500">Pending</span>
                                 </div>
 
                             </div>
@@ -149,8 +152,46 @@
 
             {% endblock %}
 
+            {% block additional_js %}
+            <script>
+                function accept_status(){
+                    document.querySelector(".sweet-success-cancel").onclick = function () {
+            swal({
+                title: "Are you sure to delete ?",
+                text: "You will not be able to recover this IP Address!!",
+                type: "warning",
+                showCancelButton: !0,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it !!",
+                cancelButtonText: "No, cancel it !!",
+                closeOnConfirm: !1,
+                closeOnCancel: !1
+            }, function (e) {
+                e ? swal("Deleted !!", "Hey, your imaginary file has been deleted !!", "success") : swal("Cancelled !!", "Hey, your imaginary file is safe !!", "error")
+            })
+        }
+                }
+                
+            </script>
 
+            <script>
+                function reject_status(){
+                    document.querySelector(".sweet-success-cancel").onclick = function () {
+        swal({
+            title: "Are you sure to delete ?",
+            text: "You will not be able to recover this imaginary file !!",
+            type: "warning",
+            showCancelButton: !0,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it !!",
+            cancelButtonText: "No, cancel it !!",
+            closeOnConfirm: !1,
+            closeOnCancel: !1
+        }, function (e) {
+            e ? swal("Deleted !!", "Hey, your imaginary file has been deleted !!", "success") : swal("Cancelled !!", "Hey, your imaginary file is safe !!", "error")
+        })
+                }
+            }
+            </script>
 
-
-
-    
+            {% endblock %}

@@ -151,9 +151,9 @@ def payout_merchants(request):
     return render (request , 'dashboard/admin/payout-merchant.html',)
 
 
-def request_table(request):
+def pending_wallet(request):
 
-    return render (request , 'dashboard/admin/request-table.html',)
+    return render (request , 'dashboard/admin/pending-wallet.html',)
 
 def payout_transaction(request):
 
@@ -376,9 +376,9 @@ def edit_admin(request,empid):
                                                            'data': response})
 
 
-def active_merchant(request):
+# def active_merchant(request):
 
-    return render  (request,'dashboard/merchant/active-merchant.html')
+#     return render  (request,'dashboard/merchant/active-merchant.html')
 
 def my_wallet(request):
 
@@ -529,6 +529,10 @@ def payout_merchants(request):
 def payout_transaction(request):
 
     return render (request , 'dashboard/admin/payout-transaction.html',)
+
+def wallet_report(request):
+
+    return render (request , 'dashboard/admin/wallet-report.html',)
 
 # response for ajax is handeled from here
 
