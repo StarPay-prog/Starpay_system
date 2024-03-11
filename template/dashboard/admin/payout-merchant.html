@@ -228,7 +228,7 @@
                                 <div class="me-3 mb-3">
                                     <p class="fs-12 mb-2"><strong class="text-black">Service Charges: Min ₹10</strong>
                                     </p>
-                                    <span onclick="ippopup('{{i.ip_addres}}','{{i.merchant_id}}')"
+                                    <span onclick="ippopup({{i.ip_address}},'{{i.merchant_id}}')"
                                         class="btn btn-outline-primary shadow btn-s sharp me-1">IP Whitelist</span>
                                 </div>
 
@@ -743,7 +743,7 @@
             </div>
             <div class="mb-3">
                 <label style="width: -moz-available;">Remarks</label>
-                <input class="form-control" name = 'remarks' type="text" value="">
+                <input class="form-control" name = 'remarks' type="text" >
                     
             </div>
             <a  onClick = 'transfer_button()' class="btn btn-primary Confirm-btn mb-2">Transfer</a>
@@ -791,11 +791,15 @@
 
         else
         {
+            
             container.innerHTML = `<span id = 'mid' hidden >${id}</span>`
 
         // Loop to create three sets of elements with different values
         for (let i = 0; i < length; i++) 
             {
+                console.log
+            (i)
+
                 // Create label element
                 let label = document.createElement('label');
                 label.setAttribute('style', 'width: -moz-available;');
@@ -807,15 +811,16 @@
 
                 // Create input element
                 let input = document.createElement('input');
-                input.setAttribute('class', 'form-control form-ip');
+                input.setAttribute('class', 'form-control form-ip ');
                 input.setAttribute('type', 'text');
                 input.setAttribute('style', 'width: 200%;');
-                input.value = values[i];
+                input.setAttribute('readonly','true');
+                input.value = data[i];
 
                 // Create span element
                 let span = document.createElement('span');
                 span.setAttribute('class', 'delete-icon btn sweet-success-cancel btn-lg');
-                span.innerHTML = '<i class="fa fa-trash-alt" style="color: red;" onclick="deleteBtn()"></i>';
+                span.innerHTML = '<i class="fa fa-trash-alt" style="color: red;" onclick="deleteBtn(this)"></i>';
 
                 
 
@@ -849,11 +854,11 @@
     <div style="display: flex; width: -moz-available;  justify-content: space-between; align-items: first baseline; margin-top: 20px;
             margin-bottom: 40px;">
         <div>
-            <input class="form-control form-ip" type="text"   style="width: 200%;">
+            <input class="form-control form-ip newIP" type="text"   style="width: 200%;">
         </div>
         
         <span class="delete-icon btn sweet-success-cancel btn-lg">
-                    <i class="fa fa-trash-alt " style="color: red;" onclick="deleteBtn()"></i>
+                    <i class="fa fa-trash-alt " style="color: red;" onclick="removeBtn() "></i>
                 </span>
     </div>
     
@@ -864,7 +869,8 @@
 </script>
 
 <script>
-    function deleteBtn() {
+    function deleteBtn(i) {
+        var ele = i
         document.querySelector(".sweet-success-cancel").onclick = function () {
             swal({
                 title: "Are you sure to delete ?",
@@ -875,27 +881,41 @@
                 confirmButtonText: "Yes, delete it !!",
                 cancelButtonText: "No, cancel it !!",
                 closeOnConfirm: !1,
-                closeOnCancel: !1
-            }, function (e) {
-                e ? swal("Deleted !!", "Hey, your imaginary file has been deleted !!", "success") : swal("Cancelled !!", "Hey, your imaginary file is safe !!", "error")
-            })
+                closeOnCancel: !1,
+                preConfirm: function (d) 
+                {
+                    var parentDiv = ele.parentNode.parentNode;
+                    console.log(parentDiv)
+                            inputD = parentDiv.querySelector('input')
+                            inputD.classList.add('newIP')
+                            parentDiv.setAttribute('hidden','true')
+                            
+                       
+                }
+            },)
         }
+       
+    }
+
+    function removeBtn() {
+        
         var deleteIcons = document.querySelectorAll('.delete-icon');
         deleteIcons.forEach(function (icon) {
             icon.addEventListener('click', function () {
                 var parentDiv = this.parentNode;
-                parentDiv.parentNode.removeChild(parentDiv);
+                parentDiv.parentNode.removeChild(parentDiv)
+                
+                
             });
         });
     }
 
-
     function save_ip() {
 
         var frm = document.querySelector('#popupFormIP')
-        console.log(frm)
         
-        list = frm.querySelectorAll('.form-ip')
+        console.log(frm)
+        list = frm.querySelectorAll('.newIP')
         mid = frm.querySelector('#mid')
         mid =mid.innerHTML
         var iplist = []
@@ -912,7 +932,7 @@
             user: mid,
             ser:iplist
           };
-          fetch('/ip-update/', {
+          fetch('/Rest/ip-update/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -1267,15 +1287,15 @@
             var businessName = $("#popupFormTransfer input[name='mid']").val();
             var method = $("#inlineFormCustomSelect").val();
             var amount = $("#popupFormTransfer input[name='amount']").val();
-            var remarks = $("#popupFormTransfer input['remarks']".val())
-            var utr = $("#popupFormTransfer input['utr']".val())
+            var remarks = $("#popupFormTransfer input[name = 'remarks']").val()
+            var utr = $("#popupFormTransfer input[name = 'utr']").val()
             console.log("fghjk",businessName,method,amount)
             // Make AJAX request
             var Data = {
-                bname: mid,
+                bname:businessName,
                 typ:method,
                 amnt: amount,
-                
+                ur: utr,
                 Rmrk: remarks
               };
             console.log(Data)
