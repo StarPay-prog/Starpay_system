@@ -151,13 +151,17 @@ def payout_merchants(request):
     return render (request , 'dashboard/admin/payout-merchant.html',)
 
 
-def request_table(request):
+def pending_wallet(request):
 
-    return render (request , 'dashboard/admin/request-table.html',)
+    return render (request , 'dashboard/admin/pending-wallet.html',)
 
 def payout_transaction(request):
 
     return render (request , 'dashboard/admin/payout-transaction.html',)
+
+def api_logs(request):
+
+    return render (request , 'dashboard/admin/api-logs.html',)
 
 def dashboard_login_super_admin(request):
 
@@ -372,9 +376,9 @@ def edit_admin(request,empid):
                                                            'data': response})
 
 
-def active_merchant(request):
+# def active_merchant(request):
 
-    return render  (request,'dashboard/merchant/active-merchant.html')
+#     return render  (request,'dashboard/merchant/active-merchant.html')
 
 def my_wallet(request):
 
@@ -396,10 +400,6 @@ def add_merchant(request):
     emp_id =emp_id['emp_id']
 
     if request.method == "POST":
-
-        
-        
-        
         serviceoptn = [request.POST.get('field1'),request.POST.get('field2'),request.POST.get('field3'),request.POST.get('field4')]
         print(serviceoptn)
         serviceoptn = [optn for optn in serviceoptn if optn is not None]
@@ -429,6 +429,7 @@ def add_merchant(request):
         # Define the headers with the JWT token
         header = {
         "Authorization": f"Bearer {jwt_token}",
+
         "Content-Type": "application/json"  # Assuming you are sending JSON data
         }
 
@@ -440,7 +441,6 @@ def add_merchant(request):
         print(slug)
         slug = slug['status']
         
-
 
     print(emp_id)
 
@@ -533,6 +533,10 @@ def payout_merchants(request):
 def payout_transaction(request):
 
     return render (request , 'dashboard/admin/payout-transaction.html',)
+
+def wallet_report(request):
+
+    return render (request , 'dashboard/admin/wallet-report.html',)
 
 # response for ajax is handeled from here
 

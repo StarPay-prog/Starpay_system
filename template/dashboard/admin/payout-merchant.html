@@ -605,11 +605,6 @@
     
 </div>
 
-
-
-
-
-
 <div id="popupFormIP" class="popup">
     <form class="popup-content2" style="border-radius:25px ;" action="#">
         <span class="close" onclick="closebtn('popupFormIP')">&times;</span>
@@ -754,7 +749,6 @@
     
     }
 
-
     function ippopup(data,id){
         console.log(data,typeof(data))
         length = data.length
@@ -864,7 +858,6 @@
     
 `);
     }
-
 
 </script>
 
@@ -1110,7 +1103,7 @@
                 container.innerHTML = `
                 <span id = 'mid' hidden >${id}</span>
                 <label style="width: -moz-available;"><strong>CallBack URL</strong></label>
-                <input class="form-control" type="text" value = ${data} placeholder="Enter Your URL">
+                <input class="form-control" type="text"  placeholder="Enter Your URL">
                 <hr style="  margin-top: 30px;">
                 <a class="btn btn-primary mb-2 btn-success btn sweet-success" style="width: 20%;
                 font-size: large;" onClick = 'callBackSubmit(this)'>Apply</a>
@@ -1177,13 +1170,13 @@
                 <span id = 'mid' hidden >${id}</span>
     
             <label style="width: -moz-available;"><strong>IMPS</strong></label>
-            <input class="form-control" type="text"  id="input1" placeholder=" enter RTGS"><br>
+            <input class="form-control" type="text"  id="input1" placeholder=" Enter IMPS"><br>
             <label><strong>RTGS</strong></label>
-            <input class="form-control" type="text"  id="input2" placeholder="enter NEFT"><br>
+            <input class="form-control" type="text"  id="input2" placeholder="Enter RTGS"><br>
             <label><strong>NEFT</strong></label>
-            <input class="form-control" type="text"  id="input3" placeholder="enter Service Charge"><br>
+            <input class="form-control" type="text"  id="input3" placeholder="Enter NEFT"><br>
             <label><strong>Service Charge</strong></label>
-            <input class="form-control" type="text"  id="input4" placeholder=""><br>
+            <input class="form-control" type="text"  id="input4" placeholder="Enter Service Charge"><br>
             <hr style="  margin-top: 30px;">
             <a class="btn btn-primary mb-2 btn-success btn sweet-auto" id="sweet-auto-close" style="width: 20%;
             font-size: large;" onClick= 'serviceChargeSubmit(this)'>Save</a>
