@@ -438,6 +438,7 @@ def add_merchant(request):
         url = "http://192.168.1.13:9000/register-merchant/"
         response = requests.post(url, data=data2 , headers=header)
         slug = response.json()
+        print(slug)
         slug = slug['status']
         
 
@@ -506,19 +507,22 @@ def payout_merchants(request):
 
     response2 = requests.get(url1, headers=header1)
     
-    print(response1.json())
+    
     slug1 = response1.json()
     slug2 = response2.json()
+    j =  slug1['data']
+  
+
+
 
     for i in slug2['data']:
-        for j in slug1['data']:
-            if j['merchant_id'] == i['merchant_id']:
-                i.update(j)
+        
+        i.update(j[i['merchant_id']])
 
     
     print(slug2)
 
-    print(type(slug2))
+    # print(type(slug2))
     context = {
         'data':slug2['data']
     }
