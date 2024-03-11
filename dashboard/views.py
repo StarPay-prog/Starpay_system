@@ -292,7 +292,7 @@ def view_admin(request):
         }
 
 
-    url = "http://192.168.1.14:8000/get-admin-list/"
+    url = "http://192.168.1.13:9000/get-admin-list/"
 
     response = requests.get(url, headers=header)
 
@@ -317,11 +317,11 @@ def view_merchant(request):
 
     if request.session.get('user_type') == 'admin':
         
-        url = "http://192.168.1.14:8000/get-merchant-list-admin/"
+        url = "http://192.168.1.13:9000/get-merchant-list-admin/"
 
     elif request.session.get('user_type') == 'superadmin':
        
-        url = "http://192.168.1.14:8000/get-merchant-list-super/"
+        url = "http://192.168.1.13:9000/get-merchant-list-super/"
 
     response = requests.get(url, headers=header)
 
@@ -400,10 +400,6 @@ def add_merchant(request):
     emp_id =emp_id['emp_id']
 
     if request.method == "POST":
-
-        
-        
-        
         serviceoptn = [request.POST.get('field1'),request.POST.get('field2'),request.POST.get('field3'),request.POST.get('field4')]
         print(serviceoptn)
         serviceoptn = [optn for optn in serviceoptn if optn is not None]
@@ -433,17 +429,17 @@ def add_merchant(request):
         # Define the headers with the JWT token
         header = {
         "Authorization": f"Bearer {jwt_token}",
+
         "Content-Type": "application/json"  # Assuming you are sending JSON data
         }
 
         print(header)
 
-        url = "http://192.168.1.14:8000/register-merchant/"
+        url = "http://192.168.1.13:9000/register-merchant/"
         response = requests.post(url, data=data2 , headers=header)
         slug = response.json()
         slug = slug['status']
         
-
 
     print(emp_id)
 
@@ -469,7 +465,7 @@ def refresh_jwt(request):
 
     access_token = request.session.get('jwt_token_access')
     refresh_token = request.session.get('jwt_token_refresh')
-    url = "http://192.168.1.14:8000/token/refresh/"
+    url = "http://192.168.1.13:9000/token/refresh/"
 
     token = {
             "refresh":refresh_token,
