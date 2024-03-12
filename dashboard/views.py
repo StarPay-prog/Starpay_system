@@ -151,13 +151,17 @@ def payout_merchants(request):
     return render (request , 'dashboard/admin/payout-merchant.html',)
 
 
-def request_table(request):
+def pending_wallet(request):
 
-    return render (request , 'dashboard/admin/request-table.html',)
+    return render (request , 'dashboard/admin/pending-wallet.html',)
 
 def payout_transaction(request):
 
     return render (request , 'dashboard/admin/payout-transaction.html',)
+
+def api_logs(request):
+
+    return render (request , 'dashboard/admin/api-logs.html',)
 
 def dashboard_login_super_admin(request):
 
@@ -288,7 +292,7 @@ def view_admin(request):
         }
 
 
-    url = "http://192.168.1.14:8000/get-admin-list/"
+    url = "http://192.168.1.13:9000/get-admin-list/"
 
     response = requests.get(url, headers=header)
 
@@ -313,11 +317,11 @@ def view_merchant(request):
 
     if request.session.get('user_type') == 'admin':
         
-        url = "http://192.168.1.14:8000/get-merchant-list-admin/"
+        url = "http://192.168.1.13:9000/get-merchant-list-admin/"
 
     elif request.session.get('user_type') == 'superadmin':
        
-        url = "http://192.168.1.14:8000/get-merchant-list-super/"
+        url = "http://192.168.1.13:9000/get-merchant-list-super/"
 
     response = requests.get(url, headers=header)
 
@@ -372,9 +376,9 @@ def edit_admin(request,empid):
                                                            'data': response})
 
 
-def active_merchant(request):
+# def active_merchant(request):
 
-    return render  (request,'dashboard/merchant/active-merchant.html')
+#     return render  (request,'dashboard/merchant/active-merchant.html')
 
 def my_wallet(request):
 
@@ -396,10 +400,6 @@ def add_merchant(request):
     emp_id =emp_id['emp_id']
 
     if request.method == "POST":
-
-        
-        
-        
         serviceoptn = [request.POST.get('field1'),request.POST.get('field2'),request.POST.get('field3'),request.POST.get('field4')]
         print(serviceoptn)
         serviceoptn = [optn for optn in serviceoptn if optn is not None]
@@ -429,17 +429,18 @@ def add_merchant(request):
         # Define the headers with the JWT token
         header = {
         "Authorization": f"Bearer {jwt_token}",
+
         "Content-Type": "application/json"  # Assuming you are sending JSON data
         }
 
         print(header)
 
-        url = "http://192.168.1.14:8000/register-merchant/"
+        url = "http://192.168.1.13:9000/register-merchant/"
         response = requests.post(url, data=data2 , headers=header)
         slug = response.json()
+        print(slug)
         slug = slug['status']
         
-
 
     print(emp_id)
 
@@ -465,7 +466,7 @@ def refresh_jwt(request):
 
     access_token = request.session.get('jwt_token_access')
     refresh_token = request.session.get('jwt_token_refresh')
-    url = "http://192.168.1.14:8000/token/refresh/"
+    url = "http://192.168.1.13:9000/token/refresh/"
 
     token = {
             "refresh":refresh_token,
@@ -506,19 +507,22 @@ def payout_merchants(request):
 
     response2 = requests.get(url1, headers=header1)
     
-    print(response1.json())
+    
     slug1 = response1.json()
     slug2 = response2.json()
+    j =  slug1['data']
+  
+
+
 
     for i in slug2['data']:
-        for j in slug1['data']:
-            if j['merchant_id'] == i['merchant_id']:
-                i.update(j)
+        
+        i.update(j[i['merchant_id']])
 
     
     print(slug2)
 
-    print(type(slug2))
+    # print(type(slug2))
     context = {
         'data':slug2['data']
     }
@@ -529,6 +533,10 @@ def payout_merchants(request):
 def payout_transaction(request):
 
     return render (request , 'dashboard/admin/payout-transaction.html',)
+
+def wallet_report(request):
+
+    return render (request , 'dashboard/admin/wallet-report.html',)
 
 # response for ajax is handeled from here
 

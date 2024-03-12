@@ -1,5 +1,5 @@
 {% extends 'dashboard/elements/layouts/admin.html' %}
-{% load static widget_tweaks%}
+{% load static widget_tweaks %}
 
 {% block additional_css %}
 
@@ -95,11 +95,11 @@
 												<label class="mb-2 ">
 												  Email*
 												</label>
-												<input type="text" name="e-mail" class="form-control" placeholder="Enter Your E-mail" required>
-												{{ form.email|attr:"type:email"|attr:"class:form-control"|attr:"placeholder:Enter Your Email" }}
+												<input type="text" name="email" class="form-control" placeholder="Enter Your E-mail" required>
+												<!-- {{ form.email|attr:"type:email"|attr:"class:form-control"|attr:"placeholder:Enter Your Email" }} -->
 
 												<div class="text-danger w-100 d-block mt-1">
-												  {{ form.email.errors }}
+												  <!-- {{ form.email.errors }} -->
 												</div>
 											  </div>
 										</div>
@@ -108,9 +108,9 @@
 												Password*
 											  </label>
 											  <input type="text" name="password" class="form-control" placeholder="Enter Your Password" required>
-											  {{ form.password|attr:"class:form-control"|attr:"placeholder:Enter Your Password"|attr:"id:dz-password"|attr:"type:password" }}
+											  <!-- {{ form.password|attr:"class:form-control"|attr:"placeholder:Enter Your Password"|attr:"id:dz-password"|attr:"type:password" }} -->
 											  <div class="text-danger w-100 d-block mt-1">
-												{{ form.password.errors }}
+												<!-- {{ form.password.errors }} -->
 											  </div>
 										</div>
 										<div class="col-lg-6 mb-2">
