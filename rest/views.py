@@ -1,5 +1,6 @@
 from django.shortcuts import render
 import json
+from django.views.generic import ListView
 
 import requests
 from dashboard.models import *
