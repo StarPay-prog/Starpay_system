@@ -535,8 +535,19 @@ def payout_transaction(request):
     return render (request , 'dashboard/admin/payout-transaction.html',)
 
 def wallet_report(request):
+    """ A view function that returns a wallet report list. 
+    It takes a request object as a parameter and returns 
+    a rendered HTML template with wallet transaction data. """
 
-    return render (request , 'dashboard/admin/wallet-report.html',)
+    url = payout_url+'Rest/payout-wallet-transaction-all/'
+    jwt_token = request.session.get('jwt_token_access')
+    header = {
+        "Access": jwt_token,
+        "Content-Type": "application/json"  # Assuming you are sending JSON data
+        }    
+    response = requests.get(url, headers=header)
+    data = response.json()
+    return render (request , 'dashboard/admin/wallet-report.html',{"data":data["transactions"]})
 
 # response for ajax is handeled from here
 

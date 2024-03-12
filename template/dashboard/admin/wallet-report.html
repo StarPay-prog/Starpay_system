@@ -51,7 +51,8 @@
             </div>
             <div class="card-action card-tabs mt-3 mt-sm-0">
                 <label class="search-bar" style="color: black;">Search:
-                    <input type="search" placeholder="" aria-controls="example"
+                    <input type="search" placeholder="" aria-controls="example" 
+                        id='myInput' onkeyup='searchTable()'
                         style="border: 1px solid black; height: 30px; border-radius: 0.5rem ; padding: 7px;">
 
                 </label>
@@ -85,33 +86,38 @@
                     </div>
 
                     <!-- end of heading -->
-
                     <!-- start of section loopto be added here  -->
-                    <div class="accordion__item border-bottom mb-0">
+                    {% for i in data%}
+                    <div class="accordion__item border-bottom mb-0" id='myTable'>
                         <div class="d-flex flex-wrap align-items-center accordion__header collapsed rounded"
                             data-bs-toggle="collapse" data-bs-target="#default_collapseOne1" style="font-size: 13px;">
-
-                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">March 1, 2024 <br> 13:40:13</span>
-
-                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">IMoneyPay
+                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">{{i.Transaction_date | date:"D d M Y" }}</span>
+                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">{{i.Credit}}
                             </span>
-
-                            <span id="name" class="mb-lg-0 mb-3 font-w100 px-2 colWid1">SBI</span>
-                            <span class="mb-lg-0 mb-3  font-w100 px-2 colWid2">₹30000</span>
-                            <span class="mb-lg-0 mb-3  font-w100 px-2 colWid2">Credit</span>
-                            <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3">J37ZJ3NU5V7EX</span>
-                            <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3">RTGS</span>
-                            <span class="mb-lg-0 mb-3  font-w100 px-2 colWid2"> MasterCard 404</span>
+                            <span id="name" class="mb-lg-0 mb-3 font-w100 px-2 colWid1">{{i.Debit}}</span>
+                            <span class="mb-lg-0 mb-3  font-w100 px-2 colWid2">{{i.Transaction_amount}}</span>
+                            <span class="mb-lg-0 mb-3  font-w100 px-2 colWid2">{{i.Credit}}</span>
+                            <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3">{{i.Transaction_id}}</span>
+                            <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3">{{i.Transaction_mode}}</span>
+                            <span class="mb-lg-0 mb-3  font-w100 px-2 colWid2">{{i.Approved_by}}</span>
                             <span class="mb-lg-0 mb-3  font-w100 px-2 colWid2">
-                                <button class="btn btn-sm badge badge-success">Accepted</button>
+                                <button class="btn btn-sm badge badge-success">{{i.Transaction_status}}</button>
                             </span>
                         </div>
-
-                        
                     </div>
+                    {% endfor %}
                     <!-- End of section  -->
 
                 </div>
             </div>
-
+            <!-- <script>
+                $(document).ready(function() {
+                    $('#searchInputId').on('keyup', function() {
+                        var value = $(this).val().toLowerCase();
+                        $('#myTable .accordion__item').filter(function() {
+                            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                        });
+                    });
+                });
+                </script> -->
             {% endblock %}
