@@ -163,6 +163,11 @@ dz_array = {
                         "payout_merchants":[
                             f"{foldername}/vendor/sweetalert2/dist/sweetalert2.min.css"
                         ],
+
+                        "pending_wallet":[
+                            f"{foldername}/vendor/sweetalert2/dist/sweetalert2.min.css"
+                        ],
+
                         "uc_toastr":[
                             f"{foldername}/vendor/toastr/css/toastr.min.css"
                         ],
@@ -388,6 +393,10 @@ dz_array = {
                         "payout_merchants":[
                             f"{foldername}/vendor/sweetalert2/dist/sweetalert2.min.js",
                            
+
+                        ],
+                        "pending_wallet":[
+                            f"{foldername}/vendor/sweetalert2/dist/sweetalert2.min.js",
 
                         ],
                         
