@@ -699,7 +699,7 @@
     });
 
 </script>
-
+// transfer merchant
 <script>
     function paymentTransfer(mid,bname) 
     {
@@ -791,8 +791,7 @@
         // Loop to create three sets of elements with different values
         for (let i = 0; i < length; i++) 
             {
-                console.log
-            (i)
+                
 
                 // Create label element
                 let label = document.createElement('label');
@@ -1066,23 +1065,7 @@
         };
 
     
-        // Function to get CSRF token from cookie
-        function getCookie(name) {
-            var cookieValue = null;
-            if (document.cookie && document.cookie !== '') {
-                var cookies = document.cookie.split(';');
-                for (var i = 0; i < cookies.length; i++) {
-                    var cookie = cookies[i].trim();
-                    // Does this cookie string begin with the name we want?
-                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                        break;
-                    }
-                }
-            }
-            console.log(cookieValue)
-            return cookieValue;
-        }
+        
 
 
     // to update callBack url of merchant using admin
@@ -1315,7 +1298,7 @@
                 console.error('Fetch error:', error);
               });
 
-            
+            closebtn('popupFormTransfer')
         }
 </script>
 
