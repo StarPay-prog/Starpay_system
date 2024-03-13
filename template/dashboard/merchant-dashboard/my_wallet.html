@@ -1,7 +1,7 @@
 {% extends 'dashboard/elements/layouts/base.html' %}
 
+{% load widget_tweaks %}
 {% load static %}
-
 {% block additional_css %}
 <style>
 	.form-control {
@@ -73,7 +73,7 @@
 									</svg>
 									<div class="me-auto">
 										<h5 class="fs-20 text-black font-w600">Main Balance</h5>
-										<span class="text-num text-black font-w600">$673,412.66</span>
+										<span class="text-num text-black font-w600">{{money}}</span>
 									</div>
 								</div>
 								<div class="me-3 mb-3">
@@ -82,7 +82,7 @@
 								</div>
 								<div class="me-3 mb-3">
 									<p class="fs-14 mb-1">CARD HOLDER</p>
-									<span class="text-black">Franklin Jr.</span>
+									<span class="text-black">{{user.name}}.</span>
 								</div>
 								<span class="fs-20 text-black font-w500 me-3 mb-3">**** **** **** 1234</span>
 								<div class="dropdown mb-auto">
@@ -113,8 +113,8 @@
 												<small class="text-secondary">24%</small>
 											</div>
 											<div class="media-body">
-												<h4 class="fs-15 text-black font-w600 mb-0">Installment</h4>
-												<span class="fs-14">$5,412</span>
+												<h4 class="fs-15 text-black font-w600 mb-0">Hold Balance </h4>
+												<span class="fs-14">{{hold_balance}}</span>
 											</div>
 										</div>
 									</div>
@@ -125,8 +125,8 @@
 												<small class="text-success">74%</small>
 											</div>
 											<div class="media-body">
-												<h4 class="fs-15 text-black font-w600 mb-0">Investment</h4>
-												<span class="fs-14">$3,784</span>
+												<h4 class="fs-15 text-black font-w600 mb-0">Request</h4>
+												<span class="fs-14">{{requests}}</span>
 											</div>
 										</div>
 									</div>
@@ -252,35 +252,34 @@
 				<span class="close" onclick="closebtn('popupFormTransfer')">&times;</span>
 				<div class="mb-3">
 					<label class="me-sm-2" style="width: -moz-available;">Bank Name</label>
-					<select class=" form-control text-black" id="inlineFormCustomSelect">
-						<option selected>Choose...</option>
-						<option value="1">SBI</option>
-						<option value="2">HDFC</option>
-						<option value="3">ICICI</option>
-					</select>
+					{{form.bank_name | add_class:"form-control"}}
 				</div>
 				<div class="mb-3">
 					<label style="width: -moz-available;">Account No.</label>
-					<input class="form-control" type="text" readonly>
+					{{form.account_no | add_class:"form-control"}}
+
 				</div>
 				<div class="mb-3">
 					<label style="width: -moz-available;">UTR No.</label>
-					<input class="form-control" type="text">
+					{{form.utr_no | add_class:"form-control"}}
+
 				</div>
 				<div class="mb-3">
 					<label style="width: -moz-available;">Transaction Date</label>
-					<input class="form-control" type="date">
+					{{form.transaction_date | add_class:"form-control" | attr:"type:date"}}
+
 				</div>
 				<div class="mb-3">
 					<label style="width: -moz-available;">Remarks</label>
-					<input class="form-control" type="text">
+					{{form.remarks | add_class:"form-control"}}
+
 				</div>
 				<div class="mb-3 row">
 					<label class="col-sm-3 col-form-label">Amount</label>
-					<div class="input-group mb-3  input-info">
+					<div class="input-group mb-3">
 						<span class="input-group-text search_icon" style="
 							background-color: #a4a4a4; border: 2px solid gray;">₹</span>
-						<input type="tel" name="amount" class="form-control" style="border: 2px solid gray;">
+							{{form.amount | add_class:"form-control"}}
 					</div>
 				</div>
 				<button type="submit" class="btn btn-primary Confirm-btn mb-2">Transfer</button>
