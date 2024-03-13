@@ -1,6 +1,8 @@
 import json
 from django.http import HttpResponsePermanentRedirect, HttpResponseRedirect
 from django.shortcuts import render, redirect,HttpResponse
+from django.views.generic import View
+from .forms import UpdateMerchantForm
 from django.contrib.auth.decorators import login_required, permission_required 
 from .models import *
 
@@ -327,33 +329,70 @@ def view_merchant(request):
 
     response = response.json()
 
-    print(type(response['data']))
+    print(response)
     
 
     return render (request , 'dashboard/merchant/view-merchant.html',context= {"data":response['data']})
 
+class MerchantUpdateAdminView(View):
+    success_url = "/"
 
-def edit_merchant(request,merchid):
-    url = base_url + "get-merchant/" + merchid
     
-    jwt_token = request.session.get('jwt_token_access')
-
-    header = {
-        "Authorization": f"Bearer {jwt_token}",
-        "Content-Type": "application/json"  # Assuming you are sending JSON data
-        }
-
-
-    if request.method == "POST":
-
-        return HttpResponseRedirect("view-merchant")
-    form = LoginForm
+    def get(self,request,merchid):
+        url = base_url + "get-merchant-admin/" + self.kwargs["merchid"]
     
-    response = requests.get(url, headers=header)
+        jwt_token = request.session.get('jwt_token_access')
 
-    return render (request,"dashboard/merchant/edit-merchant.html" ,context = {"form":form,
-                                                           'data': response})
+        header = {
+            "Authorization": f"Bearer {jwt_token}",
+            "Content-Type": "application/json"  # Assuming you are sending JSON data
+            }
+        response = requests.get(url, headers=header)
+        form = UpdateMerchantForm(initial={"api_data":response.json()})
+        return render(request,"dashboard/merchant/edit-merchant.html",{"form":form})
+    def post(self, request, merchid):
+        data = {"data":
+                {
+                 "user":{
+                     "first_name":request.POST.get("first_name"),
+                     "last_name":request.POST.get("last_name"),
+                 },
+                 "service_option":[],
+                 "bussiness_name":request.POST.get("business_name"),
+                 "gst_no":request.POST.get("gst_no")
+                 }
+                 }
+        # If the form is valid, extract the data and send it to the API
+        api_url = base_url + "update-merchant-admin/" + self.kwargs["merchid"]
+        
+        # data["data"]["user"]["first_name"] = request.POST.get("first_name")
+        # data["data"]["user"]["last_name"] = request.POST.get("last_name")
+        # data["data"]["gst"] = request.POST.get("gst_no")
+        # data["data"]["business_name"] = request.POST.get("business_name")
+        # data["data"]["gst_no"] = request.POST.get("gst_no")
+        # data["data"]["contact_no"] = request.POST.get("contact_no")
+        if request.POST.get("cash"):
+            data["data"]["service_option"].append(8008)
+        if request.POST.get("payin"):
+            data["data"]["service_option"].append(9819)
+        if request.POST.get("payout"):
+            data["data"]["service_option"].append(9819)
+        if request.POST.get("card"):
+            data["data"]["service_option"].append(5273)
+        
 
+        url = base_url + "update-merchant-admin/" + self.kwargs["merchid"]
+    
+        jwt_token = request.session.get('jwt_token_access')
+
+        header = {
+            "Authorization": f"Bearer {jwt_token}",
+            "Content-Type": "application/json"  # Assuming you are sending JSON data
+            }
+        data = json.dumps(data)
+        response = requests.patch(url, headers=header, data=data)
+        print("response",response.text)
+        return redirect("/view-merchant")
 def edit_admin(request,empid):          
     url = base_url + "get-admin/" + empid
     
@@ -538,8 +577,19 @@ def payout_transaction(request):
     return render (request , 'dashboard/admin/payout-transaction.html',)
 
 def wallet_report(request):
+    """ A view function that returns a wallet report list. 
+    It takes a request object as a parameter and returns 
+    a rendered HTML template with wallet transaction data. """
 
-    return render (request , 'dashboard/admin/wallet-report.html',)
+    url = payout_url+'Rest/payout-wallet-transaction-all/'
+    jwt_token = request.session.get('jwt_token_access')
+    header = {
+        "Access": jwt_token,
+        "Content-Type": "application/json"  # Assuming you are sending JSON data
+        }    
+    response = requests.get(url, headers=header)
+    data = response.json()
+    return render (request , 'dashboard/admin/wallet-report.html',{"data":data["transactions"]})
 
 # response for ajax is handeled from here
 

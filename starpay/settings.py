@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'dashboard',
     'widget_tweaks',
 ]
+if DEBUG:
+    INSTALLED_APPS.append("debug_toolbar")
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -52,7 +54,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
+if DEBUG:
+    MIDDLEWARE.append("debug_toolbar.middleware.DebugToolbarMiddleware",)
 ROOT_URLCONF = 'starpay.urls'
 
 TEMPLATES = [
@@ -147,3 +150,8 @@ FILE_UPLOAD_MAX_MEMORY_SIZE = 10 * 1024 * 1024 # 10 Mb limit
 
 base_url = "http://192.168.1.13:9000/"  
 payout_url = "http://192.168.1.13:7000/"
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+    "192.168.1.14"
+]
