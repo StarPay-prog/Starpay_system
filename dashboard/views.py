@@ -294,7 +294,7 @@ def view_admin(request):
         }
 
 
-    url = "http://192.168.1.13:9000/get-admin-list/"
+    url = base_url +"get-admin-list/"
 
     response = requests.get(url, headers=header)
 
@@ -319,11 +319,11 @@ def view_merchant(request):
 
     if request.session.get('user_type') == 'admin':
         
-        url = "http://192.168.1.13:9000/get-merchant-list-admin/"
+        url = base_url +"get-merchant-list-admin/"
 
     elif request.session.get('user_type') == 'superadmin':
        
-        url = "http://192.168.1.13:9000/get-merchant-list-super/"
+        url = base_url +"get-merchant-list-super/"
 
     response = requests.get(url, headers=header)
 
@@ -431,6 +431,10 @@ def my_profile(request):
 
     return render  (request,'dashboard/merchant-dashboard/profile.html')
 
+def change_password(request):
+
+    return render  (request,'dashboard/merchant-dashboard/change-password.html')
+
 def add_merchant(request):
 
     #refresh_jwt(request)
@@ -468,13 +472,12 @@ def add_merchant(request):
         # Define the headers with the JWT token
         header = {
         "Authorization": f"Bearer {jwt_token}",
-
         "Content-Type": "application/json"  # Assuming you are sending JSON data
         }
 
         print(header)
 
-        url = "http://192.168.1.13:9000/register-merchant/"
+        url = base_url +"register-merchant/"
         response = requests.post(url, data=data2 , headers=header)
         slug = response.json()
         print(slug)
@@ -505,7 +508,7 @@ def refresh_jwt(request):
 
     access_token = request.session.get('jwt_token_access')
     refresh_token = request.session.get('jwt_token_refresh')
-    url = "http://192.168.1.13:9000/token/refresh/"
+    url = base_url +"token/refresh/"
 
     token = {
             "refresh":refresh_token,

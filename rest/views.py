@@ -99,8 +99,8 @@ def virtual_transaction(request):
                         "Debit": data.get('bname'),
                         "Credit": "starpay_account",
                         "Transaction_amount": data.get('amnt'),
-                        "Transaction_remark": (data.get('Rmrk') or ' ') + 'Wallet of merchant Debited by ' + userdata['user']['emp_id'],
-                        "utr": data.get('ur')
+                        "Transaction_remark": (data.get('Rmrk') or ' ') + 'Wallet of merchant Debited by ' + userdata['emp_id'],
+                        "utr": 'NA'
                     }
         else:
             return JsonResponse("Not working")

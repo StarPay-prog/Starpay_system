@@ -1,24 +1,29 @@
-{% extends 'dashboard/elements/layouts/admin.html' %}
+{% extends 'dashboard/elements/layouts/base.html' %}
 
 {% load static %}
 
 {% block additional_css %}
 <style>
     .colWid1 {
-        width: 11%;
+        width: 8%;
     }
 
     .colWid3 {
-        width: 108px;
+        width: 100px;
     }
-    
+
     .form-control {
         border: 2px solid #c0baba
-
     }
 
     .form-control:focus {
         border: 2px solid skyblue;
+    }
+
+    h4 {
+        font-weight: 600;
+        color: black;
+
     }
 
     .badge {
@@ -43,7 +48,7 @@
     white-space: nowrap;">
         <div class="card-header d-block d-sm-flex border-0">
             <div>
-                <h4 class="fs-20 text-black">Requests</h4>
+                <h4 class="fs-20 text-black">Payout Transactions</h4>
                 <p class="mb-0 fs-13"> </p>
             </div>
             <div class="card-action card-tabs mt-3 mt-sm-0">
@@ -75,9 +80,9 @@
                     <!-- start of heading -->
 
                     <div class="accordion__item border-bottom mb-0">
-                        <div class="d-flex flex-wrap align-items-center accordion__header collapsed rounded" >
+                        <div class="d-flex flex-wrap align-items-center accordion__header collapsed rounded">
 
-                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1" >Transaction Date</span>
+                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">Transaction Date</span>
                             <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">Business Name</span>
                             <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">Route Name</span>
                             <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">PG Ref</span>
@@ -85,7 +90,7 @@
 
                             <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid3">Bank Ref</span>
                             <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid3">Amount</span>
-                            
+
                             <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid3">PG Ref Status</span>
                             <span class="mb-lg-0 mb-3 text-black font-w600 px-2 "></span>
 
@@ -100,10 +105,11 @@
                         <div class="d-flex flex-wrap align-items-center accordion__header collapsed rounded"
                             data-bs-toggle="collapse" data-bs-target="#default_collapseOne1" style="font-size: 13px;">
 
-                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">March 1, 2024</span>
+                            <span class="mb-lg-0 mb-3 text-black font-w100 px-2 colWid1">March 1, 2024<br>
+                                13:40:13</span>
 
-                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">IMoneyPay
-                               
+                            <span class="mb-lg-0 mb-3 text-black font-w100 px-2 colWid1">IMoneyPay
+
                             </span>
 
                             <span id="name" class="mb-lg-0 mb-3 font-w100 px-2 colWid1">WVZQTNXL0H7K</span>
@@ -111,21 +117,91 @@
                             <span class="mb-lg-0 mb-3  font-w100 px-2 colWid1">YSOS</span>
                             <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3">₹3000</span>
                             <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3">SBI</span>
-                            <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3"> 
-                                <button class="btn btn-sm badge badge-success">Accepted</button>
+                            <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3">
+                                <button class="btn-sm badge badge-success">Accepted</button>
                             </span>
-                            
+
                             <span class="accordion__header--indicator"></span>
                         </div>
 
                         <div id="default_collapseOne1" class="collapse accordion__body" data-bs-parent="#accordion-one"
                             style="padding-top: 5px;">
                             <div>
-                                <div class="d-flex flex-wrap align-items-center accordion__body--text p-0" style="font-size: 14px;">
+                                <div class="d-flex flex-wrap align-items-center accordion__body--text p-0"
+                                    style="font-size: 14px;">
                                     <div class="row row-cols-auto justify-content-start align-items-top"
-                                        style="display: contents;">
-                                       
-                                        <div class="col-lg-3 col-md-6 col-12">
+                                        style="display: contents; color: black;">
+
+                                        <div class="row" style="margin: 10px; padding: 20px; max-width: 100%; ">
+                                            <div class="col-sm-4">
+                                                <h4> Beneficiary Details </h4>
+                                                <span style="color: black;">
+                                                    <strong>Name:</strong>
+                                                    Test Merchant
+                                                    <br>
+                                                    <strong>Bank Name:</strong>
+                                                    SBI
+                                                    <br>
+                                                    <strong>Account:</strong>
+                                                    99453456
+                                                    <br>
+                                                    <strong>IFSC:</strong>
+                                                    65677885467898
+                                                    <br>
+                                                    <strong>Mobile Number:</strong>
+                                                    7654445678<br>
+                                                    <strong> Transaction Mode:</strong>
+                                                    IMPS
+                                                    <br>
+                                                </span>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <h4>Bank Details</h4>
+                                                <span style="color: black;">
+                                                    <strong>Bank Status:</strong>
+                                                    Accepted
+                                                    <br>
+                                                    <strong> Bank Remark:</strong>
+                                                    Successful
+                                                    <br>
+                                                    <strong>Bank Ref No2:</strong>
+                                                    406227190645
+                                                    <br>
+                                                    <strong>Updated Date:</strong>
+                                                    March 5, 2024
+                                                    <br>
+                                                </span>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <h4>Charges Details</h4>
+                                                <span style="color: black;">
+                                                    <strong>Charge:</strong>
+                                                    100
+                                                    <br>
+                                                    <strong>GST:</strong>
+                                                    18%
+                                                    <br>
+                                                </span>
+                                            </div>
+
+                                            <div class=" mt-3 mb-3 me-5">
+                                                <div class="d-lg-flex justify-content-start align-items-center">
+                                                    <button class="btn btn-outline-warning  m-1" type="button"><i
+                                                            class="fa fa-recycle" aria-hidden="true"></i>
+                                                        Refund</button>
+                                                    <button class="btn btn-outline-primary sweet-success  m-1" type="button"><i
+                                                            class="fas fa-sync" aria-hidden="true"></i>
+                                                        Check Status</button>
+                                                    <button class="btn btn-outline-primary m-1  "
+                                                        type="button"><i class="fa fa-university"
+                                                            aria-hidden="true"></i>
+                                                        Resend CallBack</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <!-- <div class="col-lg-3 col-md-6 col-12">
                                             <p class="d-lg-flex justify-content-center align-items-center mt-2"
                                                 style="font-family: monospace; color: black"><b>Beneficiary Details</b>
                                             </p>
@@ -188,21 +264,8 @@
                                                    
                                                 </span>
                                             </div>
-                                        </div>
-                                        <div class="row mt-4 mb-4 me-2 ms-0">
-                                            <div class="d-lg-flex justify-content-start align-items-center"
-                                                style="margin-top: 10px;">
-                                                <button
-                                                    class="btn btn-outline-warning  m-1" type="button"><i class="fa fa-recycle" aria-hidden="true"></i>
-                                                    Refund</button>
-                                                    <button
-                                                    class="btn btn-outline-primary  m-1" type="button"><i class="fas fa-sync" aria-hidden="true"></i>
-                                                    Check Status</button>
-                                                <button class="btn btn-outline-primary  m-1"
-                                                    type="button"><i class="fa fa-university" aria-hidden="true"></i>
-                                                    Resend CallBack</button>
-                                            </div>
-                                        </div>
+                                        </div> -->
+
                                     </div>
 
                                 </div>
@@ -215,5 +278,37 @@
 
                 </div>
             </div>
+
+            {% endblock %}
+
+
+            {% block additional_js %}
+
+            <script>
+                document.querySelector(".sweet-success").onclick = function () {
+                    var Meldungstext = "";
+  Meldungstext = Meldungstext + '<span align>Reference ID:3456789</span> <br> '
+  Meldungstext = Meldungstext + '<spanp>Mode: RTGS</span> <br>'
+  Meldungstext = Meldungstext + '<span>Paid To: Anuj Bansal | Account No</span><br>'
+  Meldungstext = Meldungstext + '<span>Amount: 100.00</span><br>'
+  Meldungstext = Meldungstext + '<span>Date: March 4, 2024</span><br>'
+ 
+
+  swal.fire({
+    title: 'Transfer Successful !',
+    html: Meldungstext,
+    type: "success",
+  
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Okay",
+            
+    width: '40%',
+  })
+}
+                
+
+            </script>
+
+
 
             {% endblock %}

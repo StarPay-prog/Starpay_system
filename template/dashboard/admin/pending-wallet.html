@@ -1,4 +1,4 @@
-{% extends 'dashboard/elements/layouts/admin.html' %}
+{% extends 'dashboard/elements/layouts/base.html' %}
 
 {% load static %}
 
@@ -88,9 +88,10 @@
                         <div class="d-flex flex-wrap align-items-center accordion__header collapsed rounded"
                             data-bs-toggle="collapse" data-bs-target="#default_collapseOne1">
 
-                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">March 1, 2024 <br> 13:40:13</span>
+                            <span class="mb-lg-0 mb-3 text-black font-w100 px-2 colWid1">March 1, 2024 <br>
+                                13:40:13</span>
 
-                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">Imoney
+                            <span class="mb-lg-0 mb-3 text-black font-w100 px-2 colWid1">Imoney
                             </span>
 
                             <span id="name" class="mb-lg-0 mb-3 font-w100 px-2 colWid3">SBI</span>
@@ -101,17 +102,17 @@
                             <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid3">
                                 <button class=" badge light badge-warning">Pending</button>
                             </span>
-                            <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3" >
-                                <a class="fa fa-check sweet-success-cancel" onclick="accept_status()" style="background: green; 
+                            <span class="mb-lg-0 mb-3 font-w100 px-2 colWid3">
+                                <a class="fa fa-check sweet-confirm" style="background: green; 
                                 color: white;
                                 border-radius: 20%;
                                 border: 1px solid grey;
-                                padding: 10px;" ></a>
-                                <button class="fa fa-close sweet-success-cancel" onclick="reject_status()" style="background: red;
+                                padding: 10px;"></a>
+                                <a class="fa fa-close sweet-success-cancel" style="background: red;
                                 color: white;
                                 border-radius: 20%;
                                 border: 1px solid grey;
-                                padding: 10px; margin-left: 8px;"></button>
+                                padding: 10px; margin-left: 8px;"></a>
                             </span>
                             <span class="accordion__header--indicator"></span>
                         </div>
@@ -154,44 +155,38 @@
 
             {% block additional_js %}
             <script>
-                function accept_status(){
-                    document.querySelector(".sweet-success-cancel").onclick = function () {
-            swal({
-                title: "Are you sure to delete ?",
-                text: "You will not be able to recover this IP Address!!",
-                type: "warning",
-                showCancelButton: !0,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Yes, delete it !!",
-                cancelButtonText: "No, cancel it !!",
-                closeOnConfirm: !1,
-                closeOnCancel: !1
-            }, function (e) {
-                e ? swal("Deleted !!", "Hey, your imaginary file has been deleted !!", "success") : swal("Cancelled !!", "Hey, your imaginary file is safe !!", "error")
-            })
-        }
-                }
-                
-            </script>
-
-            <script>
-                function reject_status(){
-                    document.querySelector(".sweet-success-cancel").onclick = function () {
+               document.querySelector(".sweet-confirm").onclick = function () {
         swal({
-            title: "Are you sure to delete ?",
-            text: "You will not be able to recover this imaginary file !!",
+            title: "Are you sure you want to accept the request ?",
             type: "warning",
             showCancelButton: !0,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, delete it !!",
-            cancelButtonText: "No, cancel it !!",
-            closeOnConfirm: !1,
-            closeOnCancel: !1
-        }, function (e) {
-            e ? swal("Deleted !!", "Hey, your imaginary file has been deleted !!", "success") : swal("Cancelled !!", "Hey, your imaginary file is safe !!", "error")
+            confirmButtonText: "Yes, Accept it !!",
+            closeOnConfirm: !1
+        }, function () {
+            swal("Deleted !!", "Hey, your imaginary file has been deleted !!", "success")
         })
+    }
+
+            </script>
+
+            <script>
+                document.querySelector(".sweet-success-cancel").onclick = function () {
+                    swal({
+                        title: "Are you sure you want to reject the request ?",
+                        text: "You will not be able to recover this request!!",
+                        type: "warning",
+                        showCancelButton: !0,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Yes, reject it !!",
+                        cancelButtonText: "No, cancel it !!",
+                        closeOnConfirm: !1,
+                        closeOnCancel: !1
+                    }, function (e) {
+                        e ? swal("Deleted !!", "Hey, your imaginary file has been deleted !!", "success") : swal("Cancelled !!", "Hey, your imaginary file is safe !!", "error")
+                    })
                 }
-            }
+
             </script>
 
             {% endblock %}

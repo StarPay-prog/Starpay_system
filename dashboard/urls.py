@@ -12,6 +12,7 @@ urlpatterns = [
     path('my_wallet/',views.my_wallet,name='my_wallet'),
     path('settings/',views.my_settings,name='settings'),
     path('profile/',views.my_profile,name='profile'),
+    path('change-password/',views.change_password,name='change-password'),
 
 
 

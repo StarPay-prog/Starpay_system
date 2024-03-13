@@ -1,4 +1,4 @@
-{% extends 'dashboard/elements/layouts/admin.html' %}
+{% extends 'dashboard/elements/layouts/base.html' %}
 
 {% load static %}
 
@@ -15,7 +15,6 @@
 
     .form-control {
         border: 2px solid #c0baba
-
     }
 
     .form-control:focus {
@@ -31,8 +30,6 @@
 
     }
 
-
-
     .popup {
         display: none;
         position: fixed;
@@ -43,6 +40,18 @@
         height: 100%;
         overflow: auto;
         background-color: rgba(0, 0, 0, 0.4);
+        animation: fadeInAnimation ease 0.5s;
+    
+    }
+
+    @keyframes fadeInAnimation {
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
     }
 
     .popup-content {
@@ -142,7 +151,7 @@
             </div>
         </div>
 
-        <div class="card-body payment-bx tab-content p-0"  style="min-width: 1200px;">
+        <div class="card-body payment-bx tab-content p-0" style="min-width: 1200px;">
 
             <div class="tab-pane active show fade" id="All" role="tabpanel">
 
@@ -167,90 +176,101 @@
                         <!-- end of heading -->
 
                         {% for i in data %}
-                    <!-- start of section loopto be added here  -->
-                    <div class="accordion__item border-bottom mb-0">
-                        <div class="d-flex flex-wrap align-items-center accordion__header collapsed rounded"
-                            data-bs-toggle="collapse" data-bs-target="#default_collapseOne{{forloop.counter}}" style="font-size: 13px;">
+                        <!-- start of section loopto be added here  -->
+                        <div class="accordion__item border-bottom mb-0">
+                            <div class="d-flex flex-wrap align-items-center accordion__header collapsed rounded"
+                                data-bs-toggle="collapse" data-bs-target="#default_collapseOne{{forloop.counter}}"
+                                style="font-size: 13px;">
 
-                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">{{forloop.counter}}</span>
+                                <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">{{forloop.counter}}</span>
 
 
-                            {% if i.service_option    %}
-                            {% for j in  i.service_option%}
+                                {% if i.service_option %}
+                                {% for j in i.service_option%}
                                 {% if j.service_name == 'Payout'%}
-                                    <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">
-                                        <button class="btn  btn " onclick="statusMerchant('{{i.merchant_id}}',this,{{i.service_option}})"><i class="fa fa-lock text-success"
-                                                aria-hidden="true"></i> </button>
-                                    </span>
+                                <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">
+                                    <button class="btn  btn "
+                                        onclick="statusMerchant('{{i.merchant_id}}',this,{{i.service_option}})"><i
+                                            class="fa fa-lock text-success" aria-hidden="true"></i> </button>
+                                </span>
                                 {% else %}
-                                    <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">
-                                        <button class="btn  btn " onclick="statusMerchant('{{i.merchant_id}}',this,{{i.service_option}})"><i class="fa fa-unlock text-danger"
-                                                aria-hidden="true"></i> </button>
-                                    </span>
+                                <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">
+                                    <button class="btn  btn "
+                                        onclick="statusMerchant('{{i.merchant_id}}',this,{{i.service_option}})"><i
+                                            class="fa fa-unlock text-danger" aria-hidden="true"></i> </button>
+                                </span>
                                 {% endif %}
-                            {% endfor %}
-                            
-                                
-                            {% else %}
-                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">
-                                <button class="btn  btn " onclick="statusMerchant('{{i.merchant_id}}',this,{{i.service_option}})"><i class="fa fa-unlock text-danger"
-                                        aria-hidden="true"></i> </button>
-                            </span>
-                               
-                               
+                                {% endfor %}
 
-                            {% endif %}
+
+                                {% else %}
+                                <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">
+                                    <button class="btn  btn "
+                                        onclick="statusMerchant('{{i.merchant_id}}',this,{{i.service_option}})"><i
+                                            class="fa fa-unlock text-danger" aria-hidden="true"></i> </button>
+                                </span>
 
 
 
+                                {% endif %}
 
-                            <span id="business_name" class="mb-lg-0 mb-3 font-w100 px-2 colWid3">{{i.business_name}}</span>
-                            <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3">{{i.user.contact_no}}</span>
 
-                            <span id="business_email"
-                                class="mb-lg-0 mb-3  font-w100 px-2 colWid3">{{i.user.email}}</span>
-                            <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3"><i class="fa fa-inr text-active"
-                                    aria-hidden="true">
-                                </i>{{i.wallet_balance}}</span>
-                            <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3"><i class="fa fa-inr text-active"
-                                    aria-hidden="true">
-                                </i>{{i.hold_balance}}</span>
-                            <span id="openPopupBtn" class=" colWid3 btn btn-success shadow btn-s sharp me-1"
-                                onclick="paymentTransfer('{{i.merchant_id}}','{{i.business_name}}')"><i class="fa fa-inr text-white"
-                                    aria-hidden="true"></i>
-                            </span>
-                            <span class="accordion__header--indicator"></span>
-                        </div>
 
-                        <div id="default_collapseOne{{forloop.counter}}" class="collapse accordion__body" data-bs-parent="#accordion-one">
-                            <div class="d-flex flex-wrap align-items-center accordion__body--text p-0">
 
-                                <div class="me-3 mb-3">
-                                    <p class="fs-12 mb-2"><strong class="text-black">Service Charges: Min ₹10</strong>
-                                    </p>
-                                    <span onclick="ippopup({{i.ip_address}},'{{i.merchant_id}}')"
-                                        class="btn btn-outline-primary shadow btn-s sharp me-1">IP Whitelist</span>
-                                </div>
+                                <span id="business_name"
+                                    class="mb-lg-0 mb-3 font-w100 px-2 colWid3">{{i.business_name}}</span>
+                                <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3">{{i.user.contact_no}}</span>
 
-                                <div class="me-3 mb-3">
-                                    <p class="fs-12 mb-2"><strong class="text-black">IMPS : {{i.imps_charges}} %</strong></p>                                    <span class=" btn btn-outline-primary  shadow btn-s sharp me-1"
-                                        onclick="callBack('{{i.webhook_url}}','{{i.merchant_id}}')">Call Back</span>
+                                <span id="business_email"
+                                    class="mb-lg-0 mb-3  font-w100 px-2 colWid3">{{i.user.email}}</span>
+                                <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3"><i class="fa fa-inr text-active"
+                                        aria-hidden="true">
+                                    </i>{{i.wallet_balance}}</span>
+                                <span class="mb-lg-0 mb-3  font-w100 px-2 colWid3"><i class="fa fa-inr text-active"
+                                        aria-hidden="true">
+                                    </i>{{i.hold_balance}}</span>
+                                <span id="openPopupBtn" class=" colWid3 btn btn-success shadow btn-s sharp me-1"
+                                    onclick="paymentTransfer('{{i.merchant_id}}','{{i.business_name}}')"><i
+                                        class="fa fa-inr text-white" aria-hidden="true"></i>
+                                </span>
+                                <span class="accordion__header--indicator"></span>
+                            </div>
 
-                                </div>
-                                <div class="me-3 mb-3">
-                                    <p class="fs-12 mb-2"><strong class="text-black">RTGS : {{i.rtgs_charges}}%</strong></p>
-                                    <span class="   btn btn-outline-primary  shadow btn-s sharp me-1">Routes</span>
+                            <div id="default_collapseOne{{forloop.counter}}" class="collapse accordion__body"
+                                data-bs-parent="#accordion-one">
+                                <div class="d-flex flex-wrap align-items-center accordion__body--text p-0">
 
-                                </div>
-                                <div class="me-3 mb-3">
-                                    <p class="fs-12 mb-2"><strong class="text-black">NEFT : {{i.neft_charges}}%</strong></p>
-                                    <span class="  btn btn-outline-primary  shadow btn-s sharp me-1"
-                                        onclick="updateServiceCharge( '{{i.imps_charges}}','{{i.rtgs_charges}}','{{i.neft_charges}}','{{i.service_charges}}', '{{i.merchant_id}}')">Service
-                                        charges</span>
+                                    <div class="me-3 mb-3">
+                                        <p class="fs-12 mb-2"><strong class="text-black">Service Charges: Min
+                                                ₹10</strong>
+                                        </p>
+                                        <span onclick="ippopup({{i.ip_address}},'{{i.merchant_id}}')"
+                                            class="btn btn-outline-primary shadow btn-s sharp me-1">IP Whitelist</span>
+                                    </div>
 
-                                </div>
+                                    <div class="me-3 mb-3">
+                                        <p class="fs-12 mb-2"><strong class="text-black">IMPS : {{i.imps_charges}}
+                                                %</strong></p> <span
+                                            class=" btn btn-outline-primary  shadow btn-s sharp me-1"
+                                            onclick="callBack('{{i.webhook_url}}','{{i.merchant_id}}')">Call Back</span>
 
-                                <!-- <div class="d-flex p-3 rounded bgl-dark align-items-center mb-3">
+                                    </div>
+                                    <div class="me-3 mb-3">
+                                        <p class="fs-12 mb-2"><strong class="text-black">RTGS :
+                                                {{i.rtgs_charges}}%</strong></p>
+                                        <span class="   btn btn-outline-primary  shadow btn-s sharp me-1">Routes</span>
+
+                                    </div>
+                                    <div class="me-3 mb-3">
+                                        <p class="fs-12 mb-2"><strong class="text-black">NEFT :
+                                                {{i.neft_charges}}%</strong></p>
+                                        <span class="  btn btn-outline-primary  shadow btn-s sharp me-1"
+                                            onclick="updateServiceCharge( '{{i.imps_charges}}','{{i.rtgs_charges}}','{{i.neft_charges}}','{{i.service_charges}}', '{{i.merchant_id}}')">Service
+                                            charges</span>
+
+                                    </div>
+
+                                    <!-- <div class="d-flex p-3 rounded bgl-dark align-items-center mb-3">
                                             <svg class="me-3" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M12 1C9.82441 1 7.69767 1.64514 5.88873 2.85384C4.07979 4.06253 2.66989 5.7805 1.83733 7.79049C1.00477 9.80047 0.786929 12.0122 1.21137 14.146C1.6358 16.2798 2.68345 18.2398 4.22183 19.7782C5.76021 21.3166 7.72022 22.3642 9.85401 22.7887C11.9878 23.2131 14.1995 22.9953 16.2095 22.1627C18.2195 21.3301 19.9375 19.9202 21.1462 18.1113C22.3549 16.3023 23 14.1756 23 12C22.9966 9.08368 21.8365 6.28778 19.7744 4.22563C17.7122 2.16347 14.9163 1.00344 12 1ZM12 21C10.22 21 8.47992 20.4722 6.99987 19.4832C5.51983 18.4943 4.36628 17.0887 3.68509 15.4442C3.0039 13.7996 2.82567 11.99 3.17294 10.2442C3.5202 8.49836 4.37737 6.89471 5.63604 5.63604C6.89472 4.37737 8.49836 3.5202 10.2442 3.17293C11.99 2.82567 13.7996 3.0039 15.4442 3.68509C17.0887 4.36627 18.4943 5.51983 19.4832 6.99987C20.4722 8.47991 21 10.22 21 12C20.9971 14.3861 20.0479 16.6736 18.3608 18.3608C16.6736 20.048 14.3861 20.9971 12 21Z" fill="#A4A4A4"/>
                                                 <path d="M12 9C11.7348 9 11.4804 9.10536 11.2929 9.29289C11.1054 9.48043 11 9.73478 11 10V17C11 17.2652 11.1054 17.5196 11.2929 17.7071C11.4804 17.8946 11.7348 18 12 18C12.2652 18 12.5196 17.8946 12.7071 17.7071C12.8947 17.5196 13 17.2652 13 17V10C13 9.73478 12.8947 9.48043 12.7071 9.29289C12.5196 9.10536 12.2652 9 12 9Z" fill="#A4A4A4"/>
@@ -258,456 +278,458 @@
                                             </svg>
                                             <p class="mb-0 fs-14">Lorem ipsum dolor sit<br> amet, consectetur </p>
                                         </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End of section  -->
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="Active" role="Active">
+                    <div id="accordion-two" class="accordion accordion-primary">
+                        <div class="accordion__item border-bottom mb-0">
+                            <div class="d-flex flex-wrap align-items-center accordion__header collapsed rounded"
+                                data-bs-toggle="collapse" data-bs-target="#default_collapseOne1d">
+                                <div class="mb-lg-0 mb-3 d-flex align-items-center">
+                                    <div class="profile-image me-4">
+                                        <img src="{% static 'mophy/images/avatar/10.png' %}" alt="" width="63"
+                                            class="rounded-circle">
+                                        <span class="bg-success">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <g clip-path="url(#clip7)">
+                                                    <path
+                                                        d="M10.4125 14.85C10.225 14.4625 10.3906 13.9937 10.7781 13.8062C11.8563 13.2875 12.7688 12.4812 13.4188 11.4719C14.0844 10.4375 14.4375 9.23749 14.4375 7.99999C14.4375 4.44999 11.55 1.56249 8 1.56249C4.45 1.56249 1.5625 4.44999 1.5625 7.99999C1.5625 9.23749 1.91562 10.4375 2.57812 11.475C3.225 12.4844 4.14062 13.2906 5.21875 13.8094C5.60625 13.9969 5.77187 14.4625 5.58437 14.8531C5.39687 15.2406 4.93125 15.4062 4.54062 15.2187C3.2 14.575 2.06562 13.575 1.2625 12.3187C0.4375 11.0312 -4.16897e-07 9.53749 -3.49691e-07 7.99999C-2.56258e-07 5.86249 0.83125 3.85312 2.34375 2.34374C3.85313 0.831242 5.8625 -7.37314e-06 8 -7.2797e-06C10.1375 -7.18627e-06 12.1469 0.831243 13.6563 2.34374C15.1688 3.85624 16 5.86249 16 7.99999C16 9.53749 15.5625 11.0312 14.7344 12.3187C13.9281 13.5719 12.7938 14.575 11.4563 15.2187C11.0656 15.4031 10.6 15.2406 10.4125 14.85Z"
+                                                        fill="white" />
+                                                    <path
+                                                        d="M11.0407 8.41563C11.1938 8.56876 11.2688 8.76876 11.2688 8.96876C11.2688 9.16876 11.1938 9.36876 11.0407 9.52188L9.07503 11.4875C8.78753 11.775 8.40628 11.9313 8.00315 11.9313C7.60003 11.9313 7.21565 11.7719 6.93127 11.4875L4.96565 9.52188C4.6594 9.21563 4.6594 8.72188 4.96565 8.41563C5.2719 8.10938 5.76565 8.10938 6.0719 8.41563L7.22502 9.56876L7.22502 5.12814C7.22502 4.69689 7.57503 4.34689 8.00628 4.34689C8.43753 4.34689 8.78753 4.69689 8.78753 5.12814L8.78753 9.57188L9.94065 8.41876C10.2407 8.11251 10.7344 8.11251 11.0407 8.41563Z"
+                                                        fill="white" />
+                                                </g>
+                                                <defs>
+                                                    <clipPath id="clip7">
+                                                        <rect width="16" height="16" fill="white"
+                                                            transform="matrix(-4.37114e-08 1 1 4.37114e-08 0 -7.62939e-06)" />
+                                                    </clipPath>
+                                                </defs>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <h6 class="fs-16 font-w700 mb-0"><a class="text-black"
+                                                href="javascript:void(0)">XYZ
+                                                Store ID</a></h6>
+                                        <span class="fs-14">Online Shop</span>
+                                    </div>
+                                </div>
+                                <span class="mb-lg-0 mb-3 text-black px-2">June 1, 2020 <br>08:22 AM</span>
+                                <span class="mb-lg-0 mb-3 text-black font-w600 px-2">+$5,553</span>
+                                <span class="mb-lg-0 mb-3 text-black font-w600 px-2">MasterCard 404</span>
+                                <a class="mb-lg-0 mb-3 btn btn-outline-success btn-md btn-rounded mx-2"
+                                    href="javascript:void(0)">Completed</a>
+                                <span class="accordion__header--indicator"></span>
+                            </div>
+                            <div id="default_collapseOne1d" class="collapse accordion__body"
+                                data-bs-parent="#accordion-one">
+                                <div class="d-flex flex-wrap align-items-center accordion__body--text p-0">
+                                    <div class="me-3 mb-3">
+                                        <p class="fs-12 mb-2">ID Payment</p>
+                                        <span class="text-black font-w500">#00123521</span>
+                                    </div>
+                                    <div class="me-3 mb-3">
+                                        <p class="fs-12 mb-2">Payment Method</p>
+                                        <span class="text-black font-w500">MasterCard 404</span>
+                                    </div>
+                                    <div class="me-3 mb-3">
+                                        <p class="fs-12 mb-2">Invoice Date</p>
+                                        <span class="text-black font-w500">April 29, 2020</span>
+                                    </div>
+                                    <div class="me-3 mb-3">
+                                        <p class="fs-12 mb-2">Due Date</p>
+                                        <span class="text-black font-w500">June 5, 2020</span>
+                                    </div>
+                                    <div class="me-3 mb-3">
+                                        <p class="fs-12 mb-2">Date Paid</p>
+                                        <span class="text-black font-w500">June 4, 2020</span>
+                                    </div>
+                                    <div class="d-flex p-3 rounded bgl-dark align-items-center mb-3">
+                                        <svg class="me-3" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M12 1C9.82441 1 7.69767 1.64514 5.88873 2.85384C4.07979 4.06253 2.66989 5.7805 1.83733 7.79049C1.00477 9.80047 0.786929 12.0122 1.21137 14.146C1.6358 16.2798 2.68345 18.2398 4.22183 19.7782C5.76021 21.3166 7.72022 22.3642 9.85401 22.7887C11.9878 23.2131 14.1995 22.9953 16.2095 22.1627C18.2195 21.3301 19.9375 19.9202 21.1462 18.1113C22.3549 16.3023 23 14.1756 23 12C22.9966 9.08368 21.8365 6.28778 19.7744 4.22563C17.7122 2.16347 14.9163 1.00344 12 1ZM12 21C10.22 21 8.47992 20.4722 6.99987 19.4832C5.51983 18.4943 4.36628 17.0887 3.68509 15.4442C3.0039 13.7996 2.82567 11.99 3.17294 10.2442C3.5202 8.49836 4.37737 6.89471 5.63604 5.63604C6.89472 4.37737 8.49836 3.5202 10.2442 3.17293C11.99 2.82567 13.7996 3.0039 15.4442 3.68509C17.0887 4.36627 18.4943 5.51983 19.4832 6.99987C20.4722 8.47991 21 10.22 21 12C20.9971 14.3861 20.0479 16.6736 18.3608 18.3608C16.6736 20.048 14.3861 20.9971 12 21Z"
+                                                fill="#A4A4A4" />
+                                            <path
+                                                d="M12 9C11.7348 9 11.4804 9.10536 11.2929 9.29289C11.1054 9.48043 11 9.73478 11 10V17C11 17.2652 11.1054 17.5196 11.2929 17.7071C11.4804 17.8946 11.7348 18 12 18C12.2652 18 12.5196 17.8946 12.7071 17.7071C12.8947 17.5196 13 17.2652 13 17V10C13 9.73478 12.8947 9.48043 12.7071 9.29289C12.5196 9.10536 12.2652 9 12 9Z"
+                                                fill="#A4A4A4" />
+                                            <path
+                                                d="M12 8C12.5523 8 13 7.55228 13 7C13 6.44771 12.5523 6 12 6C11.4477 6 11 6.44771 11 7C11 7.55228 11.4477 8 12 8Z"
+                                                fill="#A4A4A4" />
+                                        </svg>
+                                        <p class="mb-0 fs-14">Lorem ipsum dolor sit<br> amet, consectetur </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion__item border-bottom mb-0">
+                            <div class="d-flex flex-wrap align-items-center accordion__header collapsed rounded"
+                                data-bs-toggle="collapse" data-bs-target="#default_collapseOne222">
+                                <div class="mb-lg-0 mb-3 d-flex align-items-center">
+                                    <div class="profile-image me-4">
+                                        <img src="{% static 'mophy/images/avatar/11.png' %}" alt="" width="63"
+                                            class="rounded-circle">
+                                        <span class="bg-danger">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <g clip-path="url(#clip8)">
+                                                    <path
+                                                        d="M10.4125 1.15001C10.225 1.53751 10.3906 2.00627 10.7781 2.19377C11.8563 2.71252 12.7688 3.51876 13.4188 4.52814C14.0844 5.56251 14.4375 6.76251 14.4375 8.00001C14.4375 11.55 11.55 14.4375 8 14.4375C4.45 14.4375 1.5625 11.55 1.5625 8.00002C1.5625 6.76251 1.91562 5.56252 2.57812 4.52501C3.225 3.51564 4.14062 2.70939 5.21875 2.19064C5.60625 2.00314 5.77187 1.53752 5.58437 1.14689C5.39687 0.759391 4.93125 0.593765 4.54062 0.781265C3.2 1.42502 2.06562 2.42501 1.2625 3.68126C0.4375 4.96877 -4.16897e-07 6.46251 -3.49691e-07 8.00002C-2.56258e-07 10.1375 0.83125 12.1469 2.34375 13.6563C3.85313 15.1688 5.8625 16 8 16C10.1375 16 12.1469 15.1688 13.6563 13.6563C15.1688 12.1438 16 10.1375 16 8.00001C16 6.46251 15.5625 4.96876 14.7344 3.68126C13.9281 2.42814 12.7938 1.42501 11.4563 0.781265C11.0656 0.59689 10.6 0.759389 10.4125 1.15001Z"
+                                                        fill="white" />
+                                                    <path
+                                                        d="M11.0407 7.58437C11.1938 7.43125 11.2688 7.23125 11.2688 7.03125C11.2688 6.83125 11.1938 6.63125 11.0407 6.47812L9.07503 4.5125C8.78753 4.225 8.40628 4.06875 8.00315 4.06875C7.60003 4.06875 7.21565 4.22813 6.93127 4.5125L4.96565 6.47812C4.6594 6.78437 4.6594 7.27812 4.96565 7.58437C5.2719 7.89062 5.76565 7.89062 6.0719 7.58437L7.22502 6.43125L7.22502 10.8719C7.22502 11.3031 7.57503 11.6531 8.00628 11.6531C8.43753 11.6531 8.78753 11.3031 8.78753 10.8719L8.78753 6.42812L9.94065 7.58125C10.2407 7.8875 10.7344 7.8875 11.0407 7.58437Z"
+                                                        fill="white" />
+                                                </g>
+                                                <defs>
+                                                    <clipPath id="clip8">
+                                                        <rect width="16" height="16" fill="white"
+                                                            transform="translate(0 16) rotate(-90)" />
+                                                    </clipPath>
+                                                </defs>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <h6 class="fs-16 font-w700 mb-0"><a class="text-black"
+                                                href="javascript:void(0)">Andrew Lee</a></h6>
+                                    </div>
+                                </div>
+                                <span class="mb-lg-0 mb-3 text-black px-2">June 3, 2020 <br>04:29 AM</span>
+                                <span class="mb-lg-0 mb-3 text-black font-w600 px-2">+$2,351</span>
+                                <span class="mb-lg-0 mb-3 text-black font-w600 px-2">MasterCard 404</span>
+                                <a class="mb-lg-0 mb-3 btn btn-outline-dark btn-md btn-rounded mx-2"
+                                    href="javascript:void(0)">Canceled</a>
+                                <span class="accordion__header--indicator"></span>
+                            </div>
+                            <div id="default_collapseOne222" class="collapse accordion__body"
+                                data-bs-parent="#accordion-one">
+                                <div class="d-flex flex-wrap align-items-center accordion__body--text p-0">
+                                    <div class="me-3 mb-3">
+                                        <p class="fs-12 mb-2">ID Payment</p>
+                                        <span class="text-black font-w500">#00123521</span>
+                                    </div>
+                                    <div class="me-3 mb-3">
+                                        <p class="fs-12 mb-2">Payment Method</p>
+                                        <span class="text-black font-w500">MasterCard 404</span>
+                                    </div>
+                                    <div class="me-3 mb-3">
+                                        <p class="fs-12 mb-2">Invoice Date</p>
+                                        <span class="text-black font-w500">April 29, 2020</span>
+                                    </div>
+                                    <div class="me-3 mb-3">
+                                        <p class="fs-12 mb-2">Due Date</p>
+                                        <span class="text-black font-w500">June 5, 2020</span>
+                                    </div>
+                                    <div class="me-3 mb-3">
+                                        <p class="fs-12 mb-2">Date Paid</p>
+                                        <span class="text-black font-w500">June 4, 2020</span>
+                                    </div>
+                                    <div class="d-flex p-3 rounded bgl-dark align-items-center mb-3">
+                                        <svg class="me-3" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M12 1C9.82441 1 7.69767 1.64514 5.88873 2.85384C4.07979 4.06253 2.66989 5.7805 1.83733 7.79049C1.00477 9.80047 0.786929 12.0122 1.21137 14.146C1.6358 16.2798 2.68345 18.2398 4.22183 19.7782C5.76021 21.3166 7.72022 22.3642 9.85401 22.7887C11.9878 23.2131 14.1995 22.9953 16.2095 22.1627C18.2195 21.3301 19.9375 19.9202 21.1462 18.1113C22.3549 16.3023 23 14.1756 23 12C22.9966 9.08368 21.8365 6.28778 19.7744 4.22563C17.7122 2.16347 14.9163 1.00344 12 1ZM12 21C10.22 21 8.47992 20.4722 6.99987 19.4832C5.51983 18.4943 4.36628 17.0887 3.68509 15.4442C3.0039 13.7996 2.82567 11.99 3.17294 10.2442C3.5202 8.49836 4.37737 6.89471 5.63604 5.63604C6.89472 4.37737 8.49836 3.5202 10.2442 3.17293C11.99 2.82567 13.7996 3.0039 15.4442 3.68509C17.0887 4.36627 18.4943 5.51983 19.4832 6.99987C20.4722 8.47991 21 10.22 21 12C20.9971 14.3861 20.0479 16.6736 18.3608 18.3608C16.6736 20.048 14.3861 20.9971 12 21Z"
+                                                fill="#A4A4A4" />
+                                            <path
+                                                d="M12 9C11.7348 9 11.4804 9.10536 11.2929 9.29289C11.1054 9.48043 11 9.73478 11 10V17C11 17.2652 11.1054 17.5196 11.2929 17.7071C11.4804 17.8946 11.7348 18 12 18C12.2652 18 12.5196 17.8946 12.7071 17.7071C12.8947 17.5196 13 17.2652 13 17V10C13 9.73478 12.8947 9.48043 12.7071 9.29289C12.5196 9.10536 12.2652 9 12 9Z"
+                                                fill="#A4A4A4" />
+                                            <path
+                                                d="M12 8C12.5523 8 13 7.55228 13 7C13 6.44771 12.5523 6 12 6C11.4477 6 11 6.44771 11 7C11 7.55228 11.4477 8 12 8Z"
+                                                fill="#A4A4A4" />
+                                        </svg>
+                                        <p class="mb-0 fs-14">Lorem ipsum dolor sit<br> amet, consectetur </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion__item border-bottom mb-0">
+                            <div class="d-flex flex-wrap align-items-center accordion__header collapsed rounded"
+                                data-bs-toggle="collapse" data-bs-target="#default_collapseOne321">
+                                <div class="mb-lg-0 mb-3 d-flex align-items-center">
+                                    <div class="profile-image me-4">
+                                        <img src="{% static 'mophy/images/avatar/12.png' %}" alt="" width="63"
+                                            class="rounded-circle">
+                                        <span class="bg-success">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <g clip-path="url(#clip9)">
+                                                    <path
+                                                        d="M10.4125 14.85C10.225 14.4625 10.3906 13.9937 10.7781 13.8062C11.8563 13.2875 12.7688 12.4812 13.4188 11.4719C14.0844 10.4375 14.4375 9.23749 14.4375 7.99999C14.4375 4.44999 11.55 1.56249 8 1.56249C4.45 1.56249 1.5625 4.44999 1.5625 7.99999C1.5625 9.23749 1.91562 10.4375 2.57812 11.475C3.225 12.4844 4.14062 13.2906 5.21875 13.8094C5.60625 13.9969 5.77187 14.4625 5.58437 14.8531C5.39687 15.2406 4.93125 15.4062 4.54062 15.2187C3.2 14.575 2.06562 13.575 1.2625 12.3187C0.4375 11.0312 -4.16897e-07 9.53749 -3.49691e-07 7.99999C-2.56258e-07 5.86249 0.83125 3.85312 2.34375 2.34374C3.85313 0.831242 5.8625 -7.37314e-06 8 -7.2797e-06C10.1375 -7.18627e-06 12.1469 0.831243 13.6563 2.34374C15.1688 3.85624 16 5.86249 16 7.99999C16 9.53749 15.5625 11.0312 14.7344 12.3187C13.9281 13.5719 12.7938 14.575 11.4563 15.2187C11.0656 15.4031 10.6 15.2406 10.4125 14.85Z"
+                                                        fill="white" />
+                                                    <path
+                                                        d="M11.0407 8.41563C11.1938 8.56876 11.2688 8.76876 11.2688 8.96876C11.2688 9.16876 11.1938 9.36876 11.0407 9.52188L9.07503 11.4875C8.78753 11.775 8.40628 11.9313 8.00315 11.9313C7.60003 11.9313 7.21565 11.7719 6.93127 11.4875L4.96565 9.52188C4.6594 9.21563 4.6594 8.72188 4.96565 8.41563C5.2719 8.10938 5.76565 8.10938 6.0719 8.41563L7.22502 9.56876L7.22502 5.12814C7.22502 4.69689 7.57503 4.34689 8.00628 4.34689C8.43753 4.34689 8.78753 4.69689 8.78753 5.12814L8.78753 9.57188L9.94065 8.41876C10.2407 8.11251 10.7344 8.11251 11.0407 8.41563Z"
+                                                        fill="white" />
+                                                </g>
+                                                <defs>
+                                                    <clipPath id="clip9">
+                                                        <rect width="16" height="16" fill="white"
+                                                            transform="matrix(-4.37114e-08 1 1 4.37114e-08 0 -7.62939e-06)" />
+                                                    </clipPath>
+                                                </defs>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <h6 class="fs-16 font-w700 mb-0"><a class="text-black"
+                                                href="javascript:void(0)">Olivia Brownlee</a></h6>
+                                    </div>
+                                </div>
+                                <span class="mb-lg-0 mb-3 text-black px-2">June 4, 2020 <br>02:37 AM</span>
+                                <span class="mb-lg-0 mb-3 text-black font-w600 px-2">+$3,543</span>
+                                <span class="mb-lg-0 mb-3 text-black font-w600 px-2">MasterCard 404</span>
+                                <a class="mb-lg-0 mb-3 btn btn-outline-success btn-md btn-rounded mx-2"
+                                    href="javascript:void(0)">Completed</a>
+                                <span class="accordion__header--indicator"></span>
+                            </div>
+                            <div id="default_collapseOne321" class="collapse accordion__body"
+                                data-bs-parent="#accordion-one">
+                                <div class="d-flex flex-wrap align-items-center accordion__body--text p-0">
+                                    <div class="me-3 mb-3">
+                                        <p class="fs-12 mb-2">ID Payment</p>
+                                        <span class="text-black font-w500">#00123521</span>
+                                    </div>
+                                    <div class="me-3 mb-3">
+                                        <p class="fs-12 mb-2">Payment Method</p>
+                                        <span class="text-black font-w500">MasterCard 404</span>
+                                    </div>
+                                    <div class="me-3 mb-3">
+                                        <p class="fs-12 mb-2">Invoice Date</p>
+                                        <span class="text-black font-w500">April 29, 2020</span>
+                                    </div>
+                                    <div class="me-3 mb-3">
+                                        <p class="fs-12 mb-2">Due Date</p>
+                                        <span class="text-black font-w500">June 5, 2020</span>
+                                    </div>
+                                    <div class="me-3 mb-3">
+                                        <p class="fs-12 mb-2">Date Paid</p>
+                                        <span class="text-black font-w500">June 4, 2020</span>
+                                    </div>
+                                    <div class="d-flex p-3 rounded bgl-dark align-items-center mb-3">
+                                        <svg class="me-3" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M12 1C9.82441 1 7.69767 1.64514 5.88873 2.85384C4.07979 4.06253 2.66989 5.7805 1.83733 7.79049C1.00477 9.80047 0.786929 12.0122 1.21137 14.146C1.6358 16.2798 2.68345 18.2398 4.22183 19.7782C5.76021 21.3166 7.72022 22.3642 9.85401 22.7887C11.9878 23.2131 14.1995 22.9953 16.2095 22.1627C18.2195 21.3301 19.9375 19.9202 21.1462 18.1113C22.3549 16.3023 23 14.1756 23 12C22.9966 9.08368 21.8365 6.28778 19.7744 4.22563C17.7122 2.16347 14.9163 1.00344 12 1ZM12 21C10.22 21 8.47992 20.4722 6.99987 19.4832C5.51983 18.4943 4.36628 17.0887 3.68509 15.4442C3.0039 13.7996 2.82567 11.99 3.17294 10.2442C3.5202 8.49836 4.37737 6.89471 5.63604 5.63604C6.89472 4.37737 8.49836 3.5202 10.2442 3.17293C11.99 2.82567 13.7996 3.0039 15.4442 3.68509C17.0887 4.36627 18.4943 5.51983 19.4832 6.99987C20.4722 8.47991 21 10.22 21 12C20.9971 14.3861 20.0479 16.6736 18.3608 18.3608C16.6736 20.048 14.3861 20.9971 12 21Z"
+                                                fill="#A4A4A4" />
+                                            <path
+                                                d="M12 9C11.7348 9 11.4804 9.10536 11.2929 9.29289C11.1054 9.48043 11 9.73478 11 10V17C11 17.2652 11.1054 17.5196 11.2929 17.7071C11.4804 17.8946 11.7348 18 12 18C12.2652 18 12.5196 17.8946 12.7071 17.7071C12.8947 17.5196 13 17.2652 13 17V10C13 9.73478 12.8947 9.48043 12.7071 9.29289C12.5196 9.10536 12.2652 9 12 9Z"
+                                                fill="#A4A4A4" />
+                                            <path
+                                                d="M12 8C12.5523 8 13 7.55228 13 7C13 6.44771 12.5523 6 12 6C11.4477 6 11 6.44771 11 7C11 7.55228 11.4477 8 12 8Z"
+                                                fill="#A4A4A4" />
+                                        </svg>
+                                        <p class="mb-0 fs-14">Lorem ipsum dolor sit<br> amet, consectetur </p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <!-- End of section  -->
-                        {% endfor %}
+                </div>
+                <div class="tab-pane fade" id="Inactive" role="Inactive">
+                    <div id="accordion-three" class="accordion accordion-primary">
+                        <div class="accordion__item border-bottom mb-0">
+                            <div class="d-flex flex-wrap align-items-center accordion__header collapsed rounded"
+                                data-bs-toggle="collapse" data-bs-target="#default_collapseOne51">
+                                <div class="mb-lg-0 mb-3 d-flex align-items-center">
+                                    <div class="profile-image me-4">
+                                        <img src="{% static 'mophy/images/avatar/13.png' %}" alt="" width="63"
+                                            class="rounded-circle">
+                                        <span class="bg-danger">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <g clip-path="url(#clip10)">
+                                                    <path
+                                                        d="M10.4125 1.15001C10.225 1.53751 10.3906 2.00627 10.7781 2.19377C11.8563 2.71252 12.7688 3.51876 13.4188 4.52814C14.0844 5.56251 14.4375 6.76251 14.4375 8.00001C14.4375 11.55 11.55 14.4375 8 14.4375C4.45 14.4375 1.5625 11.55 1.5625 8.00002C1.5625 6.76251 1.91562 5.56252 2.57812 4.52501C3.225 3.51564 4.14062 2.70939 5.21875 2.19064C5.60625 2.00314 5.77187 1.53752 5.58437 1.14689C5.39687 0.759391 4.93125 0.593765 4.54062 0.781265C3.2 1.42502 2.06562 2.42501 1.2625 3.68126C0.4375 4.96877 -4.16897e-07 6.46251 -3.49691e-07 8.00002C-2.56258e-07 10.1375 0.83125 12.1469 2.34375 13.6563C3.85313 15.1688 5.8625 16 8 16C10.1375 16 12.1469 15.1688 13.6563 13.6563C15.1688 12.1438 16 10.1375 16 8.00001C16 6.46251 15.5625 4.96876 14.7344 3.68126C13.9281 2.42814 12.7938 1.42501 11.4563 0.781265C11.0656 0.59689 10.6 0.759389 10.4125 1.15001Z"
+                                                        fill="white" />
+                                                    <path
+                                                        d="M11.0407 7.58437C11.1938 7.43125 11.2688 7.23125 11.2688 7.03125C11.2688 6.83125 11.1938 6.63125 11.0407 6.47812L9.07503 4.5125C8.78753 4.225 8.40628 4.06875 8.00315 4.06875C7.60003 4.06875 7.21565 4.22813 6.93127 4.5125L4.96565 6.47812C4.6594 6.78437 4.6594 7.27812 4.96565 7.58437C5.2719 7.89062 5.76565 7.89062 6.0719 7.58437L7.22502 6.43125L7.22502 10.8719C7.22502 11.3031 7.57503 11.6531 8.00628 11.6531C8.43753 11.6531 8.78753 11.3031 8.78753 10.8719L8.78753 6.42812L9.94065 7.58125C10.2407 7.8875 10.7344 7.8875 11.0407 7.58437Z"
+                                                        fill="white" />
+                                                </g>
+                                                <defs>
+                                                    <clipPath id="clip10">
+                                                        <rect width="16" height="16" fill="white"
+                                                            transform="translate(0 16) rotate(-90)" />
+                                                    </clipPath>
+                                                </defs>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <h6 class="fs-16 font-w700 mb-0"><a class="text-black"
+                                                href="javascript:void(0)">Peter Parkur</a></h6>
+                                    </div>
+                                </div>
+                                <span class="mb-lg-0 mb-3 text-black px-2">June 10, 2020 <br>08:22 AM</span>
+                                <span class="mb-lg-0 mb-3 text-black font-w600 px-2">+$5,553</span>
+                                <span class="mb-lg-0 mb-3 text-black font-w600 px-2">MasterCard 404</span>
+                                <a class="mb-lg-0 mb-3 btn btn-outline-warning btn-md btn-rounded mx-2"
+                                    href="javascript:void(0)">Pending</a>
+                                <span class="accordion__header--indicator"></span>
+                            </div>
+                            <div id="default_collapseOne51" class="collapse accordion__body"
+                                data-bs-parent="#accordion-one">
+                                <div class="d-flex flex-wrap align-items-center accordion__body--text p-0">
+                                    <div class="me-3 mb-3">
+                                        <p class="fs-12 mb-2">ID Payment</p>
+                                        <span class="text-black font-w500">#00123521</span>
+                                    </div>
+                                    <div class="me-3 mb-3">
+                                        <p class="fs-12 mb-2">Payment Method</p>
+                                        <span class="text-black font-w500">MasterCard 404</span>
+                                    </div>
+                                    <div class="me-3 mb-3">
+                                        <p class="fs-12 mb-2">Invoice Date</p>
+                                        <span class="text-black font-w500">April 29, 2020</span>
+                                    </div>
+                                    <div class="me-3 mb-3">
+                                        <p class="fs-12 mb-2">Due Date</p>
+                                        <span class="text-black font-w500">June 5, 2020</span>
+                                    </div>
+                                    <div class="me-3 mb-3">
+                                        <p class="fs-12 mb-2">Date Paid</p>
+                                        <span class="text-black font-w500">June 4, 2020</span>
+                                    </div>
+                                    <div class="d-flex p-3 rounded bgl-dark align-items-center mb-3">
+                                        <svg class="vme-3" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M12 1C9.82441 1 7.69767 1.64514 5.88873 2.85384C4.07979 4.06253 2.66989 5.7805 1.83733 7.79049C1.00477 9.80047 0.786929 12.0122 1.21137 14.146C1.6358 16.2798 2.68345 18.2398 4.22183 19.7782C5.76021 21.3166 7.72022 22.3642 9.85401 22.7887C11.9878 23.2131 14.1995 22.9953 16.2095 22.1627C18.2195 21.3301 19.9375 19.9202 21.1462 18.1113C22.3549 16.3023 23 14.1756 23 12C22.9966 9.08368 21.8365 6.28778 19.7744 4.22563C17.7122 2.16347 14.9163 1.00344 12 1ZM12 21C10.22 21 8.47992 20.4722 6.99987 19.4832C5.51983 18.4943 4.36628 17.0887 3.68509 15.4442C3.0039 13.7996 2.82567 11.99 3.17294 10.2442C3.5202 8.49836 4.37737 6.89471 5.63604 5.63604C6.89472 4.37737 8.49836 3.5202 10.2442 3.17293C11.99 2.82567 13.7996 3.0039 15.4442 3.68509C17.0887 4.36627 18.4943 5.51983 19.4832 6.99987C20.4722 8.47991 21 10.22 21 12C20.9971 14.3861 20.0479 16.6736 18.3608 18.3608C16.6736 20.048 14.3861 20.9971 12 21Z"
+                                                fill="#A4A4A4" />
+                                            <path
+                                                d="M12 9C11.7348 9 11.4804 9.10536 11.2929 9.29289C11.1054 9.48043 11 9.73478 11 10V17C11 17.2652 11.1054 17.5196 11.2929 17.7071C11.4804 17.8946 11.7348 18 12 18C12.2652 18 12.5196 17.8946 12.7071 17.7071C12.8947 17.5196 13 17.2652 13 17V10C13 9.73478 12.8947 9.48043 12.7071 9.29289C12.5196 9.10536 12.2652 9 12 9Z"
+                                                fill="#A4A4A4" />
+                                            <path
+                                                d="M12 8C12.5523 8 13 7.55228 13 7C13 6.44771 12.5523 6 12 6C11.4477 6 11 6.44771 11 7C11 7.55228 11.4477 8 12 8Z"
+                                                fill="#A4A4A4" />
+                                        </svg>
+                                        <p class="mb-0 fs-14">Lorem ipsum dolor sit<br> amet, consectetur </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="tab-pane fade" id="Active" role="Active">
-                <div id="accordion-two" class="accordion accordion-primary">
-                    <div class="accordion__item border-bottom mb-0">
-                        <div class="d-flex flex-wrap align-items-center accordion__header collapsed rounded"
-                            data-bs-toggle="collapse" data-bs-target="#default_collapseOne1d">
-                            <div class="mb-lg-0 mb-3 d-flex align-items-center">
-                                <div class="profile-image me-4">
-                                    <img src="{% static 'mophy/images/avatar/10.png' %}" alt="" width="63"
-                                        class="rounded-circle">
-                                    <span class="bg-success">
-                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <g clip-path="url(#clip7)">
-                                                <path
-                                                    d="M10.4125 14.85C10.225 14.4625 10.3906 13.9937 10.7781 13.8062C11.8563 13.2875 12.7688 12.4812 13.4188 11.4719C14.0844 10.4375 14.4375 9.23749 14.4375 7.99999C14.4375 4.44999 11.55 1.56249 8 1.56249C4.45 1.56249 1.5625 4.44999 1.5625 7.99999C1.5625 9.23749 1.91562 10.4375 2.57812 11.475C3.225 12.4844 4.14062 13.2906 5.21875 13.8094C5.60625 13.9969 5.77187 14.4625 5.58437 14.8531C5.39687 15.2406 4.93125 15.4062 4.54062 15.2187C3.2 14.575 2.06562 13.575 1.2625 12.3187C0.4375 11.0312 -4.16897e-07 9.53749 -3.49691e-07 7.99999C-2.56258e-07 5.86249 0.83125 3.85312 2.34375 2.34374C3.85313 0.831242 5.8625 -7.37314e-06 8 -7.2797e-06C10.1375 -7.18627e-06 12.1469 0.831243 13.6563 2.34374C15.1688 3.85624 16 5.86249 16 7.99999C16 9.53749 15.5625 11.0312 14.7344 12.3187C13.9281 13.5719 12.7938 14.575 11.4563 15.2187C11.0656 15.4031 10.6 15.2406 10.4125 14.85Z"
-                                                    fill="white" />
-                                                <path
-                                                    d="M11.0407 8.41563C11.1938 8.56876 11.2688 8.76876 11.2688 8.96876C11.2688 9.16876 11.1938 9.36876 11.0407 9.52188L9.07503 11.4875C8.78753 11.775 8.40628 11.9313 8.00315 11.9313C7.60003 11.9313 7.21565 11.7719 6.93127 11.4875L4.96565 9.52188C4.6594 9.21563 4.6594 8.72188 4.96565 8.41563C5.2719 8.10938 5.76565 8.10938 6.0719 8.41563L7.22502 9.56876L7.22502 5.12814C7.22502 4.69689 7.57503 4.34689 8.00628 4.34689C8.43753 4.34689 8.78753 4.69689 8.78753 5.12814L8.78753 9.57188L9.94065 8.41876C10.2407 8.11251 10.7344 8.11251 11.0407 8.41563Z"
-                                                    fill="white" />
-                                            </g>
-                                            <defs>
-                                                <clipPath id="clip7">
-                                                    <rect width="16" height="16" fill="white"
-                                                        transform="matrix(-4.37114e-08 1 1 4.37114e-08 0 -7.62939e-06)" />
-                                                </clipPath>
-                                            </defs>
-                                        </svg>
-                                    </span>
-                                </div>
-                                <div>
-                                    <h6 class="fs-16 font-w700 mb-0"><a class="text-black" href="javascript:void(0)">XYZ
-                                            Store ID</a></h6>
-                                    <span class="fs-14">Online Shop</span>
-                                </div>
-                            </div>
-                            <span class="mb-lg-0 mb-3 text-black px-2">June 1, 2020 <br>08:22 AM</span>
-                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2">+$5,553</span>
-                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2">MasterCard 404</span>
-                            <a class="mb-lg-0 mb-3 btn btn-outline-success btn-md btn-rounded mx-2"
-                                href="javascript:void(0)">Completed</a>
-                            <span class="accordion__header--indicator"></span>
-                        </div>
-                        <div id="default_collapseOne1d" class="collapse accordion__body"
-                            data-bs-parent="#accordion-one">
-                            <div class="d-flex flex-wrap align-items-center accordion__body--text p-0">
-                                <div class="me-3 mb-3">
-                                    <p class="fs-12 mb-2">ID Payment</p>
-                                    <span class="text-black font-w500">#00123521</span>
-                                </div>
-                                <div class="me-3 mb-3">
-                                    <p class="fs-12 mb-2">Payment Method</p>
-                                    <span class="text-black font-w500">MasterCard 404</span>
-                                </div>
-                                <div class="me-3 mb-3">
-                                    <p class="fs-12 mb-2">Invoice Date</p>
-                                    <span class="text-black font-w500">April 29, 2020</span>
-                                </div>
-                                <div class="me-3 mb-3">
-                                    <p class="fs-12 mb-2">Due Date</p>
-                                    <span class="text-black font-w500">June 5, 2020</span>
-                                </div>
-                                <div class="me-3 mb-3">
-                                    <p class="fs-12 mb-2">Date Paid</p>
-                                    <span class="text-black font-w500">June 4, 2020</span>
-                                </div>
-                                <div class="d-flex p-3 rounded bgl-dark align-items-center mb-3">
-                                    <svg class="me-3" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M12 1C9.82441 1 7.69767 1.64514 5.88873 2.85384C4.07979 4.06253 2.66989 5.7805 1.83733 7.79049C1.00477 9.80047 0.786929 12.0122 1.21137 14.146C1.6358 16.2798 2.68345 18.2398 4.22183 19.7782C5.76021 21.3166 7.72022 22.3642 9.85401 22.7887C11.9878 23.2131 14.1995 22.9953 16.2095 22.1627C18.2195 21.3301 19.9375 19.9202 21.1462 18.1113C22.3549 16.3023 23 14.1756 23 12C22.9966 9.08368 21.8365 6.28778 19.7744 4.22563C17.7122 2.16347 14.9163 1.00344 12 1ZM12 21C10.22 21 8.47992 20.4722 6.99987 19.4832C5.51983 18.4943 4.36628 17.0887 3.68509 15.4442C3.0039 13.7996 2.82567 11.99 3.17294 10.2442C3.5202 8.49836 4.37737 6.89471 5.63604 5.63604C6.89472 4.37737 8.49836 3.5202 10.2442 3.17293C11.99 2.82567 13.7996 3.0039 15.4442 3.68509C17.0887 4.36627 18.4943 5.51983 19.4832 6.99987C20.4722 8.47991 21 10.22 21 12C20.9971 14.3861 20.0479 16.6736 18.3608 18.3608C16.6736 20.048 14.3861 20.9971 12 21Z"
-                                            fill="#A4A4A4" />
-                                        <path
-                                            d="M12 9C11.7348 9 11.4804 9.10536 11.2929 9.29289C11.1054 9.48043 11 9.73478 11 10V17C11 17.2652 11.1054 17.5196 11.2929 17.7071C11.4804 17.8946 11.7348 18 12 18C12.2652 18 12.5196 17.8946 12.7071 17.7071C12.8947 17.5196 13 17.2652 13 17V10C13 9.73478 12.8947 9.48043 12.7071 9.29289C12.5196 9.10536 12.2652 9 12 9Z"
-                                            fill="#A4A4A4" />
-                                        <path
-                                            d="M12 8C12.5523 8 13 7.55228 13 7C13 6.44771 12.5523 6 12 6C11.4477 6 11 6.44771 11 7C11 7.55228 11.4477 8 12 8Z"
-                                            fill="#A4A4A4" />
-                                    </svg>
-                                    <p class="mb-0 fs-14">Lorem ipsum dolor sit<br> amet, consectetur </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion__item border-bottom mb-0">
-                        <div class="d-flex flex-wrap align-items-center accordion__header collapsed rounded"
-                            data-bs-toggle="collapse" data-bs-target="#default_collapseOne222">
-                            <div class="mb-lg-0 mb-3 d-flex align-items-center">
-                                <div class="profile-image me-4">
-                                    <img src="{% static 'mophy/images/avatar/11.png' %}" alt="" width="63"
-                                        class="rounded-circle">
-                                    <span class="bg-danger">
-                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <g clip-path="url(#clip8)">
-                                                <path
-                                                    d="M10.4125 1.15001C10.225 1.53751 10.3906 2.00627 10.7781 2.19377C11.8563 2.71252 12.7688 3.51876 13.4188 4.52814C14.0844 5.56251 14.4375 6.76251 14.4375 8.00001C14.4375 11.55 11.55 14.4375 8 14.4375C4.45 14.4375 1.5625 11.55 1.5625 8.00002C1.5625 6.76251 1.91562 5.56252 2.57812 4.52501C3.225 3.51564 4.14062 2.70939 5.21875 2.19064C5.60625 2.00314 5.77187 1.53752 5.58437 1.14689C5.39687 0.759391 4.93125 0.593765 4.54062 0.781265C3.2 1.42502 2.06562 2.42501 1.2625 3.68126C0.4375 4.96877 -4.16897e-07 6.46251 -3.49691e-07 8.00002C-2.56258e-07 10.1375 0.83125 12.1469 2.34375 13.6563C3.85313 15.1688 5.8625 16 8 16C10.1375 16 12.1469 15.1688 13.6563 13.6563C15.1688 12.1438 16 10.1375 16 8.00001C16 6.46251 15.5625 4.96876 14.7344 3.68126C13.9281 2.42814 12.7938 1.42501 11.4563 0.781265C11.0656 0.59689 10.6 0.759389 10.4125 1.15001Z"
-                                                    fill="white" />
-                                                <path
-                                                    d="M11.0407 7.58437C11.1938 7.43125 11.2688 7.23125 11.2688 7.03125C11.2688 6.83125 11.1938 6.63125 11.0407 6.47812L9.07503 4.5125C8.78753 4.225 8.40628 4.06875 8.00315 4.06875C7.60003 4.06875 7.21565 4.22813 6.93127 4.5125L4.96565 6.47812C4.6594 6.78437 4.6594 7.27812 4.96565 7.58437C5.2719 7.89062 5.76565 7.89062 6.0719 7.58437L7.22502 6.43125L7.22502 10.8719C7.22502 11.3031 7.57503 11.6531 8.00628 11.6531C8.43753 11.6531 8.78753 11.3031 8.78753 10.8719L8.78753 6.42812L9.94065 7.58125C10.2407 7.8875 10.7344 7.8875 11.0407 7.58437Z"
-                                                    fill="white" />
-                                            </g>
-                                            <defs>
-                                                <clipPath id="clip8">
-                                                    <rect width="16" height="16" fill="white"
-                                                        transform="translate(0 16) rotate(-90)" />
-                                                </clipPath>
-                                            </defs>
-                                        </svg>
-                                    </span>
-                                </div>
-                                <div>
-                                    <h6 class="fs-16 font-w700 mb-0"><a class="text-black"
-                                            href="javascript:void(0)">Andrew Lee</a></h6>
-                                </div>
-                            </div>
-                            <span class="mb-lg-0 mb-3 text-black px-2">June 3, 2020 <br>04:29 AM</span>
-                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2">+$2,351</span>
-                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2">MasterCard 404</span>
-                            <a class="mb-lg-0 mb-3 btn btn-outline-dark btn-md btn-rounded mx-2"
-                                href="javascript:void(0)">Canceled</a>
-                            <span class="accordion__header--indicator"></span>
-                        </div>
-                        <div id="default_collapseOne222" class="collapse accordion__body"
-                            data-bs-parent="#accordion-one">
-                            <div class="d-flex flex-wrap align-items-center accordion__body--text p-0">
-                                <div class="me-3 mb-3">
-                                    <p class="fs-12 mb-2">ID Payment</p>
-                                    <span class="text-black font-w500">#00123521</span>
-                                </div>
-                                <div class="me-3 mb-3">
-                                    <p class="fs-12 mb-2">Payment Method</p>
-                                    <span class="text-black font-w500">MasterCard 404</span>
-                                </div>
-                                <div class="me-3 mb-3">
-                                    <p class="fs-12 mb-2">Invoice Date</p>
-                                    <span class="text-black font-w500">April 29, 2020</span>
-                                </div>
-                                <div class="me-3 mb-3">
-                                    <p class="fs-12 mb-2">Due Date</p>
-                                    <span class="text-black font-w500">June 5, 2020</span>
-                                </div>
-                                <div class="me-3 mb-3">
-                                    <p class="fs-12 mb-2">Date Paid</p>
-                                    <span class="text-black font-w500">June 4, 2020</span>
-                                </div>
-                                <div class="d-flex p-3 rounded bgl-dark align-items-center mb-3">
-                                    <svg class="me-3" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M12 1C9.82441 1 7.69767 1.64514 5.88873 2.85384C4.07979 4.06253 2.66989 5.7805 1.83733 7.79049C1.00477 9.80047 0.786929 12.0122 1.21137 14.146C1.6358 16.2798 2.68345 18.2398 4.22183 19.7782C5.76021 21.3166 7.72022 22.3642 9.85401 22.7887C11.9878 23.2131 14.1995 22.9953 16.2095 22.1627C18.2195 21.3301 19.9375 19.9202 21.1462 18.1113C22.3549 16.3023 23 14.1756 23 12C22.9966 9.08368 21.8365 6.28778 19.7744 4.22563C17.7122 2.16347 14.9163 1.00344 12 1ZM12 21C10.22 21 8.47992 20.4722 6.99987 19.4832C5.51983 18.4943 4.36628 17.0887 3.68509 15.4442C3.0039 13.7996 2.82567 11.99 3.17294 10.2442C3.5202 8.49836 4.37737 6.89471 5.63604 5.63604C6.89472 4.37737 8.49836 3.5202 10.2442 3.17293C11.99 2.82567 13.7996 3.0039 15.4442 3.68509C17.0887 4.36627 18.4943 5.51983 19.4832 6.99987C20.4722 8.47991 21 10.22 21 12C20.9971 14.3861 20.0479 16.6736 18.3608 18.3608C16.6736 20.048 14.3861 20.9971 12 21Z"
-                                            fill="#A4A4A4" />
-                                        <path
-                                            d="M12 9C11.7348 9 11.4804 9.10536 11.2929 9.29289C11.1054 9.48043 11 9.73478 11 10V17C11 17.2652 11.1054 17.5196 11.2929 17.7071C11.4804 17.8946 11.7348 18 12 18C12.2652 18 12.5196 17.8946 12.7071 17.7071C12.8947 17.5196 13 17.2652 13 17V10C13 9.73478 12.8947 9.48043 12.7071 9.29289C12.5196 9.10536 12.2652 9 12 9Z"
-                                            fill="#A4A4A4" />
-                                        <path
-                                            d="M12 8C12.5523 8 13 7.55228 13 7C13 6.44771 12.5523 6 12 6C11.4477 6 11 6.44771 11 7C11 7.55228 11.4477 8 12 8Z"
-                                            fill="#A4A4A4" />
-                                    </svg>
-                                    <p class="mb-0 fs-14">Lorem ipsum dolor sit<br> amet, consectetur </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion__item border-bottom mb-0">
-                        <div class="d-flex flex-wrap align-items-center accordion__header collapsed rounded"
-                            data-bs-toggle="collapse" data-bs-target="#default_collapseOne321">
-                            <div class="mb-lg-0 mb-3 d-flex align-items-center">
-                                <div class="profile-image me-4">
-                                    <img src="{% static 'mophy/images/avatar/12.png' %}" alt="" width="63"
-                                        class="rounded-circle">
-                                    <span class="bg-success">
-                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <g clip-path="url(#clip9)">
-                                                <path
-                                                    d="M10.4125 14.85C10.225 14.4625 10.3906 13.9937 10.7781 13.8062C11.8563 13.2875 12.7688 12.4812 13.4188 11.4719C14.0844 10.4375 14.4375 9.23749 14.4375 7.99999C14.4375 4.44999 11.55 1.56249 8 1.56249C4.45 1.56249 1.5625 4.44999 1.5625 7.99999C1.5625 9.23749 1.91562 10.4375 2.57812 11.475C3.225 12.4844 4.14062 13.2906 5.21875 13.8094C5.60625 13.9969 5.77187 14.4625 5.58437 14.8531C5.39687 15.2406 4.93125 15.4062 4.54062 15.2187C3.2 14.575 2.06562 13.575 1.2625 12.3187C0.4375 11.0312 -4.16897e-07 9.53749 -3.49691e-07 7.99999C-2.56258e-07 5.86249 0.83125 3.85312 2.34375 2.34374C3.85313 0.831242 5.8625 -7.37314e-06 8 -7.2797e-06C10.1375 -7.18627e-06 12.1469 0.831243 13.6563 2.34374C15.1688 3.85624 16 5.86249 16 7.99999C16 9.53749 15.5625 11.0312 14.7344 12.3187C13.9281 13.5719 12.7938 14.575 11.4563 15.2187C11.0656 15.4031 10.6 15.2406 10.4125 14.85Z"
-                                                    fill="white" />
-                                                <path
-                                                    d="M11.0407 8.41563C11.1938 8.56876 11.2688 8.76876 11.2688 8.96876C11.2688 9.16876 11.1938 9.36876 11.0407 9.52188L9.07503 11.4875C8.78753 11.775 8.40628 11.9313 8.00315 11.9313C7.60003 11.9313 7.21565 11.7719 6.93127 11.4875L4.96565 9.52188C4.6594 9.21563 4.6594 8.72188 4.96565 8.41563C5.2719 8.10938 5.76565 8.10938 6.0719 8.41563L7.22502 9.56876L7.22502 5.12814C7.22502 4.69689 7.57503 4.34689 8.00628 4.34689C8.43753 4.34689 8.78753 4.69689 8.78753 5.12814L8.78753 9.57188L9.94065 8.41876C10.2407 8.11251 10.7344 8.11251 11.0407 8.41563Z"
-                                                    fill="white" />
-                                            </g>
-                                            <defs>
-                                                <clipPath id="clip9">
-                                                    <rect width="16" height="16" fill="white"
-                                                        transform="matrix(-4.37114e-08 1 1 4.37114e-08 0 -7.62939e-06)" />
-                                                </clipPath>
-                                            </defs>
-                                        </svg>
-                                    </span>
-                                </div>
-                                <div>
-                                    <h6 class="fs-16 font-w700 mb-0"><a class="text-black"
-                                            href="javascript:void(0)">Olivia Brownlee</a></h6>
-                                </div>
-                            </div>
-                            <span class="mb-lg-0 mb-3 text-black px-2">June 4, 2020 <br>02:37 AM</span>
-                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2">+$3,543</span>
-                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2">MasterCard 404</span>
-                            <a class="mb-lg-0 mb-3 btn btn-outline-success btn-md btn-rounded mx-2"
-                                href="javascript:void(0)">Completed</a>
-                            <span class="accordion__header--indicator"></span>
-                        </div>
-                        <div id="default_collapseOne321" class="collapse accordion__body"
-                            data-bs-parent="#accordion-one">
-                            <div class="d-flex flex-wrap align-items-center accordion__body--text p-0">
-                                <div class="me-3 mb-3">
-                                    <p class="fs-12 mb-2">ID Payment</p>
-                                    <span class="text-black font-w500">#00123521</span>
-                                </div>
-                                <div class="me-3 mb-3">
-                                    <p class="fs-12 mb-2">Payment Method</p>
-                                    <span class="text-black font-w500">MasterCard 404</span>
-                                </div>
-                                <div class="me-3 mb-3">
-                                    <p class="fs-12 mb-2">Invoice Date</p>
-                                    <span class="text-black font-w500">April 29, 2020</span>
-                                </div>
-                                <div class="me-3 mb-3">
-                                    <p class="fs-12 mb-2">Due Date</p>
-                                    <span class="text-black font-w500">June 5, 2020</span>
-                                </div>
-                                <div class="me-3 mb-3">
-                                    <p class="fs-12 mb-2">Date Paid</p>
-                                    <span class="text-black font-w500">June 4, 2020</span>
-                                </div>
-                                <div class="d-flex p-3 rounded bgl-dark align-items-center mb-3">
-                                    <svg class="me-3" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M12 1C9.82441 1 7.69767 1.64514 5.88873 2.85384C4.07979 4.06253 2.66989 5.7805 1.83733 7.79049C1.00477 9.80047 0.786929 12.0122 1.21137 14.146C1.6358 16.2798 2.68345 18.2398 4.22183 19.7782C5.76021 21.3166 7.72022 22.3642 9.85401 22.7887C11.9878 23.2131 14.1995 22.9953 16.2095 22.1627C18.2195 21.3301 19.9375 19.9202 21.1462 18.1113C22.3549 16.3023 23 14.1756 23 12C22.9966 9.08368 21.8365 6.28778 19.7744 4.22563C17.7122 2.16347 14.9163 1.00344 12 1ZM12 21C10.22 21 8.47992 20.4722 6.99987 19.4832C5.51983 18.4943 4.36628 17.0887 3.68509 15.4442C3.0039 13.7996 2.82567 11.99 3.17294 10.2442C3.5202 8.49836 4.37737 6.89471 5.63604 5.63604C6.89472 4.37737 8.49836 3.5202 10.2442 3.17293C11.99 2.82567 13.7996 3.0039 15.4442 3.68509C17.0887 4.36627 18.4943 5.51983 19.4832 6.99987C20.4722 8.47991 21 10.22 21 12C20.9971 14.3861 20.0479 16.6736 18.3608 18.3608C16.6736 20.048 14.3861 20.9971 12 21Z"
-                                            fill="#A4A4A4" />
-                                        <path
-                                            d="M12 9C11.7348 9 11.4804 9.10536 11.2929 9.29289C11.1054 9.48043 11 9.73478 11 10V17C11 17.2652 11.1054 17.5196 11.2929 17.7071C11.4804 17.8946 11.7348 18 12 18C12.2652 18 12.5196 17.8946 12.7071 17.7071C12.8947 17.5196 13 17.2652 13 17V10C13 9.73478 12.8947 9.48043 12.7071 9.29289C12.5196 9.10536 12.2652 9 12 9Z"
-                                            fill="#A4A4A4" />
-                                        <path
-                                            d="M12 8C12.5523 8 13 7.55228 13 7C13 6.44771 12.5523 6 12 6C11.4477 6 11 6.44771 11 7C11 7.55228 11.4477 8 12 8Z"
-                                            fill="#A4A4A4" />
-                                    </svg>
-                                    <p class="mb-0 fs-14">Lorem ipsum dolor sit<br> amet, consectetur </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="tab-pane fade" id="Inactive" role="Inactive">
-                <div id="accordion-three" class="accordion accordion-primary">
-                    <div class="accordion__item border-bottom mb-0">
-                        <div class="d-flex flex-wrap align-items-center accordion__header collapsed rounded"
-                            data-bs-toggle="collapse" data-bs-target="#default_collapseOne51">
-                            <div class="mb-lg-0 mb-3 d-flex align-items-center">
-                                <div class="profile-image me-4">
-                                    <img src="{% static 'mophy/images/avatar/13.png' %}" alt="" width="63"
-                                        class="rounded-circle">
-                                    <span class="bg-danger">
-                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <g clip-path="url(#clip10)">
-                                                <path
-                                                    d="M10.4125 1.15001C10.225 1.53751 10.3906 2.00627 10.7781 2.19377C11.8563 2.71252 12.7688 3.51876 13.4188 4.52814C14.0844 5.56251 14.4375 6.76251 14.4375 8.00001C14.4375 11.55 11.55 14.4375 8 14.4375C4.45 14.4375 1.5625 11.55 1.5625 8.00002C1.5625 6.76251 1.91562 5.56252 2.57812 4.52501C3.225 3.51564 4.14062 2.70939 5.21875 2.19064C5.60625 2.00314 5.77187 1.53752 5.58437 1.14689C5.39687 0.759391 4.93125 0.593765 4.54062 0.781265C3.2 1.42502 2.06562 2.42501 1.2625 3.68126C0.4375 4.96877 -4.16897e-07 6.46251 -3.49691e-07 8.00002C-2.56258e-07 10.1375 0.83125 12.1469 2.34375 13.6563C3.85313 15.1688 5.8625 16 8 16C10.1375 16 12.1469 15.1688 13.6563 13.6563C15.1688 12.1438 16 10.1375 16 8.00001C16 6.46251 15.5625 4.96876 14.7344 3.68126C13.9281 2.42814 12.7938 1.42501 11.4563 0.781265C11.0656 0.59689 10.6 0.759389 10.4125 1.15001Z"
-                                                    fill="white" />
-                                                <path
-                                                    d="M11.0407 7.58437C11.1938 7.43125 11.2688 7.23125 11.2688 7.03125C11.2688 6.83125 11.1938 6.63125 11.0407 6.47812L9.07503 4.5125C8.78753 4.225 8.40628 4.06875 8.00315 4.06875C7.60003 4.06875 7.21565 4.22813 6.93127 4.5125L4.96565 6.47812C4.6594 6.78437 4.6594 7.27812 4.96565 7.58437C5.2719 7.89062 5.76565 7.89062 6.0719 7.58437L7.22502 6.43125L7.22502 10.8719C7.22502 11.3031 7.57503 11.6531 8.00628 11.6531C8.43753 11.6531 8.78753 11.3031 8.78753 10.8719L8.78753 6.42812L9.94065 7.58125C10.2407 7.8875 10.7344 7.8875 11.0407 7.58437Z"
-                                                    fill="white" />
-                                            </g>
-                                            <defs>
-                                                <clipPath id="clip10">
-                                                    <rect width="16" height="16" fill="white"
-                                                        transform="translate(0 16) rotate(-90)" />
-                                                </clipPath>
-                                            </defs>
-                                        </svg>
-                                    </span>
-                                </div>
-                                <div>
-                                    <h6 class="fs-16 font-w700 mb-0"><a class="text-black"
-                                            href="javascript:void(0)">Peter Parkur</a></h6>
-                                </div>
-                            </div>
-                            <span class="mb-lg-0 mb-3 text-black px-2">June 10, 2020 <br>08:22 AM</span>
-                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2">+$5,553</span>
-                            <span class="mb-lg-0 mb-3 text-black font-w600 px-2">MasterCard 404</span>
-                            <a class="mb-lg-0 mb-3 btn btn-outline-warning btn-md btn-rounded mx-2"
-                                href="javascript:void(0)">Pending</a>
-                            <span class="accordion__header--indicator"></span>
-                        </div>
-                        <div id="default_collapseOne51" class="collapse accordion__body"
-                            data-bs-parent="#accordion-one">
-                            <div class="d-flex flex-wrap align-items-center accordion__body--text p-0">
-                                <div class="me-3 mb-3">
-                                    <p class="fs-12 mb-2">ID Payment</p>
-                                    <span class="text-black font-w500">#00123521</span>
-                                </div>
-                                <div class="me-3 mb-3">
-                                    <p class="fs-12 mb-2">Payment Method</p>
-                                    <span class="text-black font-w500">MasterCard 404</span>
-                                </div>
-                                <div class="me-3 mb-3">
-                                    <p class="fs-12 mb-2">Invoice Date</p>
-                                    <span class="text-black font-w500">April 29, 2020</span>
-                                </div>
-                                <div class="me-3 mb-3">
-                                    <p class="fs-12 mb-2">Due Date</p>
-                                    <span class="text-black font-w500">June 5, 2020</span>
-                                </div>
-                                <div class="me-3 mb-3">
-                                    <p class="fs-12 mb-2">Date Paid</p>
-                                    <span class="text-black font-w500">June 4, 2020</span>
-                                </div>
-                                <div class="d-flex p-3 rounded bgl-dark align-items-center mb-3">
-                                    <svg class="vme-3" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M12 1C9.82441 1 7.69767 1.64514 5.88873 2.85384C4.07979 4.06253 2.66989 5.7805 1.83733 7.79049C1.00477 9.80047 0.786929 12.0122 1.21137 14.146C1.6358 16.2798 2.68345 18.2398 4.22183 19.7782C5.76021 21.3166 7.72022 22.3642 9.85401 22.7887C11.9878 23.2131 14.1995 22.9953 16.2095 22.1627C18.2195 21.3301 19.9375 19.9202 21.1462 18.1113C22.3549 16.3023 23 14.1756 23 12C22.9966 9.08368 21.8365 6.28778 19.7744 4.22563C17.7122 2.16347 14.9163 1.00344 12 1ZM12 21C10.22 21 8.47992 20.4722 6.99987 19.4832C5.51983 18.4943 4.36628 17.0887 3.68509 15.4442C3.0039 13.7996 2.82567 11.99 3.17294 10.2442C3.5202 8.49836 4.37737 6.89471 5.63604 5.63604C6.89472 4.37737 8.49836 3.5202 10.2442 3.17293C11.99 2.82567 13.7996 3.0039 15.4442 3.68509C17.0887 4.36627 18.4943 5.51983 19.4832 6.99987C20.4722 8.47991 21 10.22 21 12C20.9971 14.3861 20.0479 16.6736 18.3608 18.3608C16.6736 20.048 14.3861 20.9971 12 21Z"
-                                            fill="#A4A4A4" />
-                                        <path
-                                            d="M12 9C11.7348 9 11.4804 9.10536 11.2929 9.29289C11.1054 9.48043 11 9.73478 11 10V17C11 17.2652 11.1054 17.5196 11.2929 17.7071C11.4804 17.8946 11.7348 18 12 18C12.2652 18 12.5196 17.8946 12.7071 17.7071C12.8947 17.5196 13 17.2652 13 17V10C13 9.73478 12.8947 9.48043 12.7071 9.29289C12.5196 9.10536 12.2652 9 12 9Z"
-                                            fill="#A4A4A4" />
-                                        <path
-                                            d="M12 8C12.5523 8 13 7.55228 13 7C13 6.44771 12.5523 6 12 6C11.4477 6 11 6.44771 11 7C11 7.55228 11.4477 8 12 8Z"
-                                            fill="#A4A4A4" />
-                                    </svg>
-                                    <p class="mb-0 fs-14">Lorem ipsum dolor sit<br> amet, consectetur </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
+    </div>
+
+
+    <div id="popupFormTransfer" class="popup">
 
     </div>
-</div>
+
+    <div id="popupFormIP" class="popup">
+        <form class="popup-content2" style="border-radius:25px ;" action="#">
+            <span class="close" onclick="closebtn('popupFormIP')">&times;</span>
+            <div class="mb-3 ip_block">
 
 
-<div id="popupFormTransfer" class="popup">
-    
-</div>
 
-<div id="popupFormIP" class="popup">
-    <form class="popup-content2" style="border-radius:25px ;" action="#">
-        <span class="close" onclick="closebtn('popupFormIP')">&times;</span>
-        <div class="mb-3 ip_block">
-           
-
-
-        </div>
-        <hr style="  margin-top: 30px;">
-        <a class="btn btn-primary  mb-2" class="buttons" id="inputFields" onclick="addInputField()">Add New
-            IP</a>
-        <a class="btn btn-primary mb-2 btn sweet-auto" class="buttons" id="saveBtn" onclick="save_ip()" style="margin-left: 10px;">Save</a>
-    </form>
-</div>
-
-<div id="popupFormCallBack" class="popup">
-    <form class="popup-content3" style="border-radius:25px ;" action="#">
-        <span class="close" onclick="closebtn('popupFormCallBack')">&times;</span>
-        <div class="mb-3" id = 'callBackUrl' >
-            <label style="width: -moz-available;"><strong>CallBack URL</strong></label>
-            <input class="form-control" type="text" placeholder="Enter Your URL">
+            </div>
             <hr style="  margin-top: 30px;">
-            <button class="btn btn-primary mb-2 btn-success btn sweet-success" style="width: 20%;
+            <a class="btn btn-primary  mb-2" class="buttons" id="inputFields" onclick="addInputField()">Add New
+                IP</a>
+            <a class="btn btn-primary mb-2 btn sweet-auto" class="buttons" id="saveBtn" onclick="save_ip()"
+                style="margin-left: 10px;">Save</a>
+        </form>
+    </div>
+
+    <div id="popupFormCallBack" class="popup">
+        <form class="popup-content3" style="border-radius:25px ;" action="#">
+            <span class="close" onclick="closebtn('popupFormCallBack')">&times;</span>
+            <div class="mb-3" id='callBackUrl'>
+                <label style="width: -moz-available;"><strong>CallBack URL</strong></label>
+                <input class="form-control" type="text" placeholder="Enter Your URL">
+                <hr style="  margin-top: 30px;">
+                <button class="btn btn-primary mb-2 btn-success btn sweet-success" style="width: 20%;
             font-size: large;" type="submit">Apply</button>
-        </div>
-    </form>
-</div>
+            </div>
+        </form>
+    </div>
 
-<div id="popupFormServiceCharge" class="popup">
-    <form class="popup-content4" style="border-radius:25px ;" action="#">
-        <span class="close" onclick="closebtn('popupFormServiceCharge')">&times;</span>
-        <div class="mb-3" id = 'serviceCharge'>
-            <label style="width: -moz-available;"><strong>IMPS</strong></label>
-            <input class="form-control" type="text" placeholder=""><br>
-            <label><strong>RTGS</strong></label>
-            <input class="form-control" type="text" placeholder=""><br>
-            <label><strong>NEFT</strong></label>
-            <input class="form-control" type="text" placeholder=""><br>
-            <label><strong>Service Charges</strong></label>
-            <input class="form-control" type="text" placeholder=""><br>
-            <hr style="  margin-top: 30px;">
-            <button type="submit" class="btn btn-primary mb-2 btn-success btn sweet-auto" id="sweet-auto-close" style="width: 20%;
+    <div id="popupFormServiceCharge" class="popup">
+        <form class="popup-content4" style="border-radius:25px ;" action="#">
+            <span class="close" onclick="closebtn('popupFormServiceCharge')">&times;</span>
+            <div class="mb-3" id='serviceCharge'>
+                <label style="width: -moz-available;"><strong>IMPS</strong></label>
+                <input class="form-control" type="text" placeholder=""><br>
+                <label><strong>RTGS</strong></label>
+                <input class="form-control" type="text" placeholder=""><br>
+                <label><strong>NEFT</strong></label>
+                <input class="form-control" type="text" placeholder=""><br>
+                <label><strong>Service Charges</strong></label>
+                <input class="form-control" type="text" placeholder=""><br>
+                <hr style="  margin-top: 30px;">
+                <button type="submit" class="btn btn-primary mb-2 btn-success btn sweet-auto" id="sweet-auto-close"
+                    style="width: 20%;
             font-size: large;">Save</button>
-        </div>
-    </form>
-</div>
+            </div>
+        </form>
+    </div>
 
-{% endblock %}
+    {% endblock %}
 
-{% block additional_js %}
-<script>
-    // Select all elements with id "business_name"
-    let a = document.querySelectorAll('#business_name');
+    {% block additional_js %}
+    <script>
+        // Select all elements with id "business_name"
+        let a = document.querySelectorAll('#business_name');
 
-    // Loop through each selected element
-    a.forEach(element => {
-        // Get the HTML content of the element
-        let content = element.innerHTML;
+        // Loop through each selected element
+        a.forEach(element => {
+            // Get the HTML content of the element
+            let content = element.innerHTML;
 
-        // Check if content length is greater than 10
-        if (content.length > 10) {
-            // Truncate content to 8 characters
-            content = content.slice(0, 8);
-            // Add ellipsis at the end
-            content = content + "...";
-        }
+            // Check if content length is greater than 10
+            if (content.length > 10) {
+                // Truncate content to 8 characters
+                content = content.slice(0, 8);
+                // Add ellipsis at the end
+                content = content + "...";
+            }
 
-        // Set the updated content back to the element
-        element.innerHTML = content;
-    });
+            // Set the updated content back to the element
+            element.innerHTML = content;
+        });
 
-</script>
-<script>
-    // Select all elements with id "business_name"
-    let b = document.querySelectorAll('#business_email');
+    </script>
+    <script>
+        // Select all elements with id "business_name"
+        let b = document.querySelectorAll('#business_email');
 
-    // Loop through each selected element
-    b.forEach(element => {
-        // Get the HTML content of the element
-        let con = element.innerHTML;
+        // Loop through each selected element
+        b.forEach(element => {
+            // Get the HTML content of the element
+            let con = element.innerHTML;
 
-        // Check if content length is greater than 10
-        if (con.length > 10) {
-            // Truncate content to 8 characters
-            con = con.slice(0, 8);
-            // Add ellipsis at the end
-            con = con + "...";
-        }
+            // Check if content length is greater than 10
+            if (con.length > 10) {
+                // Truncate content to 8 characters
+                con = con.slice(0, 8);
+                // Add ellipsis at the end
+                con = con + "...";
+            }
 
-        // Set the updated content back to the element
-        element.innerHTML = con;
-    });
+            // Set the updated content back to the element
+            element.innerHTML = con;
+        });
 
-</script>
+    </script>
 
-<script>
-    function paymentTransfer(mid,bname) 
-    {
-        console.log(mid)
-        a = document.querySelector('#popupFormTransfer')
-        
-        a.style.display = "block";
-        a.innerHTML = ` 
+    <script>
+        function paymentTransfer(mid, bname) {
+            console.log(mid)
+            a = document.querySelector('#popupFormTransfer')
+
+            a.style.display = "block";
+            a.innerHTML = ` 
         <form class="popup-content" style="border-radius:25px ;" action="#">
             <span class="close" onclick="closebtn('popupFormTransfer')">&times;</span>
             <div class="mb-3">
@@ -745,29 +767,28 @@
         </form>
        
         `
-    
-    
-    }
 
-    function ippopup(data,id){
-        console.log(data,typeof(data))
-        length = data.length
-        console.log(length)
-        
 
-       // Get the popup form element
-        let popupForm = document.querySelector('#popupFormIP');
-        popupForm.style.display = "block";
+        }
 
-        // Get the container inside the popup form where you want to append the new elements
-        let container = popupForm.querySelector('.ip_block');
+        function ippopup(data, id) {
+            console.log(data, typeof (data))
+            length = data.length
+            console.log(length)
 
-        // Values to pass into the elements
-       
-        if (length == 0)
-        {
-            console.log('goodboy')
-            container.innerHTML = `
+
+            // Get the popup form element
+            let popupForm = document.querySelector('#popupFormIP');
+            popupForm.style.display = "block";
+
+            // Get the container inside the popup form where you want to append the new elements
+            let container = popupForm.querySelector('.ip_block');
+
+            // Values to pass into the elements
+
+            if (length == 0) {
+                console.log('goodboy')
+                container.innerHTML = `
             <label style="width: -moz-available;"><strong>Enter Your IP</strong></label>
             <div style="display: flex; justify-content: space-between; align-items: first baseline; margin-bottom: 40px;">
                 <div>
@@ -780,71 +801,69 @@
                 </span>
             </div>
         `;
-        
-        }
 
-        else
-        {
-            
-            container.innerHTML = `<span id = 'mid' hidden >${id}</span>`
-
-        // Loop to create three sets of elements with different values
-        for (let i = 0; i < length; i++) 
-            {
-                console.log
-            (i)
-
-                // Create label element
-                let label = document.createElement('label');
-                label.setAttribute('style', 'width: -moz-available;');
-                label.innerHTML = '<strong>Enter Your IP</strong>';
-
-                // Create div element
-                let div = document.createElement('div');
-                div.setAttribute('style', 'display: flex; justify-content: space-between; align-items: first baseline; margin-bottom: 40px;');
-
-                // Create input element
-                let input = document.createElement('input');
-                input.setAttribute('class', 'form-control form-ip ');
-                input.setAttribute('type', 'text');
-                input.setAttribute('style', 'width: 200%;');
-                input.setAttribute('readonly','true');
-                input.value = data[i];
-
-                // Create span element
-                let span = document.createElement('span');
-                span.setAttribute('class', 'delete-icon btn sweet-success-cancel btn-lg');
-                span.innerHTML = '<i class="fa fa-trash-alt" style="color: red;" onclick="deleteBtn(this)"></i>';
-
-                
-
-                // Append input and span elements to div element
-                div.appendChild(input);
-                div.appendChild(span);
-                
-
-                // Append label and div elements to container
-                container.appendChild(label);
-                container.appendChild(div);
             }
+
+            else {
+
+                container.innerHTML = `<span id = 'mid' hidden >${id}</span>`
+
+                // Loop to create three sets of elements with different values
+                for (let i = 0; i < length; i++) {
+                    console.log
+                        (i)
+
+                    // Create label element
+                    let label = document.createElement('label');
+                    label.setAttribute('style', 'width: -moz-available;');
+                    label.innerHTML = '<strong>Enter Your IP</strong>';
+
+                    // Create div element
+                    let div = document.createElement('div');
+                    div.setAttribute('style', 'display: flex; justify-content: space-between; align-items: first baseline; margin-bottom: 40px;');
+
+                    // Create input element
+                    let input = document.createElement('input');
+                    input.setAttribute('class', 'form-control form-ip ');
+                    input.setAttribute('type', 'text');
+                    input.setAttribute('style', 'width: 200%;');
+                    input.setAttribute('readonly', 'true');
+                    input.value = data[i];
+
+                    // Create span element
+                    let span = document.createElement('span');
+                    span.setAttribute('class', 'delete-icon btn sweet-success-cancel btn-lg');
+                    span.innerHTML = '<i class="fa fa-trash-alt" style="color: red;" onclick="deleteBtn(this)"></i>';
+
+
+
+                    // Append input and span elements to div element
+                    div.appendChild(input);
+                    div.appendChild(span);
+
+
+                    // Append label and div elements to container
+                    container.appendChild(label);
+                    container.appendChild(div);
+                }
+            }
+
         }
 
-    }
-
-    function closebtn(popup) {
-        y = document.getElementById(popup);
-        console.log(y)
-        // When the user clicks on <span> (x), close the popup
-        y.style.display = "none";
-    }
+        function closebtn(popup) {
+            y = document.getElementById(popup);
+            console.log(y)
+            // When the user clicks on <span> (x), close the popup
+            y.style.display = "none";
+        }
 
 
-</script>
+    </script>
 
-<script>
-    function addInputField() {
-        var a = document.querySelector('.ip_block');
-        a.insertAdjacentHTML('beforeend', `
+    <script>
+        function addInputField() {
+            var a = document.querySelector('.ip_block');
+            a.insertAdjacentHTML('beforeend', `
     <div style="display: flex; width: -moz-available;  justify-content: space-between; align-items: first baseline; margin-top: 20px;
             margin-bottom: 40px;">
         <div>
@@ -852,220 +871,216 @@
         </div>
         
         <span class="delete-icon btn sweet-success-cancel btn-lg">
-                    <i class="fa fa-trash-alt " style="color: red;" onclick="removeBtn() "></i>
+                    <i class="fa fa-trash-alt" style="color: red;" onclick="removeBtn() "></i>
                 </span>
     </div>
     
 `);
-    }
-
-</script>
-
-<script>
-    function deleteBtn(i) {
-        var ele = i
-        document.querySelector(".sweet-success-cancel").onclick = function () {
-            swal({
-                title: "Are you sure to delete ?",
-                text: "You will not be able to recover this IP Address!!",
-                type: "warning",
-                showCancelButton: !0,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Yes, delete it !!",
-                cancelButtonText: "No, cancel it !!",
-                closeOnConfirm: !1,
-                closeOnCancel: !1,
-                preConfirm: function (d) 
-                {
-                    var parentDiv = ele.parentNode.parentNode;
-                    console.log(parentDiv)
-                            inputD = parentDiv.querySelector('input')
-                            inputD.classList.add('newIP')
-                            parentDiv.setAttribute('hidden','true')
-                            
-                       
-                }
-            },)
         }
-       
-    }
 
-    function removeBtn() {
-        
-        var deleteIcons = document.querySelectorAll('.delete-icon');
-        deleteIcons.forEach(function (icon) {
-            icon.addEventListener('click', function () {
-                var parentDiv = this.parentNode;
-                parentDiv.parentNode.removeChild(parentDiv)
-                
-                
-            });
-        });
-    }
+    </script>
 
-    function save_ip() {
-
-        var frm = document.querySelector('#popupFormIP')
-        
-        console.log(frm)
-        list = frm.querySelectorAll('.newIP')
-        mid = frm.querySelector('#mid')
-        mid =mid.innerHTML
-        var iplist = []
-        for (i = 0; i < list.length; i++) {
-            console.log(list[i].value)
-            iplist.push(list[i].value)
-            
-        }
-        
-        console.log(iplist,mid)
-        const csrftoken = getCookie('csrftoken');
-        
-        var Data = {
-            user: mid,
-            ser:iplist
-          };
-          fetch('/Rest/ip-update/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrftoken // Include CSRF token in the header
-            },
-            body: JSON.stringify(Data)
-          })
-          .then(response => {
-            // Check if the request was successful
-            if (!response.ok) {
-              throw new Error('Network response was not ok');
+    <script>
+        function deleteBtn(i) {
+            var ele = i
+            document.querySelector(".sweet-success-cancel").onclick = function () {
+                swal({
+                    title: "Are you sure to delete ?",
+                    text: "You will not be able to recover this IP Address!!",
+                    type: "warning",
+                    showCancelButton: !0,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes, delete it !!",
+                    cancelButtonText: "No, cancel it !!",
+                    closeOnConfirm: !1,
+                    closeOnCancel: !1,
+                    preConfirm: function (d) {
+                        var parentDiv = ele.parentNode.parentNode;
+                        console.log(parentDiv)
+                        inputD = parentDiv.querySelector('input')
+                        inputD.classList.add('newIP')
+                        parentDiv.setAttribute('hidden', 'true')
+                    }
+                },)
             }
-            swal("Hey, Good job !!", "You clicked the button !!", "success")
-            
-            return response.json();
-          })
-          .catch(error => {
-            // Handle error if request failed
-            swal("Hey, bad job !!", "You clicked the button !!", "success")
-            console.error('Fetch error:', error);
-          });
-        
-        
-    }
 
-// to activate payout of merchant it will show popup in order to activate the merchant
-    function  statusMerchant(data,button,services) 
-    {
+        }
 
-                console.log(services)
-                console.log(typeof(services))
-                let service = [9819];
-                var icon = button.querySelector('i');
-                
-                if (icon.classList.contains('fa-unlock')){
+        function removeBtn() {
 
-                
-                       
-                
-                        swal({
-                            title: "Activate!!",
-                            text: "Click on Activate or Cancel !!",
-                            type: "info",
-                            showCancelButton: true,
-                            closeOnConfirm: false,
-                            showLoaderOnConfirm: true,
-                            confirmButtonText: "Activate",
-                            preConfirm: async (d) => {
-                                try {
-                                    console.log(data)
-                                    // Obtain CSRF token
-                                    const csrftoken = getCookie('csrftoken'); // Function to get CSRF token from cookie, see below
-        
-                                    const djangoUrl = '/Rest/merchant-status/';
-                                    const response = await fetch(djangoUrl, {
-                                        method: 'POST', // or 'GET' depending on your Django view
-                                        headers: {
-                                            'Content-Type': 'application/json',
-                                            'X-CSRFToken': csrftoken // Include CSRF token in the header
-                                        },
-                                        body: JSON.stringify({user: data,
-                                            ser:service
-                                        })
-                                    });
-                                    console.log(response)
-                                    if (!response.ok) {
-                                        throw new Error(await response.text());
-                                    }
-        
-                                    
-                                    icon.classList.remove("fa-unlock");
-                                    icon.classList.add("fa-lock");
-                                    icon.classList.remove("text-danger");
-                                    icon.classList.add("text-success");
-        
-                                
-                                    return response.json();
-                                } 
-                                catch (error) {
-                                    throw new Error(`Request failed: ${error}`);
-                                }
-                            },
-                        
-                                });
-                
-                }
-            else{
-                
-                        swal({
-                            title: "Deactivate!!",
-                            text: "Click on Deactivate or Cancel !!",
-                            type: "info",
-                            showCancelButton: true,
-                            closeOnConfirm: false,
-                            showLoaderOnConfirm: true,
-                            confirmButtonText: "Deactivate",
-                            preConfirm: async (d) => {
-                                try {
-                                    console.log(data)
-                                    // Obtain CSRF token
-                                    const csrftoken = '{{csrf_token}}'; // Function to get CSRF token from cookie, see below
-        
-                                    const djangoUrl = '/Rest/merchant-status/';
-                                    const response = await fetch(djangoUrl, {
-                                        method: 'POST', // or 'GET' depending on your Django view
-                                        headers: {
-                                            'Content-Type': 'application/json',
-                                            'X-CSRFToken': csrftoken // Include CSRF token in the header
-                                        },
-                                        body: JSON.stringify({user: data,
-                                            ser:service
-                                        })
-                                    });
-                                    console.log(response)
-                                    if (!response.ok) {
-                                        throw new Error(await response.text());
-                                    }
-        
-                                    var icon = button.querySelector('i');
-                                    console.log(icon)
-                                    icon.classList.remove("fa-lock");
-                                    icon.classList.add("fa-unlock");
-                                    icon.classList.remove("text-success");
-                                    icon.classList.add("text-danger");
-        
-                                
-                                    return response.json();
-                                } 
-                                catch (error) {
-                                    throw new Error(`Request failed: ${error}`);
-                                }
-                            },
-                        
-                                });
+            var deleteIcons = document.querySelectorAll('.delete-icon');
+            deleteIcons.forEach(function (icon) {
+                icon.addEventListener('click', function () {
+                    var parentDiv = this.parentNode;
+                    parentDiv.parentNode.removeChild(parentDiv)
 
-                }
-                
+
+                });
+            });
+        }
+
+        function save_ip() {
+
+            var frm = document.querySelector('#popupFormIP')
+
+            console.log(frm)
+            list = frm.querySelectorAll('.newIP')
+            mid = frm.querySelector('#mid')
+            mid = mid.innerHTML
+            var iplist = []
+            for (i = 0; i < list.length; i++) {
+                console.log(list[i].value)
+                iplist.push(list[i].value)
+
+            }
+
+            console.log(iplist, mid)
+            const csrftoken = getCookie('csrftoken');
+
+            var Data = {
+                user: mid,
+                ser: iplist
+            };
+            fetch('/Rest/ip-update/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken // Include CSRF token in the header
+                },
+                body: JSON.stringify(Data)
+            })
+                .then(response => {
+                    // Check if the request was successful
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    swal("Hey, Good job !!", "Saved Successfully !!", "success")
+
+                    return response.json();
+                })
+                .catch(error => {
+                    // Handle error if request failed
+                    swal("Hey, bad job !!", "You clicked the button !!", "success")
+                    console.error('Fetch error:', error);
+                });
+
+
+        }
+
+        // to activate payout of merchant it will show popup in order to activate the merchant
+        function statusMerchant(data, button, services) {
+
+            console.log(services)
+            console.log(typeof (services))
+            let service = [9819];
+            var icon = button.querySelector('i');
+
+            if (icon.classList.contains('fa-unlock')) {
+                swal({
+                    title: "Are you sure you want to activate ?",
+                    text: "Click on Activate or Cancel !!",
+                    type: "info",
+                    showCancelButton: true,
+                    closeOnConfirm: false,
+                    showLoaderOnConfirm: true,
+                    confirmButtonText: "Activate",
+                    preConfirm: async (d) => {
+                        try {
+                            console.log(data)
+                            // Obtain CSRF token
+                            const csrftoken = getCookie('csrftoken'); // Function to get CSRF token from cookie, see below
+
+                            const djangoUrl = '/Rest/merchant-status/';
+                            const response = await fetch(djangoUrl, {
+                                method: 'POST', // or 'GET' depending on your Django view
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRFToken': csrftoken // Include CSRF token in the header
+                                },
+                                body: JSON.stringify({
+                                    user: data,
+                                    ser: service
+                                })
+                            });
+                            console.log(response)
+                            if (!response.ok) {
+                                throw new Error(await response.text());
+                            }
+
+
+                            icon.classList.remove("fa-unlock");
+                            icon.classList.add("fa-lock");
+                            icon.classList.remove("text-danger");
+                            icon.classList.add("text-success");
+
+
+                            return response.json();
+                        }
+                        catch (error) {
+                            throw new Error(`Request failed: ${error}`);
+                        }
+                    },
+
+                });
+
+            }
+            else {
+
+                swal({
+                    title: "Are you sure you want to deactivate ?",
+                    text: "Click on Deactivate or Cancel !!",
+                    type: "info",
+                    showCancelButton: true,
+                    closeOnConfirm: false,
+                    showLoaderOnConfirm: true,
+                    confirmButtonText: "Deactivate",
+                    preConfirm: async (d) => {
+                        try {
+                            console.log(data)
+                            // Obtain CSRF token
+                            const csrftoken = '{{csrf_token}}'; // Function to get CSRF token from cookie, see below
+
+                            const djangoUrl = '/Rest/merchant-status/';
+                            const response = await fetch(djangoUrl, {
+                                method: 'POST', // or 'GET' depending on your Django view
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRFToken': csrftoken // Include CSRF token in the header
+                                },
+                                body: JSON.stringify({
+                                    user: data,
+                                    ser: service
+                                })
+                            });
+                            console.log(response)
+                            if (!response.ok) {
+                                throw new Error(await response.text());
+                            }
+
+                            var icon = button.querySelector('i');
+                            console.log(icon)
+                            icon.classList.remove("fa-lock");
+                            icon.classList.add("fa-unlock");
+                            icon.classList.remove("text-success");
+                            icon.classList.add("text-danger");
+
+
+                            return response.json();
+                        }
+                        catch (error) {
+                            throw new Error(`Request failed: ${error}`);
+                        }
+                    },
+
+                });
+
+            }
+
         };
 
     
+        
+
         // Function to get CSRF token from cookie
         function getCookie(name) {
             var cookieValue = null;
@@ -1085,19 +1100,18 @@
         }
 
 
-    // to update callBack url of merchant using admin
-        function callBack(data,id)
-        {
+        // to update callBack url of merchant using admin
+        function callBack(data, id) {
 
-            console.log(data,typeof(data))
-    
-           // Get the popup form element
+            console.log(data, typeof (data))
+
+            // Get the popup form element
             let popupForm = document.querySelector('#popupFormCallBack');
             popupForm.style.display = "block";
-    
+
             // Get the container inside the popup form where you want to append the new elements
             let container = popupForm.querySelector('#callBackUrl');
-    
+
             // Values to pass into the elements
             {
                 container.innerHTML = `
@@ -1108,65 +1122,65 @@
                 <a class="btn btn-primary mb-2 btn-success btn sweet-success" style="width: 20%;
                 font-size: large;" onClick = 'callBackSubmit(this)'>Apply</a>
             `;
-            
+
             }
         }
-// to save the url by sending post request to server 
-        function callBackSubmit(ele){
+        // to save the url by sending post request to server 
+        function callBackSubmit(ele) {
 
             var a = ele.parentNode.querySelector('input')
             var b = ele.parentNode.querySelector('#mid')
-            
-            
+
+
             let mid = b.innerHTML
             let url = a.value
-            console.log(ele,a,b,url,mid)
+            console.log(ele, a, b, url, mid)
             const csrftoken = getCookie('csrftoken');
-        
-        var Data = {
-            user: mid,
-            ser:url
-          };
-          fetch('/Rest/update-callback/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrftoken
-            },
-            body: JSON.stringify(Data)
-          })
-          .then(response => {
-            // Check if the request was successful
-            if (!response.ok) {
-              throw new Error('Network response was not ok');
-            }
-            swal("Hey, Good job !!", "You clicked the button !!", "success")
-            
-            return response.json();
-          })
-          .catch(error => {
-            // Handle error if request failed
-            swal("Hey, bad job !!", "You clicked the button !!", "success")
-            console.error('Fetch error:', error);
-          });
+
+            var Data = {
+                user: mid,
+                ser: url
+            };
+            fetch('/Rest/update-callback/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken
+                },
+                body: JSON.stringify(Data)
+            })
+                .then(response => {
+                    // Check if the request was successful
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    swal("Hey, Good job !!", "You clicked the button !!", "success")
+
+                    return response.json();
+                })
+                .catch(error => {
+                    // Handle error if request failed
+                    swal("Hey, bad job !!", "You clicked the button !!", "success")
+                    console.error('Fetch error:', error);
+                });
 
         }
 
         // function to update service charges
-        function updateServiceCharge(data1,data2,data3,data4,id){
-            console.log(data1,typeof(data1),'kutta')
-                
-            if (data1 == '' ){
+        function updateServiceCharge(data1, data2, data3, data4, id) {
+            console.log(data1, typeof (data1), 'kutta')
+
+            if (data1 == '') {
 
                 // Get the popup form element
-            let popupForm = document.querySelector('#popupFormServiceCharge');
-            popupForm.style.display = "block";
-    
-            // Get the container inside the popup form where you want to append the new elements
-            let container = popupForm.querySelector('#serviceCharge');
-            // Values to pass into the elements
-            {
-                container.innerHTML = `
+                let popupForm = document.querySelector('#popupFormServiceCharge');
+                popupForm.style.display = "block";
+
+                // Get the container inside the popup form where you want to append the new elements
+                let container = popupForm.querySelector('#serviceCharge');
+                // Values to pass into the elements
+                {
+                    container.innerHTML = `
                 <span id = 'mid' hidden >${id}</span>
     
             <label style="width: -moz-available;"><strong>IMPS</strong></label>
@@ -1181,21 +1195,21 @@
             <a class="btn btn-primary mb-2 btn-success btn sweet-auto" id="sweet-auto-close" style="width: 20%;
             font-size: large;" onClick= 'serviceChargeSubmit(this)'>Save</a>
             `;
-            
-            }
-                
-            }
-            else{
 
-           // Get the popup form element
-            let popupForm = document.querySelector('#popupFormServiceCharge');
-            popupForm.style.display = "block";
-    
-            // Get the container inside the popup form where you want to append the new elements
-            let container = popupForm.querySelector('#serviceCharge');
-            // Values to pass into the elements
-            {
-                container.innerHTML = `
+                }
+
+            }
+            else {
+
+                // Get the popup form element
+                let popupForm = document.querySelector('#popupFormServiceCharge');
+                popupForm.style.display = "block";
+
+                // Get the container inside the popup form where you want to append the new elements
+                let container = popupForm.querySelector('#serviceCharge');
+                // Values to pass into the elements
+                {
+                    container.innerHTML = `
                 <span id = 'mid' hidden >${id}</span>
     
             <label style="width: -moz-available;"><strong>IMPS</strong></label>
@@ -1210,56 +1224,56 @@
             <a class="btn btn-primary mb-2 btn-success btn sweet-auto" id="sweet-auto-close" style="width: 20%;
             font-size: large;" onClick= 'serviceChargeSubmit(this)'>Save</a>
             `;
-            
+
+                }
             }
-        }
         }
 
         // to save the inputs of service charges by sending post request to server
-        function serviceChargeSubmit(e){
+        function serviceChargeSubmit(e) {
             var a = e.parentNode.querySelector('#input1')
             var b = e.parentNode.querySelector('#input2')
             var c = e.parentNode.querySelector('#input3')
             var d = e.parentNode.querySelector('#input4')
             var x = e.parentNode.querySelector('#mid')
-           
+
             let mid = x.innerHTML
             let url1 = a.value
             let url2 = b.value
             let url3 = c.value
             let url4 = d.value
 
-            console.log(e,a,b,c,d,url1,url2, url3, url4,mid,x)
+            console.log(e, a, b, c, d, url1, url2, url3, url4, mid, x)
             const csrftoken = getCookie('csrftoken')
             var Data = {
-            user: mid,
-            ser1: url1,
-            ser2: url2,
-            ser3: url3,
-            ser4: url4
-          };
-          fetch('/Rest/service-charge/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrftoken
-            },
-            body: JSON.stringify(Data)
-          })
-          .then(response => {
-            // Check if the request was successful
-            if (!response.ok) {
-              throw new Error('Network response was not ok');
-            }
-            swal("Hey, Good job !!", "You clicked the button !!", "success")
-            
-            return response.json();
-          })
-          .catch(error => {
-            // Handle error if request failed
-            swal("Hey, bad job !!", "You clicked the button !!", "success")
-            console.error('Fetch error:', error);
-          });
+                user: mid,
+                ser1: url1,
+                ser2: url2,
+                ser3: url3,
+                ser4: url4
+            };
+            fetch('/Rest/service-charge/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken
+                },
+                body: JSON.stringify(Data)
+            })
+                .then(response => {
+                    // Check if the request was successful
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    swal("Hey, Good job !!", "Saved Successfully !!", "success")
+
+                    return response.json();
+                })
+                .catch(error => {
+                    // Handle error if request failed
+                    swal("Hey, bad job !!", "You clicked the button !!", "success")
+                    console.error('Fetch error:', error);
+                });
 
         }
 
@@ -1270,10 +1284,9 @@
 
 
 
-<!-- Virtual Transaction -->
-<script>
- function transfer_button() 
- {
+    <!-- Virtual Transaction -->
+    <script>
+        function transfer_button() {
             // Prevent the form from submitting normally
 
             // Get form data
@@ -1282,43 +1295,44 @@
             var amount = $("#popupFormTransfer input[name='amount']").val();
             var remarks = $("#popupFormTransfer input[name = 'remarks']").val()
             var utr = $("#popupFormTransfer input[name = 'utr']").val()
-            console.log("fghjk",businessName,method,amount)
+            console.log("fghjk", businessName, method, amount)
             // Make AJAX request
             var Data = {
-                bname:businessName,
-                typ:method,
+                bname: businessName,
+                typ: method,
                 amnt: amount,
                 ur: utr,
                 Rmrk: remarks
-              };
+            };
             console.log(Data)
-            fetch('Rest/virtual-transaction/', {
+            fetch('/Rest/virtual-transaction/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRFToken':'{{csrf_token}}'
+                    'X-CSRFToken': '{{csrf_token}}'
                 },
                 body: JSON.stringify(Data)
-              })
-              .then(response => {
-                // Check if the request was successful
-                if (!response.ok) {
-                  throw new Error('Network response was not ok');
-                }
-                swal("Hey, Good job !!", "You clicked the button !!", "success")
-                
-                return response.json();
-              })
-              .catch(error => {
-                // Handle error if request failed
-                swal("Hey, bad job !!", "You clicked the button !!", "success")
-                console.error('Fetch error:', error);
-              });
+            })
+                .then(response => {
+                    // Check if the request was successful
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    swal("Hey, Good job !!", "Transfer Successfully !!", "success")
 
-            
+                    return response.json();
+                })
+                .catch(error => {
+                    // Handle error if request failed
+                    swal("Hey, bad job !!", "You clicked the button !!", "success")
+                    console.error('Fetch error:', error);
+                });
+
+
+            closebtn('popupFormTransfer')
         }
-</script>
+    </script>
 
 
 
-{% endblock %}
+    {% endblock %}
