@@ -133,6 +133,44 @@ class EditUserForm(forms.ModelForm):
 
 
 
+class UpdateMerchantForm(forms.Form):
+
+    first_name = forms.CharField(max_length=50)
+    last_name = forms.CharField(max_length=50)
+    email = forms.CharField(max_length=50)
+    business_name = forms.CharField(max_length=50)
+    gst_no = forms.CharField(max_length=50)
+    payin = forms.BooleanField(label="Payin", required=False)
+    payout = forms.BooleanField(label="Pyaout", required=False)
+    card = forms.BooleanField(label="Cards", required=False)
+    cash = forms.BooleanField(label="Cash", required=False)
+
+    def __init__(self, *args, **kwargs):
+        super(UpdateMerchantForm, self).__init__(*args, **kwargs)
+        merchi = kwargs["initial"]["api_data"]["data"]
+        self.fields["first_name"].initial = merchi["user"]["first_name"]
+        self.fields["last_name"].initial = merchi["user"]["last_name"]
+        self.fields["email"].initial = merchi["user"]["email"]
+        self.fields["business_name"].initial = merchi["business_name"]
+        self.fields["gst_no"].initial = merchi["gst_no"]
+        if "service_option" in merchi and 8008 in merchi["service_option"]:
+            self.fields["cash"].initial = True
+        else:
+            self.fields["cash"].initial = False
+        if "service_option" in merchi and 7314 in merchi["service_option"]:
+            self.fields["payin"].initial = True
+        else:
+            self.fields["payin"].initial = False
+        if "service_option" in merchi and 9819 in merchi["service_option"]:
+            self.fields["payout"].initial = True
+        else:
+            self.fields["payout"].initial = False
+        if "service_option" in merchi and 5273 in merchi["service_option"]:
+            self.fields["cards"].initial = True
+        else:
+            self.fields["card"].initial = False
+
+
 
 class LoginForm(forms.Form):
     email =  forms.EmailField()

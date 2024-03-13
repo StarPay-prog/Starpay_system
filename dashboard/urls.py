@@ -31,7 +31,7 @@ urlpatterns = [
     path('view-session/',views.view_session,name="view-session"),
     path('add-merchant/',views.add_merchant,name="add-merchant"),
     path('view-merchant/',views.view_merchant,name="view-merchant"),
-    path('edit-merchant/<str:merchid>/',views.edit_merchant, name = "edit_merchant"),
+    path('edit-merchant/<str:merchid>/',views.MerchantUpdateAdminView.as_view(), name = "edit_merchant"),
 
 
 
