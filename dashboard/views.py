@@ -392,6 +392,10 @@ def my_profile(request):
 
     return render  (request,'dashboard/merchant-dashboard/profile.html')
 
+def change_password(request):
+
+    return render  (request,'dashboard/merchant-dashboard/change-password.html')
+
 def add_merchant(request):
 
     #refresh_jwt(request)
