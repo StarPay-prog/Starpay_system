@@ -429,7 +429,6 @@ def add_merchant(request):
         # Define the headers with the JWT token
         header = {
         "Authorization": f"Bearer {jwt_token}",
-
         "Content-Type": "application/json"  # Assuming you are sending JSON data
         }
 

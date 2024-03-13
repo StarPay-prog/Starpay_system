@@ -1,5 +1,36 @@
 {% extends 'dashboard/elements/layouts/admin.html' %}
 {% load static widget_tweaks %}
+{% block additional_css %}
+	<style>
+		
+		@keyframes fadeIn {  
+			from {  
+				opacity:0;  
+			}  
+
+			to {  
+				opacity:1;  
+			}  
+		}
+
+		.fadeinalert{
+			height: 5px;
+			
+			text-align: right;
+			opacity: 0;
+			display: flex;
+    		align-items: center;
+				
+			/* Add animation properties */
+			animation: fadeIn 3s ease-out; 
+		}
+
+		li.right{
+    		margin-left: 50%;
+			}
+	</style>
+
+{% endblock %}
 
 {% block content %}
 

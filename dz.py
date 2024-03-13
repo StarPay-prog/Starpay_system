@@ -167,6 +167,9 @@ dz_array = {
                         "pending_wallet":[
                             f"{foldername}/vendor/sweetalert2/dist/sweetalert2.min.css"
                         ],
+                        "payout_transaction":[
+                            f"{foldername}/vendor/sweetalert2/dist/sweetalert2.min.css"
+                        ],
 
                         "uc_toastr":[
                             f"{foldername}/vendor/toastr/css/toastr.min.css"
@@ -396,6 +399,10 @@ dz_array = {
 
                         ],
                         "pending_wallet":[
+                            f"{foldername}/vendor/sweetalert2/dist/sweetalert2.min.js",
+
+                        ],
+                         "payout_transaction":[
                             f"{foldername}/vendor/sweetalert2/dist/sweetalert2.min.js",
 
                         ],

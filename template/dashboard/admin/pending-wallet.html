@@ -103,7 +103,7 @@
                                 <button class=" badge light badge-warning">Pending</button>
                             </span>
                             <span class="mb-lg-0 mb-3 font-w100 px-2 colWid3">
-                                <a class="fa fa-check sweet-success" style="background: green; 
+                                <a class="fa fa-check sweet-confirm" style="background: green; 
                                 color: white;
                                 border-radius: 20%;
                                 border: 1px solid grey;
@@ -155,9 +155,18 @@
 
             {% block additional_js %}
             <script>
-                document.querySelector(".sweet-success").onclick = function () {
-        swal("Hey, Good job !!", "You have accepted the wallet request !!", "success")
-                }
+               document.querySelector(".sweet-confirm").onclick = function () {
+        swal({
+            title: "Are you sure you want to accept the request ?",
+            type: "warning",
+            showCancelButton: !0,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, Accept it !!",
+            closeOnConfirm: !1
+        }, function () {
+            swal("Deleted !!", "Hey, your imaginary file has been deleted !!", "success")
+        })
+    }
 
             </script>
 
@@ -169,7 +178,7 @@
                         type: "warning",
                         showCancelButton: !0,
                         confirmButtonColor: "#DD6B55",
-                        confirmButtonText: "Yes, delete it !!",
+                        confirmButtonText: "Yes, reject it !!",
                         cancelButtonText: "No, cancel it !!",
                         closeOnConfirm: !1,
                         closeOnCancel: !1
