@@ -226,5 +226,11 @@ class PermissionsForm(forms.ModelForm):
 #         model = NewUser
 #         fields = ('user_permissions',)
 
-
+class TransferMoneyForm(forms.Form):
+    bank_name = forms.CharField(max_length=50)
+    account_no = forms.IntegerField()
+    utr_no = forms.IntegerField()
+    transaction_date = forms.DateField(input_formats=['%d/%m/%Y'], required=False)
+    remarks = forms.CharField(max_length=50, required=False)
+    amount = forms.IntegerField(required=False)
 

@@ -2,7 +2,7 @@ import json
 from django.http import HttpResponsePermanentRedirect, HttpResponseRedirect
 from django.shortcuts import render, redirect,HttpResponse
 from django.views.generic import View
-from .forms import UpdateMerchantForm
+from .forms import UpdateMerchantForm,TransferMoneyForm
 from django.contrib.auth.decorators import login_required, permission_required 
 from .models import *
 
@@ -416,12 +416,24 @@ def edit_admin(request,empid):
 
 
 # def active_merchant(request):
-
 #     return render  (request,'dashboard/merchant/active-merchant.html')
+class MerchanWalletReportView(View):
+    template_name = "dashboard/merchant-dashboard/my_wallet.html"
+    def get(self, request):
+        # jwt_token = request.session.get('jwt_token_access')
 
-def my_wallet(request):
+        # header = {
+        #     "Authorization": f"Bearer {jwt_token}",
+        #     "Content-Type": "application/json"  # Assuming you are sending JSON data
+        #     }
+        # api_url = base_url + "get-merchant/" + request.session.get('user_data')
+        money = 1003456700
+        hold_balance = 12345678
+        requests = 1234567
+        
+        form = TransferMoneyForm
+        return render (request, self.template_name, {"form": form, "money":money, "hold_balance":hold_balance, "requests":requests})
 
-    return render  (request,'dashboard/merchant-dashboard/my_wallet.html')
 
 def my_settings(request):
 

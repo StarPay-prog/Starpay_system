@@ -91,15 +91,8 @@
                     <div class="accordion__item border-bottom mb-0" id='myTable'>
                         <div class="d-flex flex-wrap align-items-center accordion__header collapsed rounded"
                             data-bs-toggle="collapse" data-bs-target="#default_collapseOne1" style="font-size: 13px;">
-<<<<<<< HEAD
-
-                            <span class="mb-lg-0 mb-3 text-black font-w100 px-2 colWid1">March 1, 2024 <br> 13:40:13</span>
-
-                            <span class="mb-lg-0 mb-3 text-black font-w100 px-2 colWid1">IMoneyPay
-=======
                             <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">{{i.Transaction_date | date:"D d M Y" }}</span>
                             <span class="mb-lg-0 mb-3 text-black font-w600 px-2 colWid1">{{i.Credit}}
->>>>>>> 74ecf2a7825b7c1e4c50fc495327b6f33df1c3ce
                             </span>
                             <span id="name" class="mb-lg-0 mb-3 font-w100 px-2 colWid1">{{i.Debit}}</span>
                             <span class="mb-lg-0 mb-3  font-w100 px-2 colWid2">{{i.Transaction_amount}}</span>
@@ -112,7 +105,9 @@
                                 <button class=" btn-sm badge badge-success">Accepted</button>
 =======
                                 <button class="btn btn-sm badge badge-success">{{i.Transaction_status}}</button>
->>>>>>> 74ecf2a7825b7c1e4c50fc495327b6f33df1c3ce
+=========
+                                <button class=" btn-sm badge badge-success">Accepted</button>
+>>>>>>>>> Temporary merge branch 2
                             </span>
                         </div>
                     </div>
