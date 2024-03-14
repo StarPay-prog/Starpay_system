@@ -22,6 +22,7 @@ urlpatterns = [
     path('pending-wallet' , views.pending_wallet ,name= "pending-wallet"),
     path('wallet-report' , views.wallet_report ,name= "wallet-report"),
     path('api-logs' , views.api_logs ,name= "api-logs"),
+    path('connect-bank' , views.connect_bank ,name= "connect-bank"),
     # path('login-saAm/',views.dashboard_login_admin,name="dashboard-login-Admin"),
     
     path('login-{super_admin_url}/'.format(super_admin_url=super_admin_url),views.dashboard_login_super_admin,name="dashboard-login-Super-Admin"),
